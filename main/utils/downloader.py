@@ -37,6 +37,6 @@ async def downloader(c,m: Message):
         await r.edit('%.2f%% complete (down: %.1f kb/s up: %.1f kB/s peers: %d) %s ' % \
                 (s.progress * 100, s.download_rate / 1000, s.upload_rate / 1000, \
                 s.num_peers, state_str[s.state]))
-        print(s.total_done)
-        print(s.total)
+        print(s)
+        #print(s.total)
         time.sleep(5)
