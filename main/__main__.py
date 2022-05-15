@@ -4,7 +4,6 @@ import pyrogram
 from pyrogram import filters, idle
 from pyrogram.errors import FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
-from main.wall import generate_logo
 
 START = """
 **🔮 Hello There, You Can Use Me To Download HD Wallpapers...**
