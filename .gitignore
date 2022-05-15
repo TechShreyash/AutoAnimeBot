@@ -1,0 +1,4 @@
+__pycache__/config.cpython-39.pyc
+*.pyc
+*.session
+*.session-journal
