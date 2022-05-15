@@ -38,5 +38,5 @@ async def downloader(c,m: Message):
                 (s.progress * 100, s.download_rate / 1000, s.upload_rate / 1000, \
                 s.num_peers, state_str[s.state]))
         print(s)
-        #print(s.total)
+        print(s.state)
         time.sleep(5)
