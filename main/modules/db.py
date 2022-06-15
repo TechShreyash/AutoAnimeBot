@@ -28,6 +28,6 @@ async def get_uploads():
         anime_list.append(name)
     return anime_list
 
-async def save_uploads(name,data): 
-    data = await animedb.insert_one({"name": name, "data": data})
+async def save_uploads(name): 
+    data = await uploadsdb.insert_one({"name": name})
     return
