@@ -20,4 +20,4 @@ ses = lt.session()
 ses.listen_on(6881, 6891)
 
 print("Creating Parse task")
-asyncio.create_task(auto_parser())
+asyncio.run(asyncio.create_task(auto_parser()))
