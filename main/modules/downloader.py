@@ -8,11 +8,26 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from main.modules.progress import *
 from main.modules.parser import *
 
-def get_download_text(name,status,completed,speed):
-  return
+def get_download_text(name,status,completed,speed,total):
+  text = """Name: {}
+{}: {}%
+[▪️▫️▫️▫️▫️▫️▫️▫️▫️▫️]
+{} MB of {} MB
+Speed: {}/sec
+"""
+
+  text = text.format(
+    name,
+    status,
+    round(((completed/total)*100),2),
+    completed,
+    total,
+    speed
+  )
+  return text
 
 
-async def downloader(message: Message, link: str):
+async def downloader(message: Message, link: str,total):
   params = {
   'save_path': './downloads',
   'storage_mode': lt.storage_mode_t(2),}
@@ -38,13 +53,15 @@ async def downloader(message: Message, link: str):
     state_str = ['queued', 'checking', 'downloading metadata', 'downloading', 'finished', 'seeding', 'allocating']
     
     try:
+      await asyncio.sleep(5)
       
       await r.edit(
         text=get_download_text(
           trgt, 
           str(state_str[s.state]).capitalize(), 
           round(s.progress * 100, 2),
-          round(s.download_rate / 1000, 1)
+          round(s.download_rate / 1000, 1),
+          total
         )
       )
     except:

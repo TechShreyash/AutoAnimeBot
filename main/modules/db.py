@@ -8,13 +8,13 @@ db = mongo_client.autoanime
 animedb = db.animes
 uploadsdb = db.uploads
 
-async def get_animes(): 
+async def get_animesdb(): 
     anime_list = []
     async for name in animedb.find():
         anime_list.append(name)
     return anime_list
 
-async def save_anime(name,data): 
+async def save_animedb(name,data): 
     data = await animedb.insert_one({"name": name, "data": data})
     return
   

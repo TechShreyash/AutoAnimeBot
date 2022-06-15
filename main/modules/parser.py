@@ -1,5 +1,5 @@
 import asyncio
-from main.modules.db import get_animes, save_anime
+from main.modules.db import get_animesdb, save_animedb
 import feedparser
 
 def trim_title(title: str):
@@ -28,7 +28,7 @@ async def auto_parser():
     while True:
 
         rss = parse()
-        data = await get_animes()
+        data = await get_animesdb()
 
         saved_anime = []
         for i in data:
@@ -37,7 +37,9 @@ async def auto_parser():
         for anime in rss: 
             if anime["title"] not in saved_anime:
                 title = anime["title"]
-                await save_anime(title,anime)
+                await save_animedb(title,anime)
                 print(f"Saved {title}")
 
         await asyncio.sleep(1800)
+
+print(parse())
