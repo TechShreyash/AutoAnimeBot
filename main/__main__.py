@@ -1,3 +1,5 @@
+import asyncio
+from main.utils.parser import auto_parser
 from main.utils.downloader import downloader
 from main import app
 import pyrogram
@@ -14,11 +16,18 @@ async def start(bot, message: Message):
 async def logo(bot, message: Message):
   return await downloader(bot,message)
   
+async def parsersss():
+  print("Creating Parse task")
+  asyncio.create_task(auto_parser())
 
-if __name__ == "__main__":
   print("==================================")
   print("[INFO]: BOT STARTED BOT SUCCESSFULLY")
   print("==========JOIN @TECHZBOTS=========")
 
-  idle()
+  await idle()
   print("[INFO]: BOT STOPPED")
+
+
+
+if __name__ == "__main__":
+  asyncio.run(parsersss())

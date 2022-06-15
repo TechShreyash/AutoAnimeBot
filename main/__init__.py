@@ -1,5 +1,4 @@
 import asyncio
-from main.utils.parser import auto_parser
 from pyrogram import Client
 from config import *
 import libtorrent as lt
@@ -18,9 +17,3 @@ app.start()
 print("[INFO]: STARTING Lib Torrent CLIENT")
 ses = lt.session()
 ses.listen_on(6881, 6891)
-
-async def parsersss():
-  print("Creating Parse task")
-  asyncio.create_task(auto_parser())
-
-asyncio.run(parsersss())

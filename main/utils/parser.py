@@ -26,7 +26,6 @@ def parse():
 
 async def auto_parser():
     while True:
-        #await asyncio.sleep(1800)
 
         rss = parse()
         data = await get_animes()
@@ -41,4 +40,4 @@ async def auto_parser():
                 await save_anime(title,anime)
                 print(f"Saved {title}")
 
-        exit()
+        await asyncio.sleep(1800)
