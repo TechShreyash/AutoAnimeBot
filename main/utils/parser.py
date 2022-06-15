@@ -32,7 +32,7 @@ async def auto_parser():
 
         saved_anime = []
         for i in data:
-            saved_anime.append(i["title"])
+            saved_anime.append(i["name"])
 
         for anime in rss: 
             if anime["title"] not in saved_anime:
