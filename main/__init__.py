@@ -19,5 +19,8 @@ print("[INFO]: STARTING Lib Torrent CLIENT")
 ses = lt.session()
 ses.listen_on(6881, 6891)
 
-print("Creating Parse task")
-asyncio.run(asyncio.create_task(auto_parser()))
+async def parsersss():
+  print("Creating Parse task")
+  asyncio.create_task(auto_parser())
+
+asyncio.run(parsersss())
