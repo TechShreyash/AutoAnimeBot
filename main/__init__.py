@@ -5,22 +5,19 @@ from config import *
 import libtorrent as lt
 
 
-async def start():
-  app = Client(
+app = Client(
     "bot",
     api_id=API_ID,
     api_hash=API_HASH,
     bot_token=BOT_TOKEN
   )
 
-  print("[INFO]: STARTING BOT...")
-  app.start()
+print("[INFO]: STARTING BOT...")
+app.start()
 
-  print("[INFO]: STARTING Lib Torrent CLIENT")
-  ses = lt.session()
-  ses.listen_on(6881, 6891)
+print("[INFO]: STARTING Lib Torrent CLIENT")
+ses = lt.session()
+ses.listen_on(6881, 6891)
 
-  print("Creating Parse task")
-  asyncio.create_task(auto_parser())
-
-asyncio.run(start())
+print("Creating Parse task")
+asyncio.create_task(auto_parser())
