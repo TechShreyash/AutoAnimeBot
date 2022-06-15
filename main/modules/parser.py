@@ -1,5 +1,5 @@
 import asyncio
-from main.db import get_animes, save_anime
+from main.modules.db import get_animes, save_anime
 import feedparser
 
 def trim_title(title: str):

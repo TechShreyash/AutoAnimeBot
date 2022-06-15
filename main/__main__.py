@@ -1,6 +1,6 @@
 import asyncio
-from main.utils.parser import auto_parser
-from main.utils.downloader import downloader
+from main.modules.parser import auto_parser
+from main.modules.downloader import downloader
 from main import app
 import pyrogram
 from pyrogram import filters, idle
@@ -26,6 +26,8 @@ async def parsersss():
 
   await idle()
   print("[INFO]: BOT STOPPED")
+  for task in asyncio.Task.all_tasks():
+        task.cancel()
 
 
 
