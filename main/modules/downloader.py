@@ -29,7 +29,7 @@ Speed: {}/sec
 
 async def downloader(message: Message, link: str,total):
   params = {
-  'save_path': './downloads',
+  'save_path': './downloads/',
   'storage_mode': lt.storage_mode_t(2),}
 
   handle = lt.add_magnet_uri(ses, link, params)
@@ -42,6 +42,7 @@ async def downloader(message: Message, link: str,total):
     
     await asyncio.sleep(1)
     
+  print(f"Downloading {str(handle.name())}")
   await r.edit(f'Got Metadata, Starting Download Of **{str(handle.name())}**...')
 
   trgt = str(handle.name())
@@ -53,18 +54,19 @@ async def downloader(message: Message, link: str,total):
     state_str = ['queued', 'checking', 'downloading metadata', 'downloading', 'finished', 'seeding', 'allocating']
     
     try:
-      await asyncio.sleep(5)
-      
-      await r.edit(
-        text=get_download_text(
+      text = get_download_text(
           trgt, 
           str(state_str[s.state]).capitalize(), 
           round(s.progress * 100, 2),
           round(s.download_rate / 1000, 1),
           total
         )
+      await r.edit(
+        text=text
       )
     except:
       pass
+
+    await asyncio.sleep(5)
   
   return "./downloads/" + trgt
