@@ -48,7 +48,7 @@ Speed: {}/sec
   bar = ""
 
   bar += round(percent/10)*fill
-  bar += (10 - len(bar))*blank
+  bar += (20 - len(bar))*blank
 
   text = text.format(
     name,
