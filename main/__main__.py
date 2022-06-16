@@ -11,11 +11,6 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, 
 @app.on_message(filters.command("start"))
 async def start(bot, message: Message):
   await message.reply_text("I am working fine :)")
-
-@app.on_message(filters.command("up") & filters.incoming & filters.text & ~filters.forwarded & (
-  filters.group | filters.private))
-async def logo(bot, message: Message):
-  return await downloader(bot,message)
   
 async def parsersss():
   print("Creating Parse task")
@@ -26,6 +21,7 @@ async def parsersss():
   print("[INFO]: BOT STARTED BOT SUCCESSFULLY")
   print("==========JOIN @TECHZBOTS=========")
 
+  await app.start()
   await idle()
   print("[INFO]: BOT STOPPED")
   for task in asyncio.Task.all_tasks():
