@@ -1,6 +1,5 @@
 import asyncio
-from main.__main__ import start_tg_handler
-from main import tg_handler
+from main.start import start_tg_handler
 from main.modules.db import get_animesdb, get_uploads, save_animedb
 import feedparser
 from main import queue
