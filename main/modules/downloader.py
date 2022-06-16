@@ -18,9 +18,9 @@ Speed: {}/sec
   completed = int(completed)
   size, forma = total.split(' ')
   if forma == "MiB":
-    size = round(int(size))
+    size = int(round(float(size)))
   elif forma == "GiB":
-    size = round(int(size)*1024)
+    size = int(round(float(size)*1024))
 
 
   text = text.format(
