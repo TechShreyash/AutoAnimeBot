@@ -61,6 +61,7 @@ async def downloader(message: Message, link: str,total):
           round(s.download_rate / 1000, 1),
           total
         )
+      print(text)
       await r.edit(
         text=text
       )
