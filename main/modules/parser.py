@@ -4,6 +4,7 @@ from main.modules.db import get_animesdb, get_uploads, save_animedb
 import feedparser
 from main import queue
 
+global is_hadler_started
 is_hadler_started = 0
 
 def trim_title(title: str):
