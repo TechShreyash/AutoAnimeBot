@@ -4,9 +4,6 @@ from main.modules.db import get_animesdb, get_uploads, save_animedb
 import feedparser
 from main import queue
 
-global is_hadler_started
-is_hadler_started = 0
-
 def trim_title(title: str):
     title, ext = title.replace("[SubsPlease]","").strip().split("[",maxsplit=2)
     _, ext = ext.split("]",maxsplit=2)
@@ -55,8 +52,6 @@ async def auto_parser():
         for i in data:
             queue.append(i["data"])
 
-        if is_hadler_started == 0:
-            await start_tg_handler()
-            is_hadler_started = 1
+        start_tg_handler()
         
         await asyncio.sleep(1800)
