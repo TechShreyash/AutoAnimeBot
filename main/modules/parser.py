@@ -45,10 +45,10 @@ async def auto_parser():
         uploaded = await get_uploads()
 
         for i in data:
-            if i in uploaded:
+            if i["name"] in uploaded:
                 data.remove(i)
 
         for i in data:
-            queue.append(i)
+            queue.append(i["data"])
 
         await asyncio.sleep(1800)
