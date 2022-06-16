@@ -7,7 +7,6 @@ from main import app, queue
 
 async def tg_handler():
     while True:
-        await asyncio.sleep(60)
         if len(queue) != 0:
             for i in queue:
                 val = await start_uploading(i)

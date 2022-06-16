@@ -16,7 +16,6 @@ async def start(bot, message: Message):
 async def parsersss():
   print("Creating Parse task")
   asyncio.create_task(auto_parser())
-  asyncio.create_task(tg_handler())
 
   print("==================================")
   print("[INFO]: BOT STARTED BOT SUCCESSFULLY")

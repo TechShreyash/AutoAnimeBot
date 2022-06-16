@@ -16,6 +16,9 @@ def get_download_text(name,status,completed,speed,total):
 Speed: {}/sec
 """
 
+  completed = int(completed)
+  total = int(total)
+
   text = text.format(
     name,
     status,
