@@ -1,4 +1,5 @@
 import asyncio
+from config import CHANNEL_ID
 from main.modules.tg_handler import tg_handler
 from main.modules.parser import auto_parser
 from main.modules.downloader import downloader
@@ -22,6 +23,7 @@ async def parsersss():
   print("==========JOIN @TECHZBOTS=========")
 
   await app.start()
+  await app.send_message(CHANNEL_ID,text="Bot Started")
   await idle()
   print("[INFO]: BOT STOPPED")
   for task in asyncio.Task.all_tasks():
