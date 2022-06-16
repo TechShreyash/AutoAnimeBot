@@ -22,6 +22,8 @@ Speed: {}/sec
   elif forma == "GiB":
     size = int(round(float(size)*1024))
 
+  print(completed)
+  print(speed)
 
   text = text.format(
     name,
@@ -64,8 +66,8 @@ async def downloader(message: Message, link: str,total):
       text = get_download_text(
           trgt, 
           str(state_str[s.state]).capitalize(), 
-          round(s.progress * 100, 2),
-          round(s.download_rate / 1000, 1),
+          s.progress,
+          s.download_rate,
           total
         )
       print(text)
