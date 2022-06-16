@@ -3,9 +3,7 @@ from main.modules.db import del_anime, save_uploads
 from main.modules.downloader import downloader
 from main.modules.anilist import get_anime_img
 from config import CHANNEL_ID
-from main import app
-
-queue = []
+from main import app, queue
 
 async def tg_handler():
     if len(queue) != 0:

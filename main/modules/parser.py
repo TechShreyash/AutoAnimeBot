@@ -1,7 +1,7 @@
 import asyncio
 from main.modules.db import get_animesdb, get_uploads, save_animedb
 import feedparser
-from main.modules.tg_handler import queue
+from main import queue
 
 def trim_title(title: str):
     title, ext = title.replace("[SubsPlease]","").strip().split("[",maxsplit=2)
