@@ -16,12 +16,17 @@ Speed: {}/sec
 """
 
   completed = int(completed)
-  total = int(total)
+  size, forma = total.split(' ')
+  if forma == "MiB":
+    size = round(int(size))
+  elif forma == "GiB":
+    size = round(int(size)*1024)
+
 
   text = text.format(
     name,
     status,
-    round(((completed/total)*100),2),
+    round(((completed/size)*100),2),
     completed,
     total,
     speed
