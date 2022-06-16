@@ -6,7 +6,6 @@ from main import ses
 import libtorrent as lt
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from main.modules.progress import *
-from main.modules.parser import *
 
 def get_download_text(name,status,completed,speed,total):
   text = """Name: {}

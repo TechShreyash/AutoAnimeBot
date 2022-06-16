@@ -1,5 +1,6 @@
 import asyncio
-from main.modules.tg_handler import tg_handler
+from main.__main__ import start_tg_handler
+from main import tg_handler
 from main.modules.db import get_animesdb, get_uploads, save_animedb
 import feedparser
 from main import queue
@@ -55,7 +56,7 @@ async def auto_parser():
             queue.append(i["data"])
 
         if is_hadler_started == 0:
-            asyncio.create_task(tg_handler())
+            await start_tg_handler()
             is_hadler_started = 1
         
         await asyncio.sleep(1800)

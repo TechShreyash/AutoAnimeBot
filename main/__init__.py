@@ -3,7 +3,6 @@ from pyrogram import Client
 from config import *
 import libtorrent as lt
 
-
 app = Client(
     "bot",
     api_id=API_ID,

@@ -1,8 +1,7 @@
 import asyncio
-from config import CHANNEL_ID
 from main.modules.tg_handler import tg_handler
+from config import CHANNEL_ID
 from main.modules.parser import auto_parser
-from main.modules.downloader import downloader
 from main import app
 import pyrogram
 from pyrogram import filters, idle
@@ -28,7 +27,9 @@ async def parsersss():
   for task in asyncio.Task.all_tasks():
         task.cancel()
 
-
+async def start_tg_handler():
+  asyncio.create_task(tg_handler())
+  return
 
 if __name__ == "__main__":
   asyncio.run(parsersss())
