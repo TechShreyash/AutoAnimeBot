@@ -6,6 +6,7 @@ from config import CHANNEL_ID
 from main import app, queue
 
 async def tg_handler():
+    await asyncio.sleep(60)
     if len(queue) != 0:
         for i in queue:
             val = await start_uploading(i)
