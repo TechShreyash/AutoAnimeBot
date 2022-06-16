@@ -1,6 +1,7 @@
 import asyncio
-from main.modules.db import get_animesdb, save_animedb
+from main.modules.db import get_animesdb, get_uploads, save_animedb
 import feedparser
+from main.modules.tg_handler import queue
 
 def trim_title(title: str):
     title, ext = title.replace("[SubsPlease]","").strip().split("[",maxsplit=2)
@@ -40,6 +41,14 @@ async def auto_parser():
                 await save_animedb(title,anime)
                 print(f"Saved {title}")
 
-        await asyncio.sleep(1800)
+        data = await get_animesdb()
+        uploaded = await get_uploads()
 
-print(parse())
+        for i in data:
+            if i in uploaded:
+                data.remove(i)
+
+        for i in data:
+            queue.append(i)
+
+        await asyncio.sleep(1800)

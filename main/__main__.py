@@ -1,4 +1,5 @@
 import asyncio
+from main.modules.tg_handler import tg_handler
 from main.modules.parser import auto_parser
 from main.modules.downloader import downloader
 from main import app
@@ -19,6 +20,7 @@ async def logo(bot, message: Message):
 async def parsersss():
   print("Creating Parse task")
   asyncio.create_task(auto_parser())
+  asyncio.create_task(tg_handler())
 
   print("==================================")
   print("[INFO]: BOT STARTED BOT SUCCESSFULLY")

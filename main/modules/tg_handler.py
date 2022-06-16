@@ -1,19 +1,21 @@
+import asyncio
+from main.modules.db import del_anime, save_uploads
 from main.modules.downloader import downloader
 from main.modules.anilist import get_anime_img
 from config import CHANNEL_ID
-from main.modules.db import get_animes, get_uploads
 from main import app
 
+queue = []
+
 async def tg_handler():
-    data = await get_animes()
-    uploaded = await get_uploads()
+    if len(queue) != 0:
+        for i in queue:
+            val = await start_uploading(i)
+            queue.remove(i)
+            await del_anime(i["title"])
+            await save_uploads(i["title"])
 
-    for i in data:
-        if i in uploaded:
-            data.remove(i)
-
-    for i in data:
-        val = await start_uploading(i["link"])
+    await asyncio.sleep(1800)
 
 
 def get_anime_name(title):
