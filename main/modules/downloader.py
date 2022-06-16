@@ -10,8 +10,8 @@ from main.modules.progress import *
 def get_download_text(name,status,completed,speed,total):
   text = """Name: {}
 {}: {}%
-[▪️▫️▫️▫️▫️▫️▫️▫️▫️▫️]
-{} MB of {} MB
+[{}]
+{} of {}
 Speed: {}/sec
 """
 
@@ -22,15 +22,40 @@ Speed: {}/sec
   elif forma == "GiB":
     size = int(round(float(size)*1024))
 
-  print(completed)
-  print(speed)
+  percent = round(completed)
+  speed = round(float(speed)/1024) #kbps
+
+  if speed > 1024:
+    speed = round(speed/1024) + " MB"
+  else:
+    speed += " KB"
+
+  completed = round((percent/100)*size)
+
+  if completed > 1024:
+    completed = round(speed/1024) + " GB"
+  else:
+    completed += " MB"
+
+  if size > 1024:
+    size = round(speed/1024) + " GB"
+  else:
+    size += " MB"
+
+  fill = "▪️"
+  blank = "▫️"
+  bar = ""
+
+  bar += round(percent/10)*fill
+  bar += (10 - len(bar))*blank
 
   text = text.format(
     name,
     status,
-    round(((completed/size)*100),2),
+    percent,
+    bar,
     completed,
-    total,
+    size,
     speed
   )
   return text
@@ -70,7 +95,6 @@ async def downloader(message: Message, link: str,total):
           s.download_rate,
           total
         )
-      print(text)
       await r.edit(
         text=text
       )
