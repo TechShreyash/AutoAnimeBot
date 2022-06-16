@@ -16,14 +16,14 @@ Speed: {}/sec
 """
 
   print(completed)
-  completed = int(completed)
+  completed = round(completed*100,2)
   size, forma = total.split(' ')
   if forma == "MiB":
     size = int(round(float(size)))
   elif forma == "GiB":
     size = int(round(float(size)*1024))
 
-  percent = round(completed)
+  percent = completed
   speed = round(float(speed)/1024) #kbps
 
   if speed > 1024:
