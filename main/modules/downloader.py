@@ -10,7 +10,7 @@ from main.modules.progress import *
 def get_download_text(name,status,completed,speed,total):
   text = """Name: {}
 {}: {}%
-[{}]
+⟨⟨{}⟩⟩
 {} of {}
 Speed: {}/sec
 """
