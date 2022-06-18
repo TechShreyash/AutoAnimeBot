@@ -33,7 +33,7 @@ async def start_uploading(data):
 
     name, ext = title.split(".")
     name += " [@AniDec]." + ext
-    fpath = "./downloads/" + name
+    fpath = "downloads/" + name
     os.rename(file,fpath)
 
     print(f"Uploading {name}")
