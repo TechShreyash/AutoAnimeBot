@@ -12,7 +12,7 @@ async def upload_video(msg: Message,file):
         if fuk:
             r = msg
             c_time = time.time()
-            x = await app.send_video(CHANNEL_ID,
+            x = await r.reply_document(
             file,
             caption=os.path.basename(file),
             progress=progress_for_pyrogram,
@@ -21,9 +21,7 @@ async def upload_video(msg: Message,file):
                 r,
                 c_time
             )
-            )
-            os.remove(file)
-        
+            )        
         try:
             await r.delete()
             os.remove(file)
