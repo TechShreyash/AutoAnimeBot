@@ -20,7 +20,6 @@ async def start_bot():
   print("[INFO]: BOT STARTED BOT SUCCESSFULLY")
   print("==========JOIN @TECHZBOTS=========")
 
-  await app.start()
   await app.send_message(CHANNEL_ID,text="Bot Started")
 
   print("Creating Parse task")
