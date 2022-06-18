@@ -28,7 +28,7 @@ async def start_uploading(data):
     img = await get_anime_img(get_anime_name(title))
     msg = await app.send_photo(CHANNEL_ID,photo=img,caption=title)
 
-    file = await downloader(msg,link,size)
+    file = await downloader(msg,link,size,title)
     print("Downloaded -> ",file)
 
     name, ext = title.split(".")

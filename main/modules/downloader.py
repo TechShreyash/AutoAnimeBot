@@ -61,7 +61,7 @@ Speed: {}/sec
   return text
 
 
-async def downloader(message: Message, link: str,total):
+async def downloader(message: Message, link: str,total,name):
   params = {
   'save_path': './downloads/',
   'storage_mode': lt.storage_mode_t(2),}
@@ -89,7 +89,7 @@ async def downloader(message: Message, link: str,total):
     
     try:
       text = get_download_text(
-          trgt, 
+          name, 
           str(state_str[s.state]).capitalize(), 
           s.progress,
           s.download_rate,
@@ -98,8 +98,8 @@ async def downloader(message: Message, link: str,total):
       await r.edit(
         text=text
       )
-    except Exception as e:
-      print(e)
+    except:
+      pass
 
     await asyncio.sleep(5)
   
