@@ -12,7 +12,9 @@ async def progress_for_pyrogram(
 ):
     now = time.time()
     diff = round(now - start)
-    if round(diff % 10.00) == 0 or current == total:
+    x = round(diff % 10.00)
+    print(x)
+    if x == 0 or current == total:
         # if round(current / total * 100, 0) % 5 == 0:
         percentage = current * 100 / total
         speed = current / diff
