@@ -9,6 +9,7 @@ app = Client(
     api_hash=API_HASH,
     bot_token=BOT_TOKEN
   )
+app.start()
 
 print("[INFO]: STARTING Lib Torrent CLIENT")
 ses = lt.session()
