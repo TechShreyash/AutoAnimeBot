@@ -63,7 +63,7 @@ Speed: {}/sec
 
 async def downloader(message: Message, link: str,total,name):
   params = {
-  'save_path': './downloads/',
+  'save_path': 'downloads/',
   'storage_mode': lt.storage_mode_t(2),}
 
   handle = lt.add_magnet_uri(ses, link, params)
@@ -103,4 +103,4 @@ async def downloader(message: Message, link: str,total,name):
 
     await asyncio.sleep(5)
   
-  return "./downloads/" + trgt
+  return "downloads/" + trgt
