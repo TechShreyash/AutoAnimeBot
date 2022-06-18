@@ -29,7 +29,6 @@ async def parsersss():
   print("[INFO]: BOT STARTED BOT SUCCESSFULLY")
   print("==========JOIN @TECHZBOTS=========")
 
-  await app.start()
   await app.send_message(CHANNEL_ID,text="Bot Started")
   await idle()
   print("[INFO]: BOT STOPPED")
