@@ -38,5 +38,5 @@ async def start_uploading(data):
 
     await msg.edit(f"Uploading {name}")
     print(f"Uploading {name}")
-    await upload_video(msg,fpath)
+    await msg.reply_document(fpath,caption=name)
     return "val"
