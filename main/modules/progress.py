@@ -6,11 +6,10 @@ import time
 async def progress_for_pyrogram(
     current,
     total,
-    f_name,
+    ud_type,
     message,
     start
 ):
-
     now = time.time()
     diff = now - start
     if round(diff % 10.00) == 0 or current == total:
@@ -24,13 +23,30 @@ async def progress_for_pyrogram(
         elapsed_time = TimeFormatter(milliseconds=elapsed_time)
         estimated_total_time = TimeFormatter(milliseconds=estimated_total_time)
 
-        text = get_download_text(f_name,"Uploading",percentage,speed,total)
+        progress = "[{0}{1}] \nP: {2}%\n".format(
+            ''.join(["█" for i in range(math.floor(percentage / 5))]),
+            ''.join(["░" for i in range(20 - math.floor(percentage / 5))]),
+            round(percentage, 2))
+
+        tmp = progress + "{0} of {1}\nSpeed: {2}/s\nETA: {3}\n".format(
+            humanbytes(current),
+            humanbytes(total),
+            humanbytes(speed),
+            # elapsed_time if elapsed_time != '' else "0 s",
+            estimated_total_time if estimated_total_time != '' else "0 s"
+        )
         try:
             await message.edit(
-                text=text
+                text=get_download_text(
+                    ud_type,
+                    "Uploading",
+                    percentage,
+                    speed,
+                    total
+                )
             )
-        except Exception as e:
-            print(e)
+        except:
+            pass
 
 
 def humanbytes(size):
