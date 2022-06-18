@@ -12,7 +12,7 @@ async def progress_for_pyrogram(
 ):
     now = time.time()
     diff = now - start
-    if 1 == 1:
+    if round(diff % 10.00) == 0 or current != total:
         # if round(current / total * 100, 0) % 5 == 0:
         percentage = current * 100 / total
         speed = current / diff
@@ -37,9 +37,12 @@ async def progress_for_pyrogram(
         )
         try:
             await message.edit(
-                text="{}\n {}".format(
+                text=get_download_text(
                     ud_type,
-                    tmp
+                    "Uploading",
+                    percentage,
+                    speed,
+                    total
                 )
             )
         except:
