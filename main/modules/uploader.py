@@ -1,24 +1,32 @@
+from config import CHANNEL_ID
+from pyrogram.types import Message
+from main.modules.progress import progress_for_pyrogram
 from os.path import isfile
+import os
+import time
+from main import app
 
-async def upload_video(file):
+async def upload_video(msg: Message,file):
     fuk = isfile(file)
     if fuk:
+        r = msg
         c_time = time.time()
-        z = await r.reply_document(
-        document=trgt,
-        caption=os.path.basename(trgt),
+        z = await app.send_video(
+            CHANNEL_ID,
+        video=file,
+        caption=os.path.basename(file),
         progress=progress_for_pyrogram,
         progress_args=(
-            f"STARTING TO UPLOAD {os.path.basename(trgt)}...",
+            os.path.basename(file),
             r,
             c_time
         )
         )
-        os.remove(trgt)
+        os.remove(file)
     
     try:
         await r.delete()
-        os.remove(trgt)
+        os.remove(file)
     except:
-        return
+        pass
     return

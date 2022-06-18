@@ -1,3 +1,4 @@
+from main.modules.downloader import get_download_text
 import math
 import time
 
@@ -5,7 +6,7 @@ import time
 async def progress_for_pyrogram(
     current,
     total,
-    ud_type,
+    f_name,
     message,
     start
 ):
@@ -28,6 +29,7 @@ async def progress_for_pyrogram(
             ''.join(["▢" for i in range(20 - math.floor(percentage / 5))]),
             round(percentage, 2))
 
+        text = get_download_text(f_name,"Uploading",percentage,speed,total)
         tmp = progress + "{} of {}\n\n️⭕️Speed: {}/s\n\n⭕️ETA: {}\n".format(
             humanbytes(current),
             humanbytes(total),
@@ -37,10 +39,7 @@ async def progress_for_pyrogram(
         )
         try:
             await message.edit(
-                text="{}\n {}".format(
-                    ud_type,
-                    tmp
-                )
+                text=text
             )
         except:
             pass

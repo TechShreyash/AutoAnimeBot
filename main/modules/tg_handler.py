@@ -1,20 +1,19 @@
 import asyncio
+from main.modules.uploader import upload_video
+import os
 from main.modules.db import del_anime, save_uploads
 from main.modules.downloader import downloader
 from main.modules.anilist import get_anime_img
 from config import CHANNEL_ID
-from main import app, queue
+from main import app
 
-async def tg_handler():
-    while True:
-        if len(queue) != 0:
-            for i in queue:
-                val = await start_uploading(i)
-                queue.remove(i)
-                await del_anime(i["title"])
-                await save_uploads(i["title"])
-
-        await asyncio.sleep(1800)
+async def tg_handler(queue):
+    if len(queue) != 0:
+        for i in queue:
+            val = await start_uploading(i)
+            queue.remove(i)
+            await del_anime(i["title"])
+            await save_uploads(i["title"])
 
 
 def get_anime_name(title):
@@ -30,5 +29,12 @@ async def start_uploading(data):
     msg = await app.send_photo(CHANNEL_ID,photo=img,caption=title)
 
     file = await downloader(msg,link,size)
-    print(file)
+    print("Downloaded -> ",file)
+
+    name, ext = title.split(".")
+    name += " [@AniDec]." + ext
+    fpath = "./downloads/" + name
+    os.rename(file,fpath)
+
+    await upload_video(msg,fpath)
     return "val"

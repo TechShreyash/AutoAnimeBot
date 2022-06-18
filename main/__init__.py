@@ -13,5 +13,3 @@ app = Client(
 print("[INFO]: STARTING Lib Torrent CLIENT")
 ses = lt.session()
 ses.listen_on(6881, 6891)
-
-queue = []
