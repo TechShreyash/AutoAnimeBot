@@ -41,8 +41,8 @@ async def progress_for_pyrogram(
             await message.edit(
                 text=text
             )
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
 
 def humanbytes(size):

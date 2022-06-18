@@ -15,7 +15,6 @@ def get_download_text(name,status,completed,speed,total):
 Speed: {}/sec
 """
 
-  print(completed)
   completed = round(completed*100,2)
   size, forma = total.split(' ')
   if forma == "MiB":
