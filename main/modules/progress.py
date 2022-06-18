@@ -24,19 +24,7 @@ async def progress_for_pyrogram(
         elapsed_time = TimeFormatter(milliseconds=elapsed_time)
         estimated_total_time = TimeFormatter(milliseconds=estimated_total_time)
 
-        progress = "[{}{}] \n\n⭕️Progress: {}%\n".format(
-            ''.join(["▣" for i in range(math.floor(percentage / 5))]),
-            ''.join(["▢" for i in range(20 - math.floor(percentage / 5))]),
-            round(percentage, 2))
-
         text = get_download_text(f_name,"Uploading",percentage,speed,total)
-        tmp = progress + "{} of {}\n\n️⭕️Speed: {}/s\n\n⭕️ETA: {}\n".format(
-            humanbytes(current),
-            humanbytes(total),
-            humanbytes(speed),
-            # elapsed_time if elapsed_time != '' else "0 s",
-            estimated_total_time if estimated_total_time != '' else "0 s"
-        )
         try:
             await message.edit(
                 text=text
