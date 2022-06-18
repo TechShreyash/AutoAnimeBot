@@ -12,7 +12,7 @@ async def upload_video(msg: Message,file):
         if fuk:
             r = msg
             c_time = time.time()
-            z = await r.reply_document(
+            await app.send_video(CHANNEL_ID,
             file,
             caption=os.path.basename(file),
             progress=progress_for_pyrogram,
