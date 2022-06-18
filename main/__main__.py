@@ -15,6 +15,7 @@ async def start_():
   asyncio.create_task(auto_parser())
   await app.send_message(CHANNEL_ID,text="Bot Started")
   await app.send_video("downloads/mp4.mp4")
+  await idle()
 
 if __name__ == "__main__":
   print("==================================")
@@ -23,7 +24,6 @@ if __name__ == "__main__":
 
   print("Creating Parse task")
   asyncio.run(start_())
-  idle()
 
   print("[INFO]: BOT STOPPED")
   for task in asyncio.Task.all_tasks():
