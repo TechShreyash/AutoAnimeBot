@@ -6,6 +6,14 @@ import pyrogram
 from pyrogram import filters, idle
 from pyrogram.errors import FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
+import importlib
+import glob
+
+modules = glob.glob(join(dirname("main/plugins/"), "*.py"))
+__all__ = [ basename(f)[:-3] for f in modules if isfile(f) and not f.endswith('__init__.py')]
+
+for module in __all__: 
+  imported_module = importlib.import_module("main.plugins." + module)
 
 @app.on_message(filters.command("start"))
 async def start(bot, message: Message):
