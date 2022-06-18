@@ -6,24 +6,35 @@ import pyrogram
 from pyrogram import filters, idle
 from pyrogram.errors import FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
+from uvloop import install
+from contextlib import closing, suppress
+
+loop = asyncio.get_event_loop()
 
 @app.on_message(filters.command("start"))
 async def start(bot, message: Message):
   await message.reply_text("I am working fine :)")
 
-async def start_():
-  asyncio.create_task(auto_parser())
-  await app.send_message(CHANNEL_ID,text="Bot Started")
-  await app.send_video("downloads/mp4.mp4")
-  await idle()
-  print("[INFO]: BOT STOPPED")
-  for task in asyncio.Task.all_tasks():
-        task.cancel()
-
-if __name__ == "__main__":
+async def start_bot():
   print("==================================")
   print("[INFO]: BOT STARTED BOT SUCCESSFULLY")
   print("==========JOIN @TECHZBOTS=========")
 
+  await app.start()
+  await app.send_message(CHANNEL_ID,text="Bot Started")
+
   print("Creating Parse task")
-  asyncio.run(start_())
+  asyncio.create_task(auto_parser())
+  
+  await idle()
+  print("[INFO]: BOT STOPPED")
+  await app.stop()  
+  for task in asyncio.all_tasks():
+    task.cancel()
+
+if __name__ == "__main__":
+  install()
+  with closing(loop):
+    with suppress(asyncio.exceptions.CancelledError):
+      loop.run_until_complete(start_bot())
+      loop.run_until_complete(asyncio.sleep(3.0))
