@@ -11,11 +11,11 @@ import glob
 from os.path import dirname, basename, isfile, join
 
 
-modules = glob.glob(join(dirname("main/plugins/"), "*.py"))
+modules = glob.glob(join(dirname("main/modules/"), "*.py"))
 __all__ = [ basename(f)[:-3] for f in modules if isfile(f) and not f.endswith('__init__.py')]
 
 for module in __all__: 
-  imported_module = importlib.import_module("main.plugins." + module)
+  imported_module = importlib.import_module("main.modules." + module)
 
 @app.on_message(filters.command("start"))
 async def start(bot, message: Message):
