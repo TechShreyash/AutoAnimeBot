@@ -36,6 +36,7 @@ async def start_uploading(data):
     fpath = "downloads/" + name
     os.rename(file,fpath)
 
+    await msg.edit(f"Uploading {name}")
     print(f"Uploading {name}")
     await upload_video(msg,fpath)
     return "val"
