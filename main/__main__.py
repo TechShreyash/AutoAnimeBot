@@ -8,6 +8,8 @@ from pyrogram.errors import FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
 import importlib
 import glob
+from os.path import dirname, basename, isfile, join
+
 
 modules = glob.glob(join(dirname("main/plugins/"), "*.py"))
 __all__ = [ basename(f)[:-3] for f in modules if isfile(f) and not f.endswith('__init__.py')]
