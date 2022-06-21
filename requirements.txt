@@ -4,7 +4,6 @@ aiohttp
 python-dotenv
 feedparser
 libtorrent
-opencv-python
 pillow
 requests
 bs4
