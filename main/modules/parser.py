@@ -54,7 +54,7 @@ async def auto_parser():
                 data.remove(i)
 
         for i in data:
-            if ".mkv" in i["data"]["name"] or ".mp4" in i["data"]["name"]:
+            if ".mkv" in i["name"] or ".mp4" in i["name"]:
                 queue.append(i["data"])
 
         await start_hand()        
