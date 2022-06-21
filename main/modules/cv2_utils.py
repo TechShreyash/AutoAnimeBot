@@ -22,7 +22,7 @@ def get_screenshot(file):
 
     cv2.imwrite(name, frame)
     cap.release()
-    cv2.destroyAllWindows()
+    #cv2.destroyAllWindows()
     return name
 
 def get_filesize(file):
