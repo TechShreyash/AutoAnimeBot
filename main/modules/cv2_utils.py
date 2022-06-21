@@ -36,8 +36,9 @@ def get_filesize(file):
     return x
 
 def get_epnum(name):
-    x = name.split(" - ")[1].strip()
-    x, y = x.split(" ")
+    x = name.split(" - ")[-1].strip()
+    print(x)
+    x = x.split(" ")[0]
     x = x.strip()
     return x
 

@@ -41,7 +41,6 @@ async def auto_parser():
             if anime["title"] not in saved_anime:
                 title = anime["title"]
                 await save_animedb(title,anime)
-                print(f"Saved {title}")
 
         data = await get_animesdb()
         uploaded = await get_uploads()
