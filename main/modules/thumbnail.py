@@ -52,6 +52,7 @@ def changeImageSize(maxWidth, maxHeight, image):
     return newImage
 
 def generate_thumbnail(id,file,title,ep_num,size,dur):
+    print(id,file,title,ep_num,size,dur)
     ss = get_screenshot(file)
     cc = get_cover(id)
 
