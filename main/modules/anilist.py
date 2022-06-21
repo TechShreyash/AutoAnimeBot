@@ -78,7 +78,8 @@ async def get_anime(vars_):
         title_img = f"https://img.anili.st/media/{idm}"
         return idm, title_img, title
     except:
-        print(f"error {vars_["search"]}")
+        sear = vars_["search"]
+        print(f"error {sear}")
         return await get_anime(vars_)
 
 async def get_anime_img(query):
