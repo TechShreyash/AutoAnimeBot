@@ -45,7 +45,8 @@ async def progress_for_pyrogram(
                     total
                 )
             )
-        except:
+        except Exception as e:
+            print("in progress.py", e)
             pass
 
 

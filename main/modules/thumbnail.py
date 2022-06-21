@@ -107,7 +107,7 @@ def generate_thumbnail(id,file,title,ep_num,size,dur):
     image3.text((60,490),f"File Size : {size}","white",font3)
     image3.text((60,550),f"Duration : {dur}","white",font3)
 
-    image2.thumbnail((320,320))
+    image2.thumbnail((1280,720))
     w,h = image2.size
 
     thumb = "./" + "".join(random.choices(ascii_uppercase + hexdigits,k = 10)) + ".jpg"
