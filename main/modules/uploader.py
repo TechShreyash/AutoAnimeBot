@@ -54,5 +54,5 @@ async def upload_video(msg: Message,file,id,tit,name,message_id):
         except:
             pass
     except Exception as e:
-        print(e)
+        print("In uploader.py", e)
     return
