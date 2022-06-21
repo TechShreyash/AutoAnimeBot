@@ -1,3 +1,3 @@
-RUN apt-get update && apt-get ugrade
-RUN pip3 install -r requirements.txt
-RUN pip3 uninstall opencv-python && pip3 install opencv-python-headless
+pip install -U opencv-python
+apt-get upgrade
+apt update && apt install -y libsm6 libxext6 ffmpeg libfontconfig1 libxrender1 libgl1-mesa-glx
