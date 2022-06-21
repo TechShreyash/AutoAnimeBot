@@ -89,9 +89,9 @@ def generate_thumbnail(id,file,title,ep_num,size,dur):
     line = [((1280-w)+50,0),((1280-w)+0,720)]
     ldraw.line(line,border,20)
     # fonts
-    font1 = ImageFont.truetype('Roboto-Bold.ttf', 65)
-    font2 = ImageFont.truetype('Oswald-Regular.ttf', 60)
-    font3 = ImageFont.truetype('Raleway-Bold.ttf', 35)
+    font1 = ImageFont.truetype('downloads/Roboto-Bold.ttf', 65)
+    font2 = ImageFont.truetype('downloads/Oswald-Regular.ttf', 60)
+    font3 = ImageFont.truetype('downloads/Raleway-Bold.ttf', 35)
 
     image3 = ImageDraw.Draw(image2)
 
