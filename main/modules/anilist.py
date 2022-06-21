@@ -68,7 +68,7 @@ async def get_anime(vars_):
     error = result.get("errors")
     if error:
         error_sts = error[0].get("message")
-        return [f"[{error_sts}]"]
+        print([f"[{error_sts}]"])
 
     data = result["data"]["Media"]   
     idm = data.get("id")
