@@ -1,4 +1,4 @@
-from main.modules.cv2_utils import get_duration, get_epnum, get_filesize
+from main.modules.cv2_utils import format_time, get_duration, get_epnum, get_filesize
 from main.modules.anilist import get_anime_name
 from main.modules.anilist import get_anime_img
 from main.modules.thumbnail import generate_thumbnail
@@ -10,7 +10,7 @@ import os
 import time
 from main import app
 
-async def upload_video(msg: Message,file,id,tit,name,message_id):
+async def upload_video(msg: Message,file,id,tit,name,message_id,ttl):
     try:
         fuk = isfile(file)
         if fuk:
@@ -20,7 +20,7 @@ async def upload_video(msg: Message,file,id,tit,name,message_id):
             duration = get_duration(file)
             size = get_filesize(file)
             ep_num = get_epnum(name)
-            thumbnail,w,h = generate_thumbnail(id,file,tit,ep_num,size,duration)
+            thumbnail,w,h = generate_thumbnail(id,file,tit,ep_num,size,format_time(duration))
             
             buttons = InlineKeyboardMarkup([
                 [
@@ -45,7 +45,8 @@ async def upload_video(msg: Message,file,id,tit,name,message_id):
             progress_args=(
                 os.path.basename(file),
                 r,
-                c_time
+                c_time,
+                ttl
             )
             )        
         try:

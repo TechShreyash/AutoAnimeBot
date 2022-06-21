@@ -8,7 +8,8 @@ async def progress_for_pyrogram(
     total,
     ud_type,
     message,
-    start
+    start,
+    ttl
 ):
     now = time.time()
     diff = now - start
@@ -42,7 +43,7 @@ async def progress_for_pyrogram(
                     "Uploading",
                     percentage,
                     speed,
-                    total
+                    ttl
                 )
             )
         except Exception as e:

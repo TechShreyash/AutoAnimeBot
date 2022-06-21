@@ -38,5 +38,5 @@ async def start_uploading(data):
     name = title.split(".")[0]
 
     message_id = int(msg.id) + 1
-    x = await upload_video(msg,fpath,id,tit,name,message_id)
+    x = await upload_video(msg,fpath,id,tit,name,message_id,size)
     return "val"

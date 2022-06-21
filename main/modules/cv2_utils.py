@@ -40,3 +40,10 @@ def get_epnum(name):
     x, y = x.split(" ")
     x = x.strip()
     return x
+
+def format_time(time):
+    min = round(time/60)
+    sec = round(time-(min*60))
+
+    time = str(min) + ":" + str(sec)
+    return time
