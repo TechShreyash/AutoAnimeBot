@@ -37,9 +37,12 @@ async def progress_for_pyrogram(
         )
         try:
             await message.edit(
-                text="{}\n {}".format(
+                text=get_download_text(
                     ud_type,
-                    tmp
+                    "Uploading",
+                    percentage,
+                    speed,
+                    total
                 )
             )
         except:

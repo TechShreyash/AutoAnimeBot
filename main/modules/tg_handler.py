@@ -1,4 +1,5 @@
 import asyncio
+from main.modules.thumbnail import generate_thumbnail
 from main.modules.uploader import upload_video
 import os
 from main.modules.db import del_anime, save_uploads
@@ -25,7 +26,7 @@ async def start_uploading(data):
     title = data["title"]
     link = data["link"]
     size = data["size"]
-    img = await get_anime_img(get_anime_name(title))
+    id, img, tit = await get_anime_img(get_anime_name(title))
     msg = await app.send_photo(CHANNEL_ID,photo=img,caption=title)
 
     file = await downloader(msg,link,size,title)
@@ -38,5 +39,5 @@ async def start_uploading(data):
 
     await msg.edit(f"Uploading {name}")
     print(f"Uploading {name}")
-    x = await upload_video(msg,fpath)
+    x = await upload_video(msg,fpath,id,tit)
     return "val"

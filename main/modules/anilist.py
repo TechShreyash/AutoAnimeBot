@@ -70,10 +70,12 @@ async def get_anime(vars_):
         error_sts = error[0].get("message")
         return [f"[{error_sts}]"]
 
-    data = result["data"]["Media"]    
+    data = result["data"]["Media"]   
     idm = data.get("id")
+    title = data.get("title")
+    title = title.get("english")
     title_img = f"https://img.anili.st/media/{idm}"
-    return title_img
+    return idm, title_img, title
 
 async def get_anime_img(query):
     vars_ = {"search": query}
