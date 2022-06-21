@@ -1,3 +1,4 @@
+import os
 import cv2, random
 from string import ascii_uppercase, hexdigits
 
@@ -23,3 +24,19 @@ def get_screenshot(file):
     cap.release()
     cv2.destroyAllWindows()
     return name
+
+def get_filesize(file):
+    x = os.path.getsize(file)
+    x = round(x/(1024*1024))
+    if x > 1024:
+        x = str(round(x/1024,2)) + " GB"
+    else:
+        x = str(x) + " MB"
+
+    return x
+
+def get_epnum(name):
+    x = name.split("-")[1].strip()
+    x, y = x.split(" ")
+    x = x.strip()
+    return x

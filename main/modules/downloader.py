@@ -20,7 +20,7 @@ Speed: {}/sec
   if forma == "MiB":
     size = int(round(float(size)))
   elif forma == "GiB":
-    size = int(round(float(size)*1024))
+    size = int(round(float(size)*1024,2))
 
   percent = completed
   speed = round(float(speed)/1024) #kbps
@@ -33,12 +33,12 @@ Speed: {}/sec
   completed = round((percent/100)*size)
 
   if completed > 1024:
-    completed = str(round(completed/1024)) + " GB"
+    completed = str(round(completed/1024,2)) + " GB"
   else:
     completed = str(completed) + " MB"
 
   if size > 1024:
-    size = str(round(size/1024)) + " GB"
+    size = str(round(size/1024,2)) + " GB"
   else:
     size = str(size) + " MB"
 

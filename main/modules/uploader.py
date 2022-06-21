@@ -1,4 +1,4 @@
-from main.modules.cv2_utils import get_duration
+from main.modules.cv2_utils import get_duration, get_epnum, get_filesize
 from main.modules.anilist import get_anime_name
 from main.modules.anilist import get_anime_img
 from main.modules.thumbnail import generate_thumbnail
@@ -17,8 +17,11 @@ async def upload_video(msg: Message,file,id,tit,name,message_id):
             r = msg
             c_time = time.time()
 
-            thumbnail,w,h = generate_thumbnail(id,file,tit)
             duration = get_duration(file)
+            size = get_filesize(file)
+            ep_num = get_epnum(name)
+            thumbnail,w,h = generate_thumbnail(id,file,tit,ep_num,size,duration)
+            
             buttons = InlineKeyboardMarkup([
                 [
                     InlineKeyboardButton(text="Info", url="https://t.me/Anime_Dex"),
