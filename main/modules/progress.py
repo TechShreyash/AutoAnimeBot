@@ -37,6 +37,7 @@ async def progress_for_pyrogram(
             estimated_total_time if estimated_total_time != '' else "0 s"
         )
         try:
+            print(percentage)
             await message.edit(
                 text=get_download_text(
                     ud_type,
