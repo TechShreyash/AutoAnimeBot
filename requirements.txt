@@ -10,3 +10,4 @@ requests
 bs4
 uvloop
 motor
+dnspython
