@@ -4,3 +4,4 @@ aiohttp
 python-dotenv
 feedparser
 libtorrent
+opencv-python
