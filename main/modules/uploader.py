@@ -1,5 +1,5 @@
 from main.modules.cv2_utils import get_duration
-from main.modules.tg_handler import get_anime_name
+from main.modules.anilist import get_anime_name
 from main.modules.anilist import get_anime_img
 from main.modules.thumbnail import generate_thumbnail
 from config import CHANNEL_ID

@@ -1,7 +1,9 @@
 import asyncio
+from main.modules.start import start_hand
 from main.modules.tg_handler import tg_handler
 from main.modules.db import get_animesdb, get_uploads, save_animedb
 import feedparser
+from main import queue
 
 def trim_title(title: str):
     title, ext = title.replace("[SubsPlease]","").strip().split("[",maxsplit=2)
@@ -51,10 +53,8 @@ async def auto_parser():
             if i["name"] in uanimes:
                 data.remove(i)
 
-        queue = []
-
         for i in data:
             queue.append(i["data"])
 
-        await tg_handler(queue)        
+        await start_hand()        
         await asyncio.sleep(1800)

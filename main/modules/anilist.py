@@ -81,3 +81,8 @@ async def get_anime_img(query):
     vars_ = {"search": query}
     img = await get_anime(vars_)
     return img
+
+def get_anime_name(title):
+    x = title.split("-")[-1]
+    title = title.replace(x,"").strip()
+    return title
