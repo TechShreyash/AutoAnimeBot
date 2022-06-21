@@ -10,4 +10,4 @@ bs4
 uvloop
 motor
 dnspython
-opencv-python
+opencv-python-headless
