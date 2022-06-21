@@ -1,7 +1,7 @@
 import cv2, random
 from string import ascii_uppercase, hexdigits
 from PIL import Image, ImageEnhance, ImageOps, ImageFilter, ImageDraw, ImageFont
-import requests, wget
+import requests
 from bs4 import BeautifulSoup as bs
 from .cv2_utils import get_screenshot
 

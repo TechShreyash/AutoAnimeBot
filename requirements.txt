@@ -6,3 +6,4 @@ feedparser
 libtorrent
 opencv-python-headless
 pillow
+requests
