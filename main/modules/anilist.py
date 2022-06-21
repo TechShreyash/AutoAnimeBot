@@ -89,5 +89,5 @@ async def get_anime_img(query):
 
 def get_anime_name(title):
     x = title.split("-")[-1]
-    title = title.replace(x,"").strip()
+    title = title.replace(x,"").strip().replace("S","Season ")
     return title
