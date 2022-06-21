@@ -1,28 +1,43 @@
+from main.modules.cv2_utils import get_duration
 from main.modules.tg_handler import get_anime_name
 from main.modules.anilist import get_anime_img
 from main.modules.thumbnail import generate_thumbnail
 from config import CHANNEL_ID
-from pyrogram.types import Message
+from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
 from main.modules.progress import progress_for_pyrogram
 from os.path import isfile
 import os
 import time
 from main import app
 
-async def upload_video(msg: Message,file,id,tit):
+async def upload_video(msg: Message,file,id,tit,name,message_id):
     try:
         fuk = isfile(file)
         if fuk:
             r = msg
-            c_time = time.time(os.path.basename(file))
+            c_time = time.time()
 
-            thumbnail = generate_thumbnail(id,file,tit)
+            thumbnail,w,h = generate_thumbnail(id,file,tit)
+            duration = get_duration(file)
+            buttons = InlineKeyboardMarkup([
+                [
+                    InlineKeyboardButton(text="Info", url="https://t.me/Anime_Dex"),
+                    InlineKeyboardButton(text="Comments", url=f"https://t.me/AniDec/{message_id}?thread={message_id}")
+                ]
+            ])
 
-            caption = f"🎥 {}"
+            caption = f"🎥 **{name}**"
+
             x = await app.send_video(
                 CHANNEL_ID,
             file,
-            caption=os.path.basename(file),
+            caption=caption,
+            duration=duration,
+            width=w,
+            height=h,
+            thumb=thumbnail,
+            reply_markup=buttons,
+            file_name=os.path.basename(file),
             progress=progress_for_pyrogram,
             progress_args=(
                 os.path.basename(file),

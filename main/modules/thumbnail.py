@@ -3,6 +3,7 @@ from string import ascii_uppercase, hexdigits
 from PIL import Image, ImageEnhance, ImageOps, ImageFilter, ImageDraw, ImageFont
 import requests, wget
 from bs4 import BeautifulSoup as bs
+from .cv2_utils import get_screenshot
 
 file = "./a.mkv"
 
@@ -24,20 +25,6 @@ def truncate(text):
     text1 = text1.strip()
     text2 = text2.strip()     
     return text1,text2
-
-def get_screenshot(file):
-    cap = cv2.VideoCapture(file)
-    name = "./" + "".join(random.choices(ascii_uppercase + hexdigits,k = 10)) + ".jpg"
-
-    total_frames = round(cap.get(cv2.CAP_PROP_FRAME_COUNT))-1
-    frame_num = random.randint(0,total_frames)
-    cap.set(cv2.CAP_PROP_POS_FRAMES, frame_num-1)
-    res, frame = cap.read()
-
-    cv2.imwrite(name, frame)
-    cap.release()
-    cv2.destroyAllWindows()
-    return name
 
 def get_cover(id):
     url = "https://anilist.co/anime/" + str(id)
@@ -120,7 +107,8 @@ def generate_thumbnail(id,file,title,ep_num,size,dur):
     image3.text((60,550),f"Duration : {dur}","white",font3)
 
     image2.thumbnail((320,320))
+    w,h = image2.size
 
     thumb = "./" + "".join(random.choices(ascii_uppercase + hexdigits,k = 10)) + ".jpg"
     image2.save(thumb)
-    return thumb
+    return thumb, w, h
