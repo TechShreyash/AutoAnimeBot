@@ -91,12 +91,12 @@ def generate_thumbnail(id,file,title,ep_num,size,dur):
     ldraw.line(line,border,20)
     # fonts
     font1 = ImageFont.truetype('downloads/Roboto-Bold.ttf', 65)
-    font2 = ImageFont.truetype('downloads/Oswald-Regular.ttf', 60)
+    font2 = ImageFont.truetype('downloads/Oswald-Regular.ttf', 70)
     font3 = ImageFont.truetype('downloads/Raleway-Bold.ttf', 35)
 
     image3 = ImageDraw.Draw(image2)
 
-    image3.text((((1280-w)/2)-70,100),"AniDec",make_col(),font2)
+    image3.text((((1280-w)/2)-50,100),"AniDec","white",font2)
 
     text1, text2 = truncate(title)
     image3.text((60,250),text1,"white",font1)
