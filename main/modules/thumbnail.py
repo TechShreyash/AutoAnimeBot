@@ -3,7 +3,7 @@ from string import ascii_uppercase, hexdigits, ascii_letters
 from PIL import Image, ImageOps, ImageFilter, ImageDraw, ImageFont
 import requests
 from bs4 import BeautifulSoup as bs
-from .cv2_utils import get_screenshot
+#from .cv2_utils import get_screenshot
 
 def make_col():
     return (random.randint(0,255),random.randint(0,255),random.randint(0,255))
@@ -37,22 +37,34 @@ def truncate(text):
     text2 = text2.strip()     
     return text1,text2
 
+err = 0
+
 def get_cover(id):
-    url = "https://anilist.co/anime/" + str(id)
+    global err
+    
+    try:
+        url = "https://anilist.co/anime/" + str(id)
 
-    r = requests.get(url).content
-    soup = bs(r,"html.parser")
+        r = requests.get(url).content
+        soup = bs(r,"html.parser")
 
-    img = soup.find("img","cover")
-    img = img.get("src")
+        img = soup.find("img","cover")
+        img = img.get("src")
 
-    r = requests.get(img).content
+        r = requests.get(img).content
 
-    fname = "./" + "".join(random.choices(ascii_uppercase + hexdigits,k = 10)) + ".jpg"
-    with open(fname,"wb") as file:
-        file = file.write(r)
+        fname = "./" + "".join(random.choices(ascii_uppercase + hexdigits,k = 10)) + ".jpg"
+        with open(fname,"wb") as file:
+            file = file.write(r)
 
-    return fname
+        err = 0
+        return fname
+    except:
+        err += 1
+        if err != 5:
+            return get_cover(id)
+        else:
+            return "./fC2HMM9ZZE.jpg"
 
 def changeImageSize(maxWidth, maxHeight, image):
     widthRatio = maxWidth / image.size[0]
@@ -124,3 +136,6 @@ def generate_thumbnail(id,file,title,ep_num,size,dur):
     thumb = "./" + "".join(random.choices(ascii_uppercase + hexdigits,k = 10)) + ".jpg"
     image2.save(thumb)
     return thumb, w, h
+
+
+print(get_cover(133412))
