@@ -1,16 +1,29 @@
 import cv2, random
-from string import ascii_uppercase, hexdigits
+from string import ascii_uppercase, hexdigits, ascii_letters
 from PIL import Image, ImageEnhance, ImageOps, ImageFilter, ImageDraw, ImageFont
 import requests
 from bs4 import BeautifulSoup as bs
-from .cv2_utils import get_screenshot
+#from .cv2_utils import get_screenshot
 
 file = "./a.mkv"
 
 def make_col():
     return (random.randint(0,255),random.randint(0,255),random.randint(0,255))
 
+def format_text(text):
+    ftext = ""
+    for x in text:
+        if x in ascii_letters or x == " ":
+            ftext += x
+        else:
+            ftext += " "
+    
+    while "  " in ftext:
+        ftext = ftext.replace("  "," ")
+    return ftext
+
 def truncate(text):
+    text = format_text(text)
     list = text.split(" ")
     text1 = ""
     text2 = ""

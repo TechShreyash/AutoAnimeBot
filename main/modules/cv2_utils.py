@@ -1,3 +1,4 @@
+from math import floor
 import os
 import cv2, random
 from string import ascii_uppercase, hexdigits
@@ -43,8 +44,10 @@ def get_epnum(name):
     return x
 
 def format_time(time):
-    min = round(time/60)
+    min = floor(time/60)
     sec = round(time-(min*60))
 
     time = str(min) + ":" + str(sec)
     return time
+
+print(format_time(1491))
