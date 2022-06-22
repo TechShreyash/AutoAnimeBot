@@ -16,7 +16,7 @@ async def tg_handler():
             await del_anime(i["title"])
             await save_uploads(i["title"])
     
-    await asyncio.sleep(1800)
+    await asyncio.sleep(600)
 
 async def start_uploading(data):
     title = data["title"]
