@@ -9,14 +9,15 @@ from config import CHANNEL_ID
 from main import app, queue
 
 async def tg_handler():
-    if len(queue) != 0:
-        for i in queue:
-            val = await start_uploading(i)
-            queue.remove(i)
-            await del_anime(i["title"])
-            await save_uploads(i["title"])
+    while True:
+        if len(queue) != 0:
+            for i in queue:
+                val = await start_uploading(i)
+                queue.remove(i)
+                await del_anime(i["title"])
+                await save_uploads(i["title"])
     
-    await asyncio.sleep(600)
+        await asyncio.sleep(600)
 
 async def start_uploading(data):
     title = data["title"]
