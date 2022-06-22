@@ -74,12 +74,12 @@ async def get_anime(vars_):
         data = result["data"]["Media"]   
         idm = data.get("id")
         title = data.get("title")
-        title = title.get("english")
-        if title == None:
-            title = title.get("romaji")
+        tit = title.get("english")
+        if tit == None:
+            tit = title.get("romaji")
         title_img = f"https://img.anili.st/media/{idm}"
-        print(idm, title_img, title)
-        return idm, title_img, title
+        print(idm, title_img, tit)
+        return idm, title_img, tit
 
 async def get_anime_img(query):
     vars_ = {"search": query}
