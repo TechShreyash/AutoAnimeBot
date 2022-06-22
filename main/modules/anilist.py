@@ -76,6 +76,7 @@ async def get_anime(vars_):
         title = data.get("title")
         title = title.get("english")
         title_img = f"https://img.anili.st/media/{idm}"
+        print(idm, title_img, title)
         return idm, title_img, title
     except:
         sear = vars_["search"]
