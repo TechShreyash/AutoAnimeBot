@@ -63,7 +63,7 @@ async def return_json_senpai(query: str, vars_: dict):
     return requests.post(url, json={"query": query, "variables": vars_}).json()
 
 async def get_anime(vars_):
-    try:
+    if 1 == 1:
         result = await return_json_senpai(ANIME_QUERY, vars_)
 
         error = result.get("errors")
@@ -80,10 +80,6 @@ async def get_anime(vars_):
         title_img = f"https://img.anili.st/media/{idm}"
         print(idm, title_img, title)
         return idm, title_img, title
-    except:
-        sear = vars_["search"]
-        print(f"error {sear}")
-        return
 
 async def get_anime_img(query):
     vars_ = {"search": query}
