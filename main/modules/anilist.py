@@ -74,6 +74,7 @@ async def get_anime(vars_):
         data = result["data"]["Media"]   
         idm = data.get("id")
         title = data.get("title")
+        print(title)
         title = title.get("english")
         title_img = f"https://img.anili.st/media/{idm}"
         print(idm, title_img, title)
