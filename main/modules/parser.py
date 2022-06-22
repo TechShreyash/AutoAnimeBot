@@ -1,5 +1,4 @@
 import asyncio
-from main.modules.start import start_hand
 from main.modules.tg_handler import tg_handler
 from main.modules.db import get_animesdb, get_uploads, save_animedb
 import feedparser
@@ -56,5 +55,4 @@ async def auto_parser():
             if ".mkv" in i["name"] or ".mp4" in i["name"]:
                 queue.append(i["data"])
 
-        await start_hand()        
         await asyncio.sleep(1800)
