@@ -54,4 +54,4 @@ async def auto_parser():
             if ".mkv" in i["name"] or ".mp4" in i["name"]:
                 queue.append(i["data"])
 
-        await asyncio.sleep(1800)
+        await asyncio.sleep(600)
