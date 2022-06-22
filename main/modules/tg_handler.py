@@ -27,6 +27,10 @@ async def start_uploading(data):
     msg = await app.send_photo(CHANNEL_ID,photo=img,caption=title)
 
     file = await downloader(msg,link,size,title)
+    
+    if not os.path.exists(file):
+        return "val"
+
     print("Downloaded -> ",file)
 
     name, ext = title.split(".")
