@@ -8,6 +8,7 @@ from pyrogram.errors import FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
 from uvloop import install
 from contextlib import closing, suppress
+from main.modules.tg_handler import tg_handler
 
 loop = asyncio.get_event_loop()
 
@@ -24,6 +25,7 @@ async def start_bot():
 
   print("Creating Parse task")
   asyncio.create_task(auto_parser())
+  asyncio.create_task(tg_handler())
   
   await idle()
   print("[INFO]: BOT STOPPED")
