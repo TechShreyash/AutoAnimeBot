@@ -3,7 +3,7 @@ from string import ascii_uppercase, hexdigits, ascii_letters
 from PIL import Image, ImageEnhance, ImageOps, ImageFilter, ImageDraw, ImageFont
 import requests
 from bs4 import BeautifulSoup as bs
-#from .cv2_utils import get_screenshot
+from .cv2_utils import get_screenshot
 
 file = "./a.mkv"
 
