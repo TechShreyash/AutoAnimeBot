@@ -38,7 +38,6 @@ async def progress_for_pyrogram(
         )
         try:
             percentage = round(percentage)
-            print(percentage)
             await message.edit(
                 text=get_download_text(
                     ud_type,
