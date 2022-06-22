@@ -14,7 +14,6 @@ def get_download_text(name,status,completed,speed,total):
 {} of {}
 Speed: {}/sec
 """
-  print(completed)
   total = str(total)
   completed = round(completed*100,2)
   size, forma = total.split(' ')
