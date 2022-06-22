@@ -83,7 +83,7 @@ async def get_anime(vars_):
     except:
         sear = vars_["search"]
         print(f"error {sear}")
-        return await get_anime(vars_)
+        return
 
 async def get_anime_img(query):
     vars_ = {"search": query}
@@ -93,4 +93,5 @@ async def get_anime_img(query):
 def get_anime_name(title):
     x = title.split(" - ")[-1]
     title = title.replace(x,"").strip().replace("S","Season ")
+    title = title[:-2].strip()
     return title
