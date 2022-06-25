@@ -83,8 +83,7 @@ async def get_anime(vars_,less):
         if less == True:
           print(idm, title_img, tit)
           return idm, title_img, tit
-        
-        print(data)
+
         print(data.keys())
         return data
 
@@ -102,13 +101,25 @@ def get_anime_name(title):
     return title
 
 
+atext = """
+📺 **{}**
+  ({})
+
+🎭 : {}
+🧬 : {}
+📡 : {}
+🗓 : {}
+💾 : {}
+⭐️ : {}/100
+"""
+
 async def get_anilist_data(name):
     vars_ = {"search": name}
     data = await get_anime(vars_,less=False)
 
-    id = data.get("id")
+    id_ = data.get("id")
     title = data.get("title")
-    format = data.get("format")
+    form = data.get("format")
     status = data.get("status")
     episodes = data.get("episodes")
     duration = data.get("duration")
@@ -116,8 +127,45 @@ async def get_anilist_data(name):
     genres = data.get("genres")
     averageScore = data.get("averageScore")
 
-    
+    # title
+    title1 = title.get("english")
+    title2 = title.get("romaji")
+
+    if title2 == None:
+      title2 = title.get("native")
+
+    if title1 == None:
+      title1 = title2
+
+    # genre
+
+    genre = ""
+
+    for i in genres:
+      genre += i + ", "
+
+    genre = genre[:-2]
 
 
+    caption = atext.format(
+      title1,
+      title2,
+      genre,
+      form,
+      status,
+      episodes,
+      duration,
+      averageScore
+    )
 
-print(asyncio.run(get_anime_img("horimiya")))
+    ytid = trailer.get("id")
+    site = trailer.get("site")
+
+    if site == "youtube":
+      caption += f"\n[Trailer](https://www.youtube.com/watch?v={ytid}) | [More Info](https://anilist.co/anime/{id_})"
+    else:
+      caption += f"\n[More Info](https://anilist.co/anime/{id_})"
+
+    return caption
+
+print(asyncio.run(get_anilist_data("horimiya")))
