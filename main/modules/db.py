@@ -7,6 +7,7 @@ db = mongo_client.autoanime
 
 animedb = db.animes
 uploadsdb = db.uploads
+channeldb = db.channel
 
 async def get_animesdb(): 
     anime_list = []
@@ -30,4 +31,18 @@ async def get_uploads():
 
 async def save_uploads(name): 
     data = await uploadsdb.insert_one({"name": name})
+    return
+
+
+# channel
+
+async def get_channel(name): 
+    anime = await channeldb.find_one({"name":name})
+    if not anime:
+        return 0
+    return int(anime["id"])
+
+async def save_channel(name,id):
+    id = str(id) 
+    data = await channeldb.insert_one({"name": name, "id": id})
     return

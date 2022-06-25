@@ -1,7 +1,7 @@
 from math import floor
 import os
 import cv2, random
-from string import ascii_uppercase, hexdigits
+from string import ascii_letters, ascii_uppercase, digits
 
 def get_duration(file):
     data = cv2.VideoCapture(file)
@@ -14,7 +14,7 @@ def get_duration(file):
 
 def get_screenshot(file):
     cap = cv2.VideoCapture(file)
-    name = "./" + "".join(random.choices(ascii_uppercase + hexdigits,k = 10)) + ".jpg"
+    name = "./" + "".join(random.choices(ascii_uppercase + digits,k = 10)) + ".jpg"
 
     total_frames = round(cap.get(cv2.CAP_PROP_FRAME_COUNT))-1
     frame_num = random.randint(0,total_frames)
@@ -50,4 +50,14 @@ def format_time(time):
     time = str(min) + ":" + str(sec)
     return time
 
-print(format_time(1491))
+def format_text(text):
+    ftext = ""
+    for x in text:
+        if x in ascii_letters or x == " " or x in digits:
+            ftext += x
+        else:
+            ftext += " "
+    
+    while "  " in ftext:
+        ftext = ftext.replace("  "," ")
+    return ftext

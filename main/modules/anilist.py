@@ -1,4 +1,5 @@
 import asyncio
+#from main.modules.cv2_utils import format_text
 import requests
 import time
 import os
@@ -62,7 +63,7 @@ async def return_json_senpai(query: str, vars_: dict):
     url = "https://graphql.anilist.co"
     return requests.post(url, json={"query": query, "variables": vars_}).json()
 
-async def get_anime(vars_):
+async def get_anime(vars_,less):
     if 1 == 1:
         result = await return_json_senpai(ANIME_QUERY, vars_)
 
@@ -78,12 +79,20 @@ async def get_anime(vars_):
         if tit == None:
             tit = title.get("romaji")
         title_img = f"https://img.anili.st/media/{idm}"
-        print(idm, title_img, tit)
-        return idm, title_img, tit
+        
+        if less == True:
+          print(idm, title_img, tit)
+          return idm, title_img, tit
+        
+        print(data)
+        print(data.keys())
+        return data
 
 async def get_anime_img(query):
     vars_ = {"search": query}
-    idm, title_img, title = await get_anime(vars_)
+    idm, title_img, title = await get_anime(vars_,less=True)
+
+    #title = format_text(title)
     return idm, title_img, title
 
 def get_anime_name(title):
@@ -91,3 +100,24 @@ def get_anime_name(title):
     title = title.replace(x,"").strip().replace("S","Season ")
     title = title[:-2].strip()
     return title
+
+
+async def get_anilist_data(name):
+    vars_ = {"search": name}
+    data = await get_anime(vars_,less=False)
+
+    id = data.get("id")
+    title = data.get("title")
+    format = data.get("format")
+    status = data.get("status")
+    episodes = data.get("episodes")
+    duration = data.get("duration")
+    trailer = data.get("trailer")
+    genres = data.get("genres")
+    averageScore = data.get("averageScore")
+
+    
+
+
+
+print(asyncio.run(get_anime_img("horimiya")))

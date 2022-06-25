@@ -1,7 +1,7 @@
 import asyncio
 from config import CHANNEL_ID
 from main.modules.parser import auto_parser
-from main import app
+from main import app, status
 import pyrogram
 from pyrogram import filters, idle
 from pyrogram.errors import FloodWait
@@ -21,7 +21,7 @@ async def start_bot():
   print("[INFO]: BOT STARTED BOT SUCCESSFULLY")
   print("==========JOIN @TECHZBOTS=========")
 
-  await app.send_message(CHANNEL_ID,text="Bot Started")
+  status = await app.send_message(CHANNEL_ID,text="Bot Started")
 
   print("Creating Parse task")
   asyncio.create_task(auto_parser())
