@@ -49,7 +49,8 @@ async def start_uploading(data):
     if not os.path.isfile(file):
         print(file)
         os.system("ls downloads")
-        await msg.delete()        
+        await msg.delete()
+        await app.send_message("Tech_Shreyash","error check")        
         return "err", tit, 1,1,1
 
     print("Downloaded -> ",file)
