@@ -36,13 +36,14 @@ async def save_uploads(name):
 
 # channel
 
-async def get_channel(name): 
-    anime = await channeldb.find_one({"name":name})
+async def get_channel(anilist): 
+    anilist = str(anilist)
+    anime = await channeldb.find_one({"anilist":anilist})
     if not anime:
         return 0
-    return int(anime["id"])
+    return int(anime["msg"])
 
-async def save_channel(name,id):
-    id = str(id) 
-    data = await channeldb.insert_one({"name": name, "id": id})
+async def save_channel(anilist,msg):
+    id = str(msg) 
+    data = await channeldb.insert_one({"anilist": anilist, "msg": msg})
     return

@@ -84,7 +84,6 @@ async def get_anime(vars_,less):
           print(idm, title_img, tit)
           return idm, title_img, tit
 
-        print(data.keys())
         return data
 
 async def get_anime_img(query):
@@ -126,6 +125,7 @@ async def get_anilist_data(name):
     trailer = data.get("trailer")
     genres = data.get("genres")
     averageScore = data.get("averageScore")
+    img = f"https://img.anili.st/media/{id_}"
 
     # title
     title1 = title.get("english")
@@ -166,6 +166,4 @@ async def get_anilist_data(name):
     else:
       caption += f"\n[More Info](https://anilist.co/anime/{id_})"
 
-    return caption
-
-print(asyncio.run(get_anilist_data("horimiya")))
+    return img, caption

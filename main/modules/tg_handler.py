@@ -1,12 +1,12 @@
 import asyncio
-from pyrogram.types import Message
-from main.modules.thumbnail import generate_thumbnail
+from main.modules.cv2_utils import get_epnum
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from main.modules.uploader import upload_video
 import os
-from main.modules.db import del_anime, save_channel, save_uploads
+from main.modules.db import del_anime, get_channel, save_channel, save_uploads
 from main.modules.downloader import downloader
-from main.modules.anilist import get_anime_img, get_anime_name
-from config import CHANNEL_ID
+from main.modules.anilist import get_anilist_data, get_anime_img, get_anime_name
+from config import CHANNEL_ID, MAIN
 from main import app, queue, status
 
 status: Message
@@ -14,21 +14,22 @@ async def tg_handler():
     while True:
         if len(queue) != 0:
             for i in queue:
-                val, tit = await start_uploading(i)
+                val, id, name, ep_num, video = await start_uploading(i)
                 queue.remove(i)
                 await del_anime(i["title"])
                 await save_uploads(i["title"])
 
                 if val != "err":
-                    await channel_handler(val,tit)
+                    await status.edit("Adding Links To Main Channel...")
+                    await channel_handler(val,id,name,ep_num, video)
                 await status.edit("Sleeping...")
-                await asyncio.sleep(300)
+                #await asyncio.sleep(300)
     
         os.system("rm -r downloads/*")
         
         if status.text != "Idle...":
             await status.edit("Idle...")
-        await asyncio.sleep(1800)
+        await asyncio.sleep(120)
 
 async def start_uploading(data):
     title = data["title"]
@@ -49,7 +50,7 @@ async def start_uploading(data):
         print(file)
         os.system("ls downloads")
         await msg.delete()        
-        return "err", tit
+        return "err", tit, 1,1,1
 
     print("Downloaded -> ",file)
     await msg.edit(f"Download Complete : {name}")
@@ -61,9 +62,66 @@ async def start_uploading(data):
     name = title.split(".")[0]
 
     message_id = int(msg.id) + 1
-    x = await upload_video(msg,fpath,id,tit,name,message_id,size)
-    return message_id, tit
+    video = await upload_video(msg,fpath,id,tit,name,message_id,size)
 
+    name = name.replace(" [@AniDec].","").replace(ext,"").strip()
+    return message_id, id, tit, name, video
 
-async def channel_handler(msg_id,val):
+VOTE_MARKUP = InlineKeyboardMarkup(
+    [
+        [
+            InlineKeyboardButton(text="👍", callback_data="vote1"),
+            InlineKeyboardButton(text="♥️", callback_data="vote2"),
+            InlineKeyboardButton(text="👎", callback_data="vote3")
+        ]
+    ]
+)
+
+EPITEXT = """
+🔰 **Episodes :**
+
+{}
+"""
+async def channel_handler(msg_id,id,name,ep_num,video):
+    anilist = await get_channel(id)
+
+    if anilist == 0:
+        img, caption = await get_anilist_data(name)
+        main = await app.send_photo(MAIN,photo=img,caption=caption,reply_markup=VOTE_MARKUP)
+
+        link = f"[{ep_num}](https://t.me/AniDec/{video})"
+        dl = await app.send_message(
+            MAIN,
+            EPITEXT.format(link)
+        )
+
+        await app.send_sticker(MAIN,"CAACAgUAAx0CXbNEVgABATemYrg6dYZGimb4zx9Q1DAAARzJ_M_NAAI6BQAC7s_BVQFFcU052MmMHgQ")
+        dl_id = dl.message_id
+        caption += f"\n📥 **Download -** [{name}](https://t.me/Anime_Dex/{dl_id})"
+        await main.edit(caption)
+        dl_id = int(dl_id)
+        # db
+        await save_channel(id,dl_id)
+    else:
+        dl_id = await get_channel(id)
+        dl_id = int(dl_id)
+
+        dl_msg = await app.get_messages(MAIN,dl_id)
+        text = dl_msg.text
+        text = text.replace("Episodes :","**Episodes :**")
+
+        link = f"[{ep_num}](https://t.me/AniDec/{video})"
+        text += f"\n{link}"
+
+        await app.edit_message_text(MAIN,dl_id,text)
+
+    main_id = dl_id - 1
+    buttons = InlineKeyboardMarkup([
+            [
+                InlineKeyboardButton(text="Info", url=f"https://t.me/Anime_Dex/{main_id}"),
+                InlineKeyboardButton(text="Comments", url=f"https://t.me/Anime_Dex/{main_id}?thread={main_id}")
+            ]
+        ])
+    await app.edit_message_reply_markup(CHANNEL_ID,video,reply_markup=buttons)
+
     return
