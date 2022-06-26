@@ -16,7 +16,8 @@ ses = lt.session()
 ses.listen_on(6881, 6891)
 
 queue = []
-status = app.get_messages(CHANNEL_ID,435)
+
+status = app.send_message(CHANNEL_ID,"Bot Started")
 try:
   app.pin_chat_message(CHANNEL_ID,status.message_id)
 except:
