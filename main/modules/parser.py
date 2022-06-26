@@ -29,7 +29,7 @@ def parse():
 
 async def auto_parser():
     while True:
-        await status.edit("Parsing Rss, Fetching Magnet Links...")
+        await status.edit("Status : Parsing Rss, Fetching Magnet Links...")
 
         rss = parse()
         data = await get_animesdb()

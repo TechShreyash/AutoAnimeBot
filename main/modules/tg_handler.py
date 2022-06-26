@@ -20,15 +20,15 @@ async def tg_handler():
                 await save_uploads(i["title"])
 
                 if val != "err":
-                    await status.edit("Adding Links To Main Channel...")
+                    await status.edit("Status : Adding Links To Main Channel...")
                     await channel_handler(val,id,name,ep_num, video)
-                await status.edit("Sleeping...")
+                await status.edit("Status : Sleeping...")
                 #await asyncio.sleep(300)
     
         os.system("rm -r downloads/*")
         
-        if status.text != "Idle...":
-            await status.edit("Idle...")
+        if status.text != "Status : Idle...":
+            await status.edit("Status : Idle...")
         await asyncio.sleep(120)
 
 async def start_uploading(data):
@@ -43,7 +43,7 @@ async def start_uploading(data):
     id, img, tit = await get_anime_img(get_anime_name(title))
     msg = await app.send_photo(CHANNEL_ID,photo=img,caption=title)
 
-    await status.edit(f"Downloading {name}")
+    await status.edit(f"Status : Downloading {name}")
     file = await downloader(msg,link,size,title)
     
     if not os.path.isfile(file):
@@ -58,7 +58,7 @@ async def start_uploading(data):
     
     os.rename(file,fpath)
 
-    await status.edit(f"Uploading {name}")    
+    await status.edit(f"Status : Uploading {name}")    
     print(f"Uploading {name}")
     name = title.split(".")[0]
 
