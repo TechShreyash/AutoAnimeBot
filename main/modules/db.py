@@ -39,7 +39,7 @@ async def save_uploads(name):
 async def get_channel(anilist): 
     anilist = str(anilist)
     anime = await channeldb.find_one({"anilist":anilist})
-    if not anime:
+    if anime == None:
         return 0
     return int(anime["msg"])
 

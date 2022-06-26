@@ -63,6 +63,8 @@ async def return_json_senpai(query: str, vars_: dict):
     url = "https://graphql.anilist.co"
     return requests.post(url, json={"query": query, "variables": vars_}).json()
 
+temp = []
+
 async def get_anime(vars_,less):
     if 1 == 1:
         result = await return_json_senpai(ANIME_QUERY, vars_)
@@ -71,8 +73,11 @@ async def get_anime(vars_,less):
         if error:
             error_sts = error[0].get("message")
             print([f"[{error_sts}]"])
-
-        data = result["data"]["Media"]   
+            data = temp[0]
+            temp.pop(0)
+        else:
+          data = result["data"]["Media"]   
+          temp.append(data)
         idm = data.get("id")
         title = data.get("title")
         tit = title.get("english")
