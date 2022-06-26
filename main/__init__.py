@@ -16,4 +16,4 @@ ses = lt.session()
 ses.listen_on(6881, 6891)
 
 queue = []
-status = ""
+status = app.get_messages(CHANNEL_ID,435)

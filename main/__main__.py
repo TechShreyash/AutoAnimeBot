@@ -21,7 +21,7 @@ async def start_bot():
   print("[INFO]: BOT STARTED BOT SUCCESSFULLY")
   print("==========JOIN @TECHZBOTS=========")
 
-  status = await app.send_message(CHANNEL_ID,text="Bot Started")
+  await app.send_message(CHANNEL_ID,text="Bot Started")
 
   print("Creating Parse task")
   asyncio.create_task(auto_parser())
