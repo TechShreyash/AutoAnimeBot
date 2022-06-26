@@ -24,7 +24,7 @@ async def upload_video(msg: Message,file,id,tit,name,message_id,ttl):
         buttons = InlineKeyboardMarkup([
             [
                 InlineKeyboardButton(text="Info", url="https://t.me/Anime_Dex"),
-                InlineKeyboardButton(text="Comments", url=f"https://t.me/AniDec/{message_id}?thread={message_id}")
+                InlineKeyboardButton(text="Comments", url=f"https://t.me/+4nUo4jBR-JgxMTVl")
             ]
         ])
         caption = f"🎥 **{name}**"
