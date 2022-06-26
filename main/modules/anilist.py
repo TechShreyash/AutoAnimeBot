@@ -158,8 +158,11 @@ async def get_anilist_data(name):
       averageScore
     )
 
-    ytid = trailer.get("id")
-    site = trailer.get("site")
+    if trailer != None:
+      ytid = trailer.get("id")
+      site = trailer.get("site")
+    else:
+      site = None
 
     if site == "youtube":
       caption += f"\n[Trailer](https://www.youtube.com/watch?v={ytid}) | [More Info](https://anilist.co/anime/{id_})"
