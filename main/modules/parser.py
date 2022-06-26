@@ -1,4 +1,6 @@
 import asyncio
+
+from main import status
 from main.modules.db import get_animesdb, get_uploads, save_animedb
 import feedparser
 from main import queue
@@ -27,6 +29,7 @@ def parse():
 
 async def auto_parser():
     while True:
+        await status.edit("Parsing Rss, Fetching Magnet Links...")
 
         rss = parse()
         data = await get_animesdb()
