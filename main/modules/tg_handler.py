@@ -62,7 +62,7 @@ async def start_uploading(data):
     print(f"Uploading {name}")
     name = title.split(".")[0]
 
-    message_id = int(msg.id) + 1
+    message_id = int(msg.message_id) + 1
     video = await upload_video(msg,fpath,id,tit,name,message_id,size)
 
     name = name.replace(" [@AniDec].","").replace(ext,"").strip()
