@@ -52,7 +52,7 @@ async def auto_parser():
         data = await get_animesdb()
         for i in data:
             if i["data"] not in queue:
-                queue.append(i)    
+                queue.append(i["data"])    
                 print("Saved ", i["name"])   
 
         await asyncio.sleep(1800)
