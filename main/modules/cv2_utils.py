@@ -2,6 +2,7 @@ from math import floor
 import os
 import cv2, random
 from string import ascii_letters, ascii_uppercase, digits
+from pyrogram.types import Message, MessageEntity
 
 def get_duration(file):
     data = cv2.VideoCapture(file)
@@ -61,3 +62,11 @@ def format_text(text):
     while "  " in ftext:
         ftext = ftext.replace("  "," ")
     return ftext
+
+def episode_linker(msg: Message,text,link):
+    ent = msg.entities
+    off = len(msg.text)
+    length = len(text)
+    new = MessageEntity(type="text_link",offset=off,length=length,url=link)
+    ent.append(new)
+    return ent

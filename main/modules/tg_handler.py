@@ -1,5 +1,5 @@
 import asyncio
-from main.modules.cv2_utils import get_epnum
+from main.modules.cv2_utils import episode_linker, get_epnum
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from main.modules.uploader import upload_video
 import os
@@ -17,7 +17,7 @@ async def tg_handler():
             if len(queue) != 0:
                 for i in queue:
                     val, id, name, ep_num, video = await start_uploading(i)
-                    queue.remove(i)
+                    #queue.remove(i)
                     await del_anime(i["title"])
                     await save_uploads(i["title"])
 
@@ -118,7 +118,7 @@ async def channel_handler(msg_id,id,name,ep_num,video):
             await app.send_sticker(MAIN,"CAACAgUAAx0CXbNEVgABATemYrg6dYZGimb4zx9Q1DAAARzJ_M_NAAI6BQAC7s_BVQFFcU052MmMHgQ")
             dl_id = dl.message_id
             caption += f"\n📥 **Download -** [{name}](https://t.me/Anime_Dex/{dl_id})"
-            await main.edit_caption(caption)
+            await main.edit_caption(caption,reply_markup=VOTE_MARKUP)
             dl_id = int(dl_id)
             # db
             await save_channel(id,dl_id)
@@ -127,13 +127,15 @@ async def channel_handler(msg_id,id,name,ep_num,video):
             dl_id = int(dl_id)
 
             dl_msg = await app.get_messages(MAIN,dl_id)
+
+            ent = episode_linker(dl_msg,ep_num,f"https://t.me/AniDec/{video}")
             text = dl_msg.text
-            text = text.replace("Episodes :","**Episodes :**")
+            #text = text.replace("Episodes :","**Episodes :**")
 
             link = f"[{ep_num}](https://t.me/AniDec/{video})"
-            text += f"\n{link}"
-
-            await app.edit_message_text(MAIN,dl_id,text)
+            text += f"\n{ep_num}"
+            
+            await app.edit_message_text(MAIN,dl_id,text,entities=ent)
 
         main_id = dl_id - 1
         buttons = InlineKeyboardMarkup([
