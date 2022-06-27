@@ -125,17 +125,14 @@ async def channel_handler(msg_id,id,name,ep_num,video):
         else:
             dl_id = await get_channel(id)
             dl_id = int(dl_id)
-
-            dl_msg = await app.get_messages(MAIN,dl_id)
-
-            ent = episode_linker(dl_msg,ep_num,f"https://t.me/AniDec/{video}")
-            text = dl_msg.text
-            #text = text.replace("Episodes :","**Episodes :**")
-
-            link = f"[{ep_num}](https://t.me/AniDec/{video})"
-            text += f"\n{ep_num}"
             
-            await app.edit_message_text(MAIN,dl_id,text,entities=ent)
+            dl_msg = await app.get_messages(MAIN,dl_id)
+            text = dl_msg.text
+            text += f"\n{ep_num}"
+
+            ent = episode_linker(text,dl_msg.entities,ep_num,f"https://t.me/AniDec/{video}")            
+            
+            await app.edit_message_text(MAIN,dl_id,text,entities=ent,disable_web_page_preview=True)
 
         main_id = dl_id - 1
         buttons = InlineKeyboardMarkup([

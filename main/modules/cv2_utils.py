@@ -63,9 +63,9 @@ def format_text(text):
         ftext = ftext.replace("  "," ")
     return ftext
 
-def episode_linker(msg: Message,text,link):
-    ent = msg.entities
-    off = len(msg.text)
+def episode_linker(f,en,text,link):
+    ent = en
+    off = len(f)
     length = len(text)
     new = MessageEntity(type="text_link",offset=off,length=length,url=link)
     ent.append(new)
