@@ -1,7 +1,7 @@
 import asyncio
 from config import CHANNEL_ID
 from main.modules.parser import auto_parser
-from main import app, status
+from main import app, status, queue
 import pyrogram
 from pyrogram import filters, idle
 from pyrogram.errors import FloodWait
@@ -14,7 +14,7 @@ loop = asyncio.get_event_loop()
 
 @app.on_message(filters.command("start"))
 async def start(bot, message: Message):
-  await message.reply_text("I am working fine :)")
+  await message.reply_text(str(queue[:3]))
 
 async def start_bot():
   print("==================================")
