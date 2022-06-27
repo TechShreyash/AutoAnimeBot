@@ -1,3 +1,4 @@
+import asyncio
 from main.modules.cv2_utils import format_time, get_duration, get_epnum, get_filesize
 from main.modules.anilist import get_anime_name
 from main.modules.anilist import get_anime_img
@@ -8,47 +9,56 @@ from main.modules.progress import progress_for_pyrogram
 from os.path import isfile
 import os
 import time
-from main import app
+from main import app, status
+from pyrogram.errors import FloodWait
 
 async def upload_video(msg: Message,file,id,tit,name,message_id,ttl):
-    
-    fuk = isfile(file)
-    if fuk:
-        r = msg
-        c_time = time.time()
-        duration = get_duration(file)
-        size = get_filesize(file)
-        ep_num = get_epnum(name)
-        thumbnail,w,h = generate_thumbnail(id,file,tit,ep_num,size,format_time(duration))
-        
-        buttons = InlineKeyboardMarkup([
-            [
-                InlineKeyboardButton(text="Info", url="https://t.me/Anime_Dex"),
-                InlineKeyboardButton(text="Comments", url=f"https://t.me/+4nUo4jBR-JgxMTVl")
-            ]
-        ])
-        caption = f"🎥 **{name}**"
-        x = await app.send_video(
-            CHANNEL_ID,
-        file,
-        caption=caption,
-        duration=duration,
-        width=w,
-        height=h,
-        thumb=thumbnail,
-        reply_markup=buttons,
-        file_name=os.path.basename(file),
-        progress=progress_for_pyrogram,
-        progress_args=(
-            os.path.basename(file),
-            r,
-            c_time,
-            ttl
-        )
-        )        
     try:
-        await r.delete()
-        os.remove(file)
-    except:
-        pass
+    
+        fuk = isfile(file)
+        if fuk:
+            r = msg
+            c_time = time.time()
+            duration = get_duration(file)
+            size = get_filesize(file)
+            ep_num = get_epnum(name)
+            thumbnail,w,h = generate_thumbnail(id,file,tit,ep_num,size,format_time(duration))
+            
+            buttons = InlineKeyboardMarkup([
+                [
+                    InlineKeyboardButton(text="Info", url="https://t.me/Anime_Dex"),
+                    InlineKeyboardButton(text="Comments", url=f"https://t.me/+4nUo4jBR-JgxMTVl")
+                ]
+            ])
+            caption = f"🎥 **{name}**"
+            x = await app.send_video(
+                CHANNEL_ID,
+            file,
+            caption=caption,
+            duration=duration,
+            width=w,
+            height=h,
+            thumb=thumbnail,
+            reply_markup=buttons,
+            file_name=os.path.basename(file),
+            progress=progress_for_pyrogram,
+            progress_args=(
+                os.path.basename(file),
+                r,
+                c_time,
+                ttl
+            )
+            )        
+        try:
+            await r.delete()
+            os.remove(file)
+        except:
+            pass
+    except FloodWait as e:
+        flood_time = int(e.x)
+        try:
+            await status.edit(f"Status : Floodwait... Sleeping For {flood_time} Seconds")
+        except:
+            pass
+        await asyncio.sleep(flood_time)
     return x.message_id

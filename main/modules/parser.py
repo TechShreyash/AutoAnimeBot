@@ -33,30 +33,25 @@ async def auto_parser():
 
         rss = parse()
         data = await get_animesdb()
+        uploaded = await get_uploads()
 
         saved_anime = []
         for i in data:
             saved_anime.append(i["name"])
 
-        for anime in rss: 
-            if anime["title"] not in saved_anime:
-                title = anime["title"]
-                await save_animedb(title,anime)
-
-        data = await get_animesdb()
-        uploaded = await get_uploads()
         uanimes = []
         for i in uploaded:
             uanimes.append(i["name"])
+        
+        for i in rss:
+            if i["title"] not in uanimes and i["title"] not in saved_anime:
+                if ".mkv" in i["name"] or ".mp4" in i["title"]:
+                    title = i["title"]
+                    await save_animedb(title,i)
 
+        data = await get_animesdb()
         for i in data:
-            if i["name"] in uanimes:
-                data.remove(i)
+            if i["data"] not in queue:
+                queue.append(i)       
 
-        for i in data:
-            if ".mkv" in i["name"] or ".mp4" in i["name"]:
-                queue.append(i["data"])
-
-        for i in queue[:10]:
-            print(i)
         await asyncio.sleep(1800)

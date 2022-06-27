@@ -1,8 +1,9 @@
+import asyncio
 from motor.motor_asyncio import AsyncIOMotorClient as MongoClient
-from config import MONGO_DB_URI
+#from config import MONGO_DB_URI
 
 print("[INFO]: STARTING MONGO DB CLIENT")
-mongo_client = MongoClient(MONGO_DB_URI)
+mongo_client = MongoClient("mongodb+srv://techz:wall@techzwallbotdb.katsq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 db = mongo_client.autoanime
 
 animedb = db.animes
@@ -37,13 +38,16 @@ async def save_uploads(name):
 # channel
 
 async def get_channel(anilist): 
-    anilist = str(anilist)
+    anilist = "a" + str(anilist)
     anime = await channeldb.find_one({"anilist":anilist})
+    print(anime)
     if anime == None:
         return 0
-    return int(anime["msg"])
+    msg = anime["msg"].replace("a","")
+    return int(msg)
 
 async def save_channel(anilist,msg):
-    id = str(msg) 
+    anilist = "a" + str(anilist)
+    id = "a" + str(msg) 
     data = await channeldb.insert_one({"anilist": anilist, "msg": msg})
     return
