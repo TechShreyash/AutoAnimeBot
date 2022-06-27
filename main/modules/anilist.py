@@ -1,5 +1,5 @@
 import asyncio
-from main.modules.cv2_utils import format_text
+#from main.modules.cv2_utils import format_text
 import requests
 import time
 import os
@@ -113,10 +113,14 @@ async def get_anime_img(query):
 
 def get_anime_name(title):
     x = title.split(" - ")[-1]
-    title = title.replace(x,"").strip().replace("S","Season ")
+    title = title.replace(x,"").strip()
     title = title[:-2].strip()
-    return title
 
+    x = title.split(" ")[-1]
+    if "S" in x:
+      y = x.replace("S","Season ")
+      title = title.replace(x,y)
+    return title
 
 atext = """
 📺 **{}**

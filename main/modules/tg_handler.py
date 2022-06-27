@@ -118,7 +118,7 @@ async def channel_handler(msg_id,id,name,ep_num,video):
             await app.send_sticker(MAIN,"CAACAgUAAx0CXbNEVgABATemYrg6dYZGimb4zx9Q1DAAARzJ_M_NAAI6BQAC7s_BVQFFcU052MmMHgQ")
             dl_id = dl.message_id
             caption += f"\n📥 **Download -** [{name}](https://t.me/Anime_Dex/{dl_id})"
-            await main.edit(caption)
+            await main.edit_caption(caption)
             dl_id = int(dl_id)
             # db
             await save_channel(id,dl_id)
