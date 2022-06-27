@@ -65,7 +65,7 @@ def format_text(text):
 
 def episode_linker(f,en,text,link):
     ent = en
-    off = len(f)
+    off = len(f) + 2
     length = len(text)
     new = MessageEntity(type="text_link",offset=off,length=length,url=link)
     ent.append(new)
