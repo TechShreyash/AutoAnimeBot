@@ -1,5 +1,5 @@
 import asyncio
-#from main.modules.cv2_utils import format_text
+from main.modules.cv2_utils import format_text
 import requests
 import time
 import os
@@ -59,9 +59,19 @@ query ($id: Int, $idMal:Int, $search: String) {
 }
 """
 
+ANIME_DB = {}
+
 async def return_json_senpai(query: str, vars_: dict):
     url = "https://graphql.anilist.co"
-    return requests.post(url, json={"query": query, "variables": vars_}).json()
+    anime = vars_["search"]
+    db = ANIME_DB.get(anime)
+
+    if db:
+      return db
+    data = requests.post(url, json={"query": query, "variables": vars_}).json()
+    ANIME_DB[anime] = data
+
+    return data
 
 temp = []
 
@@ -73,6 +83,7 @@ async def get_anime(vars_,less):
         if error:
             error_sts = error[0].get("message")
             print([f"[{error_sts}]"])
+            print(vars_)
             data = temp[0]
             temp.pop(0)
         else:
@@ -83,6 +94,8 @@ async def get_anime(vars_,less):
         tit = title.get("english")
         if tit == None:
             tit = title.get("romaji")
+
+        tit = format_text(tit)
         title_img = f"https://img.anili.st/media/{idm}"
         
         if less == True:

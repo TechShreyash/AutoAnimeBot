@@ -48,6 +48,6 @@ async def get_channel(anilist):
 
 async def save_channel(anilist,msg):
     anilist = "a" + str(anilist)
-    id = "a" + str(msg) 
+    msg = "a" + str(msg) 
     data = await channeldb.insert_one({"anilist": anilist, "msg": msg})
     return
