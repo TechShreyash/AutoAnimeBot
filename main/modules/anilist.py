@@ -1,5 +1,5 @@
 import asyncio
-#from main.modules.cv2_utils import format_text
+from main.modules.cv2_utils import format_text
 import requests
 import time
 import os
