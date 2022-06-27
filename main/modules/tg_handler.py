@@ -134,7 +134,7 @@ async def channel_handler(msg_id,id,name,ep_num,video):
             
             await app.edit_message_text(MAIN,dl_id,text,entities=ent,disable_web_page_preview=True)
 
-        main_id = dl_id - 1
+        main_id = dl_id
         buttons = InlineKeyboardMarkup([
                 [
                     InlineKeyboardButton(text="Info", url=f"https://t.me/Anime_Dex/{main_id}"),
