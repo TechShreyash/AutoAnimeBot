@@ -130,7 +130,7 @@ async def channel_handler(msg_id,id,name,ep_num,video):
             text = dl_msg.text
             text += f"\n{ep_num}"
 
-            ent = episode_linker(text,dl_msg.entities,ep_num,f"https://t.me/AniDec/{video}")            
+            ent = episode_linker(dl_msg.text,dl_msg.entities,ep_num,f"https://t.me/AniDec/{video}")            
             
             await app.edit_message_text(MAIN,dl_id,text,entities=ent,disable_web_page_preview=True)
 
