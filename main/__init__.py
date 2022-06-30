@@ -2,7 +2,7 @@ import asyncio
 from pyrogram import Client
 from config import *
 import libtorrent as lt
-from qbittorrent import Client
+from qbittorrent import Client as qbo
 
 app = Client(
     "bot",
@@ -16,7 +16,7 @@ print("[INFO]: STARTING Lib Torrent CLIENT")
 ses = lt.session()
 ses.listen_on(6881, 6891)
 
-qb = Client('http://127.0.0.1:8080/')
+qb = qbo('http://127.0.0.1:8080/')
 qb.login()
 
 queue = []
