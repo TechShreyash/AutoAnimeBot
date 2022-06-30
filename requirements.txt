@@ -11,3 +11,4 @@ uvloop
 motor
 dnspython
 opencv-python-headless
+python-qbittorrent
