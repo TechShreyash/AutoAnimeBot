@@ -15,23 +15,22 @@ async def tg_handler():
     while True:
         try:
             if len(queue) != 0:
-                for i in queue:
-                    val, id, name, ep_num, video = await start_uploading(i)
-                    #queue.remove(i)
-                    await del_anime(i["title"])
-                    await save_uploads(i["title"])
-
-                    if val != "err":
-                        await status.edit("Status : Adding Links To Main Channel...")
-                        await channel_handler(val,id,name,ep_num, video)
-                    await status.edit("Status : Sleeping...")
-                    await asyncio.sleep(60)
-        
-            os.system("rm -r downloads/*")
-            
-            if status.text != "Status : Idle...":
-                await status.edit("Status : Idle...")
-            await asyncio.sleep(120)
+                i = queue[0]                
+                val, id, name, ep_num, video = await start_uploading(i)
+                queue.remove(i)
+                await del_anime(i["title"])
+                await save_uploads(i["title"])
+                if val != "err":
+                    await status.edit("Status : Adding Links To Main Channel...")
+                    await channel_handler(val,id,name,ep_num, video)
+                await status.edit("Status : Sleeping...")
+                await asyncio.sleep(60)
+            else:        
+                os.system("rm -r downloads/*")
+                
+                if status.text != "Status : Idle...":
+                    await status.edit("Status : Idle...")
+                await asyncio.sleep(120)
         except FloodWait as e:
             flood_time = int(e.x)
             try:
@@ -58,10 +57,10 @@ async def start_uploading(data):
         file = await downloader(msg,link,size,title)
         
         if not os.path.isfile(file):
-            print(file)
+            print("path error ", file)
             os.system("ls downloads")
             await msg.delete()
-            await app.send_message("Tech_Shreyash","error check")        
+            await app.send_message("Tech_Shreyash",f"error check\n\n{file}")        
             return "err", tit, 1,1,1
 
         print("Downloaded -> ",file)
