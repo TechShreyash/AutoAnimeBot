@@ -190,6 +190,10 @@ async def votes_(_,query: CallbackQuery):
             b = 0
         if c == "":
             c = 0
+        
+        a = int(a)
+        b = int(b)
+        c = int(c)
 
         if vote == 1:
             a = a + 1
