@@ -112,7 +112,8 @@ async def channel_handler(msg_id,id,name,ep_num,video):
             link = f"[{ep_num}](https://t.me/AniDec/{video})"
             dl = await app.send_message(
                 MAIN,
-                EPITEXT.format(link)
+                EPITEXT.format(link),
+                disable_web_page_preview=True
             )
 
             await app.send_sticker(MAIN,"CAACAgUAAx0CXbNEVgABATemYrg6dYZGimb4zx9Q1DAAARzJ_M_NAAI6BQAC7s_BVQFFcU052MmMHgQ")
@@ -135,9 +136,10 @@ async def channel_handler(msg_id,id,name,ep_num,video):
             await app.edit_message_text(MAIN,dl_id,text,entities=ent,disable_web_page_preview=True)
 
         main_id = dl_id
+        info_id = main_id-1
         buttons = InlineKeyboardMarkup([
                 [
-                    InlineKeyboardButton(text="Info", url=f"https://t.me/Anime_Dex/{main_id}"),
+                    InlineKeyboardButton(text="Info", url=f"https://t.me/Anime_Dex/{info_id}"),
                     InlineKeyboardButton(text="Comments", url=f"https://t.me/Anime_Dex/{main_id}?thread={main_id}")
                 ]
             ])
@@ -172,7 +174,7 @@ async def votes_(_,query: CallbackQuery):
     vote = int(query.data.replace("vote","").strip())
 
     is_vote = await is_voted(id,user)
-    if is_vote == 0:
+    if is_vote == 1:
         return await query.answer("You Have Already Voted... You Can't Vote Again")
 
     x = query.message.reply_markup['inline_keyboard'][0]
