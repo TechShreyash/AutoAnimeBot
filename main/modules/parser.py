@@ -30,7 +30,10 @@ def parse():
 
 async def auto_parser():
     while True:
-        await status.edit(await status_text("Parsing Rss, Fetching Magnet Links..."))
+        try:
+            await status.edit(await status_text("Parsing Rss, Fetching Magnet Links..."))
+        except:
+            pass
 
         rss = parse()
         data = await get_animesdb()
@@ -56,5 +59,8 @@ async def auto_parser():
                 queue.append(i["data"])    
                 print("Saved ", i["name"])   
 
-        await status.edit(await status_text("Idle..."))
+        try:
+            await status.edit(await status_text("Idle..."))
+        except:
+            pass
         await asyncio.sleep(1800)
