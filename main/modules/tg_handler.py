@@ -22,20 +22,20 @@ async def tg_handler():
                 await del_anime(i["title"])
                 await save_uploads(i["title"])
                 if val != "err":
-                    await status.edit(await status_text("Status : Adding Links To Main Channel..."))
+                    await status.edit(await status_text("Adding Links To Main Channel..."))
                     await channel_handler(val,id,name,ep_num, video)
-                await status.edit(await status_text("Status : Sleeping..."))
+                await status.edit(await status_text("Sleeping..."))
                 await asyncio.sleep(300)
             else:        
                 os.system("rm -r downloads/*")
                 
                 if "Idle..." in status.text:
-                    await status.edit(await status_text("Status : Idle..."))
+                    await status.edit(await status_text("Idle..."))
                 await asyncio.sleep(1800)
         except FloodWait as e:
             flood_time = int(e.x)
             try:
-                await status.edit(await status_text(f"Status : Floodwait... Sleeping For {flood_time} Seconds"))
+                await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"))
             except:
                 pass
             await asyncio.sleep(flood_time)
@@ -54,7 +54,7 @@ async def start_uploading(data):
         id, img, tit = await get_anime_img(get_anime_name(title))
         msg = await app.send_photo(CHANNEL_ID,photo=img,caption=title)
 
-        await status.edit(await status_text(f"Status : Downloading {name}"))
+        await status.edit(await status_text(f"Downloading {name}"))
         file = await downloader(msg,link,size,title)
         
         if not os.path.isfile(file):
@@ -69,7 +69,7 @@ async def start_uploading(data):
         
         os.rename(file,fpath)
 
-        await status.edit(await status_text(f"Status : Uploading {name}"))
+        await status.edit(await status_text(f"Uploading {name}"))
         print(f"Uploading {name}")
         name = title.split(".")[0]
 
@@ -80,7 +80,7 @@ async def start_uploading(data):
     except FloodWait as e:
         flood_time = int(e.x)
         try:
-            await status.edit(await status_text(f"Status : Floodwait... Sleeping For {flood_time} Seconds"))
+            await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"))
         except:
             pass
         await asyncio.sleep(flood_time)
@@ -148,7 +148,7 @@ async def channel_handler(msg_id,id,name,ep_num,video):
     except FloodWait as e:
         flood_time = int(e.x)
         try:
-            await status.edit(await status_text(f"Status : Floodwait... Sleeping For {flood_time} Seconds"))
+            await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"))
         except:
             pass
         await asyncio.sleep(flood_time)
@@ -208,7 +208,7 @@ async def votes_(_,query: CallbackQuery):
     except FloodWait as e:
         flood_time = int(e.x)
         try:
-            await status.edit(await status_text(f"Status : Floodwait... Sleeping For {flood_time} Seconds"))
+            await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"))
         except:
             pass
         await asyncio.sleep(flood_time)
