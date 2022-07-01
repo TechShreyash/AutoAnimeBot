@@ -178,9 +178,9 @@ async def votes_(_,query: CallbackQuery):
         return await query.answer("You Have Already Voted... You Can't Vote Again")
 
     x = query.message.reply_markup['inline_keyboard'][0]
-    a = x[0].replace('👍','').strip()
-    b = x[1].replace('♥️','').strip()
-    c = x[2].replace('👎','').strip()
+    a = x[0]['text'].replace('👍','').strip()
+    b = x[1]['text'].replace('♥️','').strip()
+    c = x[2]['text'].replace('👎','').strip()
 
     if a == "":
         a = 0
