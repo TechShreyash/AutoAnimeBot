@@ -1,5 +1,6 @@
 from math import floor
 import os
+from main import queue
 import cv2, random
 from string import ascii_letters, ascii_uppercase, digits
 from pyrogram.types import Message, MessageEntity
@@ -70,3 +71,28 @@ def episode_linker(f,en,text,link):
     new = MessageEntity(type="text_link",offset=off,length=length,url=link)
     ent.append(new)
     return ent
+
+def tags_generator(title):
+    x = "#" + title.replace(" ","_")
+    return x
+
+async def status_text(text):
+    stat = """
+**⭐️ Status : {}
+
+⏳ Queue : 
+
+{}**
+"""
+    
+    queue_text = ""
+    for i in queue:
+        queue_text += "📌 " + i["title"].replace(".mkv","").replace(".mp4","").strip() + "\n"
+
+    if queue_text == "":
+        queue_text = "❌ Empty"
+        
+    return stat.format(
+        text,
+        queue_text
+    )

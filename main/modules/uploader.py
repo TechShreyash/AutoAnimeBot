@@ -1,5 +1,5 @@
 import asyncio
-from main.modules.cv2_utils import format_time, get_duration, get_epnum, get_filesize
+from main.modules.cv2_utils import format_time, get_duration, get_epnum, get_filesize, status_text, tags_generator
 from main.modules.anilist import get_anime_name
 from main.modules.anilist import get_anime_img
 from main.modules.thumbnail import generate_thumbnail
@@ -23,14 +23,14 @@ async def upload_video(msg: Message,file,id,tit,name,message_id,ttl):
             size = get_filesize(file)
             ep_num = get_epnum(name)
             thumbnail,w,h = generate_thumbnail(id,file,tit,ep_num,size,format_time(duration))
-            
+            tags = tags_generator(tit)
             buttons = InlineKeyboardMarkup([
                 [
                     InlineKeyboardButton(text="Info", url="https://t.me/Anime_Dex"),
                     InlineKeyboardButton(text="Comments", url=f"https://t.me/+4nUo4jBR-JgxMTVl")
                 ]
             ])
-            caption = f"🎥 **{name}**"
+            caption = f"🎥 **{name}**\n\n{tags}"
             x = await app.send_video(
                 CHANNEL_ID,
             file,
@@ -57,7 +57,7 @@ async def upload_video(msg: Message,file,id,tit,name,message_id,ttl):
     except FloodWait as e:
         flood_time = int(e.x)
         try:
-            await status.edit(f"Status : Floodwait... Sleeping For {flood_time} Seconds")
+            await status.edit(await status_text(f"Status : Floodwait... Sleeping For {flood_time} Seconds"))
         except:
             pass
         await asyncio.sleep(flood_time)

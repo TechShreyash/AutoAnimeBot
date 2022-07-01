@@ -1,5 +1,5 @@
 import asyncio
-from main.modules.cv2_utils import episode_linker, get_epnum
+from main.modules.cv2_utils import episode_linker, get_epnum, status_text
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from main.modules.uploader import upload_video
 import os
@@ -22,20 +22,20 @@ async def tg_handler():
                 await del_anime(i["title"])
                 await save_uploads(i["title"])
                 if val != "err":
-                    await status.edit("Status : Adding Links To Main Channel...")
+                    await status.edit(await status_text("Status : Adding Links To Main Channel..."))
                     await channel_handler(val,id,name,ep_num, video)
-                await status.edit("Status : Sleeping...")
-                await asyncio.sleep(60)
+                await status.edit(await status_text("Status : Sleeping..."))
+                await asyncio.sleep(300)
             else:        
                 os.system("rm -r downloads/*")
                 
-                if status.text != "Status : Idle...":
-                    await status.edit("Status : Idle...")
-                await asyncio.sleep(120)
+                if "Idle..." in status.text:
+                    await status.edit(await status_text("Status : Idle..."))
+                await asyncio.sleep(1800)
         except FloodWait as e:
             flood_time = int(e.x)
             try:
-                await status.edit(f"Status : Floodwait... Sleeping For {flood_time} Seconds")
+                await status.edit(await status_text(f"Status : Floodwait... Sleeping For {flood_time} Seconds"))
             except:
                 pass
             await asyncio.sleep(flood_time)
@@ -54,7 +54,7 @@ async def start_uploading(data):
         id, img, tit = await get_anime_img(get_anime_name(title))
         msg = await app.send_photo(CHANNEL_ID,photo=img,caption=title)
 
-        await status.edit(f"Status : Downloading {name}")
+        await status.edit(await status_text(f"Status : Downloading {name}"))
         file = await downloader(msg,link,size,title)
         
         if not os.path.isfile(file):
@@ -69,7 +69,7 @@ async def start_uploading(data):
         
         os.rename(file,fpath)
 
-        await status.edit(f"Status : Uploading {name}")    
+        await status.edit(await status_text(f"Status : Uploading {name}"))
         print(f"Uploading {name}")
         name = title.split(".")[0]
 
@@ -80,7 +80,7 @@ async def start_uploading(data):
     except FloodWait as e:
         flood_time = int(e.x)
         try:
-            await status.edit(f"Status : Floodwait... Sleeping For {flood_time} Seconds")
+            await status.edit(await status_text(f"Status : Floodwait... Sleeping For {flood_time} Seconds"))
         except:
             pass
         await asyncio.sleep(flood_time)
@@ -148,7 +148,7 @@ async def channel_handler(msg_id,id,name,ep_num,video):
     except FloodWait as e:
         flood_time = int(e.x)
         try:
-            await status.edit(f"Status : Floodwait... Sleeping For {flood_time} Seconds")
+            await status.edit(await status_text(f"Status : Floodwait... Sleeping For {flood_time} Seconds"))
         except:
             pass
         await asyncio.sleep(flood_time)
@@ -169,38 +169,47 @@ def get_vote_buttons(a,b,c):
     
 @app.on_callback_query(filters.regex("vote"))
 async def votes_(_,query: CallbackQuery):
-    id = query.message.message_id
-    user = query.from_user.id
-    vote = int(query.data.replace("vote","").strip())
+    try:
+        id = query.message.message_id
+        user = query.from_user.id
+        vote = int(query.data.replace("vote","").strip())
 
-    is_vote = await is_voted(id,user)
-    if is_vote == 1:
-        return await query.answer("You Have Already Voted... You Can't Vote Again")
+        is_vote = await is_voted(id,user)
+        if is_vote == 1:
+            return await query.answer("You Have Already Voted... You Can't Vote Again")
+        await query.answer()
 
-    x = query.message.reply_markup['inline_keyboard'][0]
-    a = x[0]['text'].replace('👍','').strip()
-    b = x[1]['text'].replace('♥️','').strip()
-    c = x[2]['text'].replace('👎','').strip()
+        x = query.message.reply_markup['inline_keyboard'][0]
+        a = x[0]['text'].replace('👍','').strip()
+        b = x[1]['text'].replace('♥️','').strip()
+        c = x[2]['text'].replace('👎','').strip()
 
-    if a == "":
-        a = 0
-    if b == "":
-        b = 0
-    if c == "":
-        c = 0
+        if a == "":
+            a = 0
+        if b == "":
+            b = 0
+        if c == "":
+            c = 0
 
-    if vote == 1:
-        a = a + 1
-        buttons = get_vote_buttons(a,b,c)
-        await query.message.edit_reply_markup(reply_markup=buttons)
-    elif vote == 2:
-        b = b + 1
-        buttons = get_vote_buttons(a,b,c)
-        await query.message.edit_reply_markup(reply_markup=buttons)
-    elif vote == 3:
-        c = c + 1
-        buttons = get_vote_buttons(a,b,c)
-        await query.message.edit_reply_markup(reply_markup=buttons)
+        if vote == 1:
+            a = a + 1
+            buttons = get_vote_buttons(a,b,c)
+            await query.message.edit_reply_markup(reply_markup=buttons)
+        elif vote == 2:
+            b = b + 1
+            buttons = get_vote_buttons(a,b,c)
+            await query.message.edit_reply_markup(reply_markup=buttons)
+        elif vote == 3:
+            c = c + 1
+            buttons = get_vote_buttons(a,b,c)
+            await query.message.edit_reply_markup(reply_markup=buttons)
 
-    await save_vote(id,user)
+        await save_vote(id,user)
+    except FloodWait as e:
+        flood_time = int(e.x)
+        try:
+            await status.edit(await status_text(f"Status : Floodwait... Sleeping For {flood_time} Seconds"))
+        except:
+            pass
+        await asyncio.sleep(flood_time)
     return
