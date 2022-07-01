@@ -56,4 +56,5 @@ async def auto_parser():
                 queue.append(i["data"])    
                 print("Saved ", i["name"])   
 
+        await status.edit(await status_text("Idle..."))
         await asyncio.sleep(1800)
