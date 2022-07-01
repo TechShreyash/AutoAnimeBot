@@ -1,14 +1,15 @@
 import asyncio
 from main.modules.cv2_utils import episode_linker, get_epnum
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from main.modules.uploader import upload_video
 import os
-from main.modules.db import del_anime, get_channel, save_channel, save_uploads
+from main.modules.db import del_anime, get_channel, save_channel, save_uploads, is_voted, save_vote
 from main.modules.downloader import downloader
 from main.modules.anilist import get_anilist_data, get_anime_img, get_anime_name
 from config import CHANNEL_ID, MAIN
 from main import app, queue, status
 from pyrogram.errors import FloodWait
+from pyrogram import filters
 
 status: Message
 async def tg_handler():
@@ -61,7 +62,7 @@ async def start_uploading(data):
             os.system("ls downloads")
             await msg.delete()
             await app.send_message("Tech_Shreyash",f"error check\n\n{file}")        
-            return "err", tit, 1,1,1
+            exit()
 
         print("Downloaded -> ",file)
         await msg.edit(f"Download Complete : {name}")
@@ -149,4 +150,55 @@ async def channel_handler(msg_id,id,name,ep_num,video):
         except:
             pass
         await asyncio.sleep(flood_time)
+    return
+
+def get_vote_buttons(a,b,c):
+    buttons = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(text=f"👍 {a}", callback_data="vote1"),
+                InlineKeyboardButton(text=f"♥️ {b}", callback_data="vote2"),
+                InlineKeyboardButton(text=f"👎 {c}", callback_data="vote3")
+            ]
+        ]
+    )
+    return buttons
+
+    
+@app.on_callback_query(filters.regex("vote"))
+async def votes_(_,query: CallbackQuery):
+    id = query.message.message_id
+    user = query.from_user.id
+    vote = int(query.data.replace("vote","").strip())
+
+    is_vote = await is_voted(id,user)
+    if is_vote == 0:
+        return await query.answer("You Have Already Voted... You Can't Vote Again")
+
+    x = query.message.reply_markup['inline_keyboard'][0]
+    a = x[0].replace('👍','').strip()
+    b = x[1].replace('♥️','').strip()
+    c = x[2].replace('👎','').strip()
+
+    if a == "":
+        a = 0
+    if b == "":
+        b = 0
+    if c == "":
+        c = 0
+
+    if vote == 1:
+        a = a + 1
+        buttons = get_vote_buttons(a,b,c)
+        await query.message.edit_reply_markup(reply_markup=buttons)
+    elif vote == 2:
+        b = b + 1
+        buttons = get_vote_buttons(a,b,c)
+        await query.message.edit_reply_markup(reply_markup=buttons)
+    elif vote == 3:
+        c = c + 1
+        buttons = get_vote_buttons(a,b,c)
+        await query.message.edit_reply_markup(reply_markup=buttons)
+
+    await save_vote(id,user)
     return

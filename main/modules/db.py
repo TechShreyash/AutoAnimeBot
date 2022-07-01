@@ -9,6 +9,7 @@ db = mongo_client.autoanime
 animedb = db.animes
 uploadsdb = db.uploads
 channeldb = db.channel
+votedb = db.votes
 
 async def get_animesdb(): 
     anime_list = []
@@ -40,7 +41,6 @@ async def save_uploads(name):
 async def get_channel(anilist): 
     anilist = "a" + str(anilist)
     anime = await channeldb.find_one({"anilist":anilist})
-    print(anime)
     if anime == None:
         return 0
     msg = anime["msg"].replace("a","")
@@ -50,4 +50,20 @@ async def save_channel(anilist,msg):
     anilist = "a" + str(anilist)
     msg = "a" + str(msg) 
     data = await channeldb.insert_one({"anilist": anilist, "msg": msg})
+    return
+
+# vote
+
+async def is_voted(id,user): 
+    id = "a" + str(id)
+    votes = await votedb.find_one({"id":id})
+    if votes == None :
+        return 0
+    if user not in votes["users"]:
+        return 0
+    return 1
+
+async def save_vote(id,user):
+    id = "a" + str(id)
+    data = await votedb.update_one({"id": id},{"$addToSet": {"users": user}},upsert=True)
     return
