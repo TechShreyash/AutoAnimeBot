@@ -2,7 +2,7 @@ import asyncio
 import time
 import os
 import glob
-from main import ses,qb
+from main import ses
 import libtorrent as lt
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from main.modules.progress import *
@@ -62,30 +62,37 @@ Speed: {}/sec
 
 
 async def downloader(message: Message, link: str,total,name):
-  qb.download_from_link(link,savepath="/downloads/")
-  torrent = qb.torrents()[0]
+  params = {
+  'save_path': 'downloads/',
+  'storage_mode': lt.storage_mode_t(2),}
+
+  handle = lt.add_magnet_uri(ses, link, params)
+  ses.start_dht()
 
   r = message
-  name = torrent["name"]
-  hash = torrent["hash"]
-  total = torrent["total_size"]
-  downloaded = 0
-  progress = round(downloaded/total,2)
+  await r.edit('Downloading Metadata...')
     
-  print(f"Downloading {str(name)}")
-  await r.edit(f'Got Metadata, Starting Download Of **{str(name)}**...')
+  while (not handle.has_metadata()):
+    
+    await asyncio.sleep(1)
+    
+  print(f"Downloading {str(handle.name())}")
+  await r.edit(f'Got Metadata, Starting Download Of **{str(handle.name())}**...')
 
-  while downloaded < total or downloaded == 0:
-    total = torrent["total_size"]
-    downloaded = torrent["total_downloaded"]
-    speed = torrent["dl_speed"]
+  trgt = str(handle.name())
 
+  while (handle.status().state != lt.torrent_status.seeding):
+    
+    s = handle.status()
+    
+    state_str = ['queued', 'checking', 'downloading metadata', 'downloading', 'finished', 'seeding', 'allocating']
+    
     try:
       text = get_download_text(
           name, 
-          "Downloading", 
-          progress,
-          speed,
+          str(state_str[s.state]).capitalize(), 
+          s.progress,
+          s.download_rate,
           total
         )
       await r.edit(
@@ -96,4 +103,4 @@ async def downloader(message: Message, link: str,total,name):
 
     await asyncio.sleep(10)
   
-  return "downloads/" + name
+  return "downloads/" + trgt
