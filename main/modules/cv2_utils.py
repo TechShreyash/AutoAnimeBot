@@ -78,11 +78,11 @@ def tags_generator(title):
 
 async def status_text(text):
     stat = """
-**⭐️ Status : {}
+⭐️ **Status :** {}
 
-⏳ Queue : 
+⏳ **Queue :** 
 
-{}**
+{}
 """
     
     queue_text = ""
