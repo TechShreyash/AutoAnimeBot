@@ -39,6 +39,8 @@ async def tg_handler():
             except:
                 pass
             await asyncio.sleep(flood_time)
+        except:
+            pass
             
 
 async def start_uploading(data):
