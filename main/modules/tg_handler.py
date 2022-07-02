@@ -33,7 +33,7 @@ async def tg_handler():
                     await status.edit(await status_text("Idle..."))
                 await asyncio.sleep(1800)
         except FloodWait as e:
-            flood_time = int(e.x)
+            flood_time = int(e.x) + 5
             try:
                 await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"))
             except:
@@ -78,7 +78,7 @@ async def start_uploading(data):
 
         name = name.replace(" [@AutoAiringAnimes].","").replace(ext,"").strip()
     except FloodWait as e:
-        flood_time = int(e.x)
+        flood_time = int(e.x) + 5
         try:
             await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"))
         except:
@@ -146,7 +146,7 @@ async def channel_handler(msg_id,id,name,ep_num,video):
         await app.edit_message_reply_markup(CHANNEL_ID,video,reply_markup=buttons)
 
     except FloodWait as e:
-        flood_time = int(e.x)
+        flood_time = int(e.x) + 5
         try:
             await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"))
         except:
@@ -210,7 +210,7 @@ async def votes_(_,query: CallbackQuery):
 
         await save_vote(id,user)
     except FloodWait as e:
-        flood_time = int(e.x)
+        flood_time = int(e.x) + 5
         try:
             await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"))
         except:

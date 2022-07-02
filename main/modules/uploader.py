@@ -55,7 +55,7 @@ async def upload_video(msg: Message,file,id,tit,name,message_id,ttl):
         except:
             pass
     except FloodWait as e:
-        flood_time = int(e.x)
+        flood_time = int(e.x) + 5
         try:
             await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"))
         except:
