@@ -1,6 +1,7 @@
+import asyncio
 import os
 import random, cv2
-from string import ascii_uppercase, hexdigits, ascii_letters
+from string import ascii_uppercase, digits
 from PIL import Image, ImageOps, ImageFilter, ImageDraw, ImageFont
 import requests
 from bs4 import BeautifulSoup as bs
@@ -41,7 +42,7 @@ def get_cover(id):
 
         r = requests.get(img).content
 
-        fname = "./" + "".join(random.choices(ascii_uppercase + hexdigits,k = 10)) + ".jpg"
+        fname = "./" + "".join(random.choices(ascii_uppercase + digits,k = 10)) + ".jpg"
         with open(fname,"wb") as file:
             file = file.write(r)
 
@@ -52,7 +53,7 @@ def get_cover(id):
         if err != 5:
             return get_cover(id)
         else:
-            return "./fC2HMM9ZZE.jpg"
+            return "c4UUTC4DAe.jpg"
 
 def changeImageSize(maxWidth, maxHeight, image):
     widthRatio = maxWidth / image.size[0]
@@ -106,7 +107,7 @@ def generate_thumbnail(id,file,title,ep_num,size,dur):
 
     image3 = ImageDraw.Draw(image2)
 
-    image3.text((((1280-w)/2)-80,80),"AniDec","white",font2,stroke_width=5,stroke_fill="black")
+    image3.text((150,80),"AutoAiringAnimes","white",font2,stroke_width=5,stroke_fill="black")
 
     text1, text2 = truncate(title)
     image3.text((60,230),text1,"white",font1,stroke_width=5,stroke_fill="black")
@@ -120,7 +121,7 @@ def generate_thumbnail(id,file,title,ep_num,size,dur):
     image2.thumbnail((1280,720))
     w,h = image2.size
 
-    thumb = "./" + "".join(random.choices(ascii_uppercase + hexdigits,k = 10)) + ".jpg"
+    thumb = "./" + "".join(random.choices(ascii_uppercase + digits,k = 10)) + ".jpg"
     image2.save(thumb)
     
     try:

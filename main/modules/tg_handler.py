@@ -24,7 +24,7 @@ async def tg_handler():
                 if val != "err":
                     await status.edit(await status_text("Adding Links To Main Channel..."))
                     await channel_handler(val,id,name,ep_num, video)
-                await status.edit(await status_text("Sleeping..."))
+                await status.edit(await status_text("Sleeping For 5 Minutes..."))
                 await asyncio.sleep(300)
             else:        
                 os.system("rm -r downloads/*")
@@ -48,7 +48,7 @@ async def start_uploading(data):
         size = data["size"]
 
         name, ext = title.split(".")
-        name += " [@AniDec]." + ext
+        name += " [@AutoAiringAnimes]." + ext
         fpath = "downloads/" + name
 
         id, img, tit = await get_anime_img(get_anime_name(title))
@@ -76,7 +76,7 @@ async def start_uploading(data):
         message_id = int(msg.message_id) + 1
         video = await upload_video(msg,fpath,id,tit,name,message_id,size)
 
-        name = name.replace(" [@AniDec].","").replace(ext,"").strip()
+        name = name.replace(" [@AutoAiringAnimes].","").replace(ext,"").strip()
     except FloodWait as e:
         flood_time = int(e.x)
         try:
@@ -109,7 +109,7 @@ async def channel_handler(msg_id,id,name,ep_num,video):
             img, caption = await get_anilist_data(name)
             main = await app.send_photo(MAIN,photo=img,caption=caption,reply_markup=VOTE_MARKUP)
 
-            link = f"[{ep_num}](https://t.me/AniDec/{video})"
+            link = f"[{ep_num}](https://t.me/AutoAiringAnimes/{video})"
             dl = await app.send_message(
                 MAIN,
                 EPITEXT.format(link),
@@ -131,7 +131,7 @@ async def channel_handler(msg_id,id,name,ep_num,video):
             text = dl_msg.text
             text += f"\n{ep_num}"
 
-            ent = episode_linker(dl_msg.text,dl_msg.entities,ep_num,f"https://t.me/AniDec/{video}")            
+            ent = episode_linker(dl_msg.text,dl_msg.entities,ep_num,f"https://t.me/AutoAiringAnimes/{video}")            
             
             await app.edit_message_text(MAIN,dl_id,text,entities=ent,disable_web_page_preview=True)
 
