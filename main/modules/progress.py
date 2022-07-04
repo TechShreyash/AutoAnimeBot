@@ -1,4 +1,4 @@
-from main.modules.downloader import get_download_text
+from main.modules.utils import get_progress_text
 import math
 import time
 
@@ -39,7 +39,7 @@ async def progress_for_pyrogram(
         try:
             percentage = round(percentage/100,2)
             await message.edit(
-                text=get_download_text(
+                text=get_progress_text(
                     ud_type,
                     "Uploading",
                     percentage,

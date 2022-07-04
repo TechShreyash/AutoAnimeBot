@@ -5,7 +5,7 @@ from string import ascii_uppercase, digits
 from PIL import Image, ImageOps, ImageFilter, ImageDraw, ImageFont
 import requests
 from bs4 import BeautifulSoup as bs
-from .cv2_utils import get_screenshot
+from .utils import get_screenshot
 
 def make_col():
     return (random.randint(0,255),random.randint(0,255),random.randint(0,255))

@@ -1,5 +1,6 @@
 import asyncio
-from main.modules.cv2_utils import episode_linker, get_epnum, status_text
+from main.modules.compressor import compress_video
+from main.modules.utils import episode_linker, get_duration, get_epnum, status_text
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from main.modules.uploader import upload_video
 import os
@@ -70,10 +71,17 @@ async def start_uploading(data):
         await msg.edit(f"Download Complete : {name}")
         
         os.rename(file,fpath)
+        name = title.split(".")[0]
+
+        await status.edit(await status_text(f"Encoding {name}"))
+        print(f"Encoding {name}")
+        duration = get_duration(fpath)
+        file = await compress_video(fpath,duration,msg,name)
+        os.rename(file,fpath)
 
         await status.edit(await status_text(f"Uploading {name}"))
         print(f"Uploading {name}")
-        name = title.split(".")[0]
+        
 
         message_id = int(msg.message_id) + 1
         video = await upload_video(msg,fpath,id,tit,name,message_id,size)

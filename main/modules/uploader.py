@@ -1,5 +1,5 @@
 import asyncio
-from main.modules.cv2_utils import format_time, get_duration, get_epnum, get_filesize, status_text, tags_generator
+from main.modules.utils import format_time, get_duration, get_epnum, get_filesize, status_text, tags_generator
 from main.modules.anilist import get_anime_name
 from main.modules.anilist import get_anime_img
 from main.modules.thumbnail import generate_thumbnail

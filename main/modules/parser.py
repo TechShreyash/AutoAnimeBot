@@ -1,5 +1,5 @@
 import asyncio
-from main.modules.cv2_utils import status_text
+from main.modules.utils import status_text
 
 from main import status
 from main.modules.db import get_animesdb, get_uploads, save_animedb
