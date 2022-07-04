@@ -27,13 +27,14 @@ async def tg_handler():
                     await channel_handler(val,id,name,ep_num, video)
                 await status.edit(await status_text("Sleeping For 5 Minutes..."))
                 await asyncio.sleep(300)
-            else:
-                try:                
-                    if "Idle..." in status.text:
+            else:                
+                if "Idle..." in status.text:
+                    try:
                         await status.edit(await status_text("Idle..."))
-                    await asyncio.sleep(60)
-                except:
-                    pass
+                    except:
+                        pass
+                await asyncio.sleep(60)
+                
         except FloodWait as e:
             flood_time = int(e.x) + 5
             try:
