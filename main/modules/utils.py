@@ -100,18 +100,18 @@ async def status_text(text):
 
 def get_progress_text(name=None,status=None,completed=None,speed=None,total=None,enco=False):
     text = """Name: {}
-    {}: {}%
-    ⟨⟨{}⟩⟩
-    {} of {}
-    Speed: {}
-    ETA: {}
+{}: {}%
+⟨⟨{}⟩⟩
+{} of {}
+Speed: {}
+ETA: {}
     """
 
     text2 = """Name: {}
-    {}: {}%
-    ⟨⟨{}⟩⟩
-    Speed: {}
-    ETA: {}
+{}: {}%
+⟨⟨{}⟩⟩
+Speed: {}
+ETA: {}
     """
 
     if enco == False:

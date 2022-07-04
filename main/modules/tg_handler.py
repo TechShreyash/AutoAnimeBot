@@ -78,7 +78,9 @@ async def start_uploading(data):
         print(f"Encoding {name}")
         duration = get_duration(fpath)
         file = await compress_video(fpath,duration,msg,name)
+        print(file)
         os.rename(file,fpath)
+        print(fpath)
 
         await status.edit(await status_text(f"Uploading {name}"))
         print(f"Uploading {name}")
