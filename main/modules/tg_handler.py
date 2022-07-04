@@ -18,8 +18,9 @@ async def tg_handler():
         try:
             if len(queue) != 0:
                 i = queue[0]                
-                val, id, name, ep_num, video = await start_uploading(i)
                 queue.remove(i)
+                val, id, name, ep_num, video = await start_uploading(i)
+                
                 await del_anime(i["title"])
                 await save_uploads(i["title"])
                 if val != "err":
@@ -61,7 +62,8 @@ async def start_uploading(data):
 
         duration = get_duration(fpath)
         compressed = await compress_video(fpath,duration,msg,name)
-        return
+        print(compressed)
+        return compressed
 
         await status.edit(await status_text(f"Downloading {name}"))
         file = await downloader(msg,link,size,title)

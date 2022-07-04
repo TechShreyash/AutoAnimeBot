@@ -7,6 +7,8 @@ import json
 from main.modules.utils import get_progress_text
 
 async def compress_video(video_file,total_time, message, name):
+  print(video_file,total_time, message, name)
+
   x = "." + video_file.split(".")[-1]
   fname = video_file.replace(x,'').strip() + "_compressed" + x
   out = fname  
@@ -43,6 +45,7 @@ async def compress_video(video_file,total_time, message, name):
   fname,
   "-y"
   ]
+  print(file_genertor_command)
 
   process = await asyncio.create_subprocess_exec(
       *file_genertor_command,
