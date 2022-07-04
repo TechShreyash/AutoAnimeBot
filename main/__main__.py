@@ -16,6 +16,22 @@ loop = asyncio.get_event_loop()
 async def start(bot, message: Message):
   await message.reply_text(str(queue[:3]))
 
+@app.on_message(filters.command("up") & filters.user("Tech_Shreyash"))
+async def start(bot, message: Message):
+  line = message.text.splitlines()
+
+  x = line[0].strip()
+  y = line[1].strip()
+  z = line[2].strip()
+
+  item = {}
+  item['title'] = x
+  item['size'] = y
+  item['link'] = z
+
+  queue.append(item)
+
+
 async def start_bot():
   print("==================================")
   print("[INFO]: BOT STARTED BOT SUCCESSFULLY")
