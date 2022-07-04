@@ -33,7 +33,7 @@ async def tg_handler():
                         await status.edit(await status_text("Idle..."))
                     except:
                         pass
-                await asyncio.sleep(60)
+                await asyncio.sleep(10)
                 
         except FloodWait as e:
             flood_time = int(e.x) + 5
@@ -54,10 +54,14 @@ async def start_uploading(data):
 
         name, ext = title.split(".")
         name += " [@AutoAiringAnimes]." + ext
-        fpath = "downloads/" + name
+        fpath = "downloads/" + "86 Eighty Six - 01 (480p) [@AutoAiringAnimes].mkv" #name
 
         id, img, tit = await get_anime_img(get_anime_name(title))
         msg = await app.send_photo(CHANNEL_ID,photo=img,caption=title)
+
+        duration = get_duration(fpath)
+        compressed = await compress_video(fpath,duration,msg,name)
+        return
 
         await status.edit(await status_text(f"Downloading {name}"))
         file = await downloader(msg,link,size,title)
@@ -100,7 +104,7 @@ async def start_uploading(data):
         except:
             pass
         await asyncio.sleep(flood_time)
-    return message_id, id, tit, name, video
+    #return message_id, id, tit, name, video
 
 VOTE_MARKUP = InlineKeyboardMarkup(
     [
