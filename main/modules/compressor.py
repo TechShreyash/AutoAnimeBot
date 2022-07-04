@@ -17,38 +17,13 @@ async def compress_video(video_file,total_time, message, name):
   with open(progress, 'w') as f:
     pass
   
-  file_genertor_command = [
-    "ffmpeg",
-    "-hide_banner",
-      "-loglevel",
-      "quiet",
-      "-progress",
-      progress,
-  "-i",
-  video_file,
-  "-preset",
-  "ultrafast",
-  "-c:v",
-  "libx265",
-  "-crf",
-  "27",
-  "-map",
-  "0:v",
-  "-c:a",
-  "aac",
-  "-map",
-  "0:a",
-  "-c:s",
-  "copy",
-  "-map",
-  "0:s?",
-  fname,
-  "-y"
-  ]
-  print(file_genertor_command)
+
+  cmd = """ffmpeg -hide_banner -loglevel quiet -progress "progressaa.txt" -i "{}" -preset ultrafast -c:v libx265 -crf 27 -map 0:v -c:a aac -map 0:a -c:s copy -map 0:s? "{}" -y"""
+  cmd = cmd.format(video_file,out)
+  print(cmd)
 
   process = await asyncio.create_subprocess_exec(
-      *file_genertor_command,
+      cmd,
       # stdout must a pipe to be accessible as process.stdout
       stdout=asyncio.subprocess.PIPE,
       stderr=asyncio.subprocess.PIPE,
