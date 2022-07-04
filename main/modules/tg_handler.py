@@ -73,13 +73,16 @@ async def start_uploading(data):
         await msg.edit(f"Download Complete : {name}")
         
         os.rename(file,fpath)
+        print(file)
 
         await status.edit(await status_text(f"Encoding {name}"))
         print(f"Encoding {name}")
+
         duration = get_duration(fpath)
-        file = await compress_video(fpath,duration,msg,name)
-        print(file)
-        os.rename(file,fpath)
+        compressed = await compress_video(fpath,duration,msg,name)
+
+        print(compressed)
+        os.rename(compressed,fpath)
         print(fpath)
 
         await status.edit(await status_text(f"Uploading {name}"))

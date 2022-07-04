@@ -71,20 +71,16 @@ async def compress_video(video_file,total_time, message, name):
           break
       time_done = floor(int(time_in_us)/1000000) # time of video that is completed compressing in seconds      
     
-    try:
-      textt = get_progress_text(
-        name,
-        "Encoding",
-        time_done,
-        speed,
-        total_time,
-        enco=True
-      )
-      await message.edit(textt)
-    except:
-      pass
-  try:
-      os.remove(video_file)
-  except:
-      pass
+      try:
+        textt = get_progress_text(
+          name,
+          "Encoding",
+          time_done,
+          speed,
+          total_time,
+          enco=True
+        )
+        await message.edit(textt)
+      except:
+        pass
   return out
