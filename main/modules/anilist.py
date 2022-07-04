@@ -5,6 +5,7 @@ import time
 import os
 from bs4 import BeautifulSoup
 from datetime import datetime
+from string import digits
 
 ANIME_QUERY = """
 query ($id: Int, $idMal:Int, $search: String) {
@@ -110,16 +111,18 @@ async def get_anime_img(query):
 
     #title = format_text(title)
     return idm, title_img, title
-
+    
 def get_anime_name(title):
     x = title.split(" - ")[-1]
     title = title.replace(x,"").strip()
     title = title[:-2].strip()
 
-    x = title.split(" ")[-1]
-    if "S" in x:
-      y = x.replace("S","Season ")
-      title = title.replace(x,y)
+    x = title.split(" ")[-1].strip()
+
+    if str(x[-1]) in digits and str(x[0]) == "S" and str(x[1]) in digits:
+      if "S" in x:
+        y = x.replace("S","Season ")
+        title = title.replace(x,y)
     return title
 
 atext = """
