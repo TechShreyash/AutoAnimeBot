@@ -7,11 +7,9 @@ import json
 from main.modules.utils import get_progress_text
 
 async def compress_video(video_file,total_time, message, name):
-  x = video_file.split(".")
-  fname = video_file.replace(x[-1],'').strip() + "_compressed" + x[-1].strip()  
+  x = "." + video_file.split(".")[-1]
+  fname = video_file.replace(x,'').strip() + "_compressed" + x
   out = fname  
-  video_file = '"' + video_file + '"'
-  fname = '"' + fname + '"'
   
   progress = "progressaa.txt"
   with open(progress, 'w') as f:
@@ -19,6 +17,11 @@ async def compress_video(video_file,total_time, message, name):
   
   file_genertor_command = [
     "ffmpeg",
+    "-hide_banner",
+      "-loglevel",
+      "quiet",
+      "-progress",
+      progress,
   "-i",
   video_file,
   "-preset",
@@ -40,6 +43,7 @@ async def compress_video(video_file,total_time, message, name):
   fname,
   "-y"
   ]
+
   process = await asyncio.create_subprocess_exec(
       *file_genertor_command,
       # stdout must a pipe to be accessible as process.stdout
@@ -65,7 +69,7 @@ async def compress_video(video_file,total_time, message, name):
       if len(progress):
         if progress[-1] == "end":
           break
-      time_done = floor(time_in_us/1000000) # time of video that is completed compressing in seconds      
+      time_done = floor(int(time_in_us)/1000000) # time of video that is completed compressing in seconds      
     
     try:
       textt = get_progress_text(

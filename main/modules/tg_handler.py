@@ -67,13 +67,12 @@ async def start_uploading(data):
             os.system("ls downloads")
             await msg.delete()
             await app.send_message("Tech_Shreyash",f"error check\n\n{file}")        
-            exit()
+            return "err",1,1,1,1
 
         print("Downloaded -> ",file)
         await msg.edit(f"Download Complete : {name}")
         
         os.rename(file,fpath)
-        name = title.split(".")[0]
 
         await status.edit(await status_text(f"Encoding {name}"))
         print(f"Encoding {name}")
