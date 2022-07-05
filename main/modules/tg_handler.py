@@ -82,8 +82,11 @@ async def start_uploading(data):
         print(f"Encoding {name}")
 
         duration = get_duration(fpath)
+        os.rename(fpath,"downloads/video.mkv")
         compressed = await compress_video(fpath,duration,msg,name)
+        
         print(compressed)
+        os.rename("downloads/out.mkv",fpath)
         
         if compressed != None:
             try:
