@@ -8,19 +8,14 @@ import subprocess
 import math
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-async def compress_video(video,total_time, message, name):
-    out = "out.mkv" 
-    progress = "progressaa.txt"
-    with open(progress, 'w') as f:
-      pass
-    
-    file_genertor_command = [
-      "ffmpeg",
+async def task(video,out):
+  await asyncio.create_subprocess_exec(
+        "ffmpeg",
       "-hide_banner",
       "-loglevel",
       "quiet",
       "-progress",
-      progress,
+      "progressaa.txt",
       "-i",
       video,
       "-preset", 
@@ -40,22 +35,19 @@ async def compress_video(video,total_time, message, name):
       "-map",
       "0:s?",
       out,
-      "-y"      
-    ]
+      "-y",
+    )
+
+async def compress_video(video,total_time, message, name):
+    out = "out.mkv" 
+    progress = "progressaa.txt"
+    with open(progress, 'w') as f:
+      pass
 
     print("started")
+    asyncio.create_task(task(video,out))
 
-    process = await asyncio.create_subprocess_exec(
-        *file_genertor_command,
-        # stdout must a pipe to be accessible as process.stdout
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE,
-    )
-    print(process)    
-    print(process.returncode)
-    
-    while process.returncode != 0:
-      print(process.returncode)
+    while True:
       with open(progress, 'r+') as file:
         text = file.read()
         frame = re.findall("frame=(\d+)", text)
@@ -87,13 +79,7 @@ async def compress_video(video,total_time, message, name):
         except:
             pass
       await asyncio.sleep(5)
-          
-    stdout, stderr = await process.communicate()
-
-    e_response = stderr.decode().strip()
-    t_response = stdout.decode().strip()
-    print(e_response)
-    print(t_response)
+      
     if os.path.lexists(out):
         return out
     else:

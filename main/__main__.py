@@ -1,4 +1,5 @@
 import asyncio
+import re
 from config import CHANNEL_ID
 from main.modules.parser import auto_parser
 from main import app, status, queue
@@ -18,18 +19,26 @@ async def start(bot, message: Message):
 
 @app.on_message(filters.command("up") & filters.user("Tech_Shreyash"))
 async def start(bot, message: Message):
-  line = message.text.splitlines()
+  with open("progressaa.txt", 'r+') as file:
+    text = file.read()
+    frame = re.findall("frame=(\d+)", text)
+    time_in_us=re.findall("out_time_ms=(\d+)", text)
+    progress=re.findall("progress=(\w+)", text)
+    speed=re.findall("speed=(\d+\.?\d*)", text)
+    if len(frame):
+      frame = int(frame[-1])
+    else:
+      frame = 1
+    if len(speed):
+      speed = speed[-1]
+    else:
+      speed = 1
+    if len(time_in_us):
+      time_in_us = time_in_us[-1]
+    else:
+      time_in_us = 1
 
-  x = line[0].strip()
-  y = line[1].strip()
-  z = line[2].strip()
-
-  item = {}
-  item['title'] = x
-  item['size'] = y
-  item['link'] = z
-
-  queue.append(item)
+    await message.reply_text(time_in_us)
 
 
 async def start_bot():

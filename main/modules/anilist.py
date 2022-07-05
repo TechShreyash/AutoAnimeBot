@@ -100,7 +100,6 @@ async def get_anime(vars_,less):
         title_img = f"https://img.anili.st/media/{idm}"
         
         if less == True:
-          print(idm, title_img, tit)
           return idm, title_img, tit
 
         return data

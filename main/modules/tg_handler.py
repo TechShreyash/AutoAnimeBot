@@ -60,32 +60,15 @@ async def start_uploading(data):
         id, img, tit = await get_anime_img(get_anime_name(title))
         msg = await app.send_photo(CHANNEL_ID,photo=img,caption=title)
 
-
-
         await status.edit(await status_text(f"Downloading {name}"))
         file = await downloader(msg,link,size,title)
-        
-        if not os.path.isfile(file):
-            print("path error ", file)
-            os.system("ls downloads")
-            await msg.delete()
-            await app.send_message("Tech_Shreyash",f"error check\n\n{file}")        
-            return "err",1,1,1,1
 
-        print("Downloaded -> ",file)
         await msg.edit(f"Download Complete : {name}")
-        
-        os.rename(file,fpath)
-        print(fpath)
-
         await status.edit(await status_text(f"Encoding {name}"))
-        print(f"Encoding {name}")
 
-        duration = get_duration(fpath)
-        os.rename(fpath,"video.mkv")
+        duration = get_duration(file)
+        os.rename(file,"video.mkv")
         compressed = await compress_video(fpath,duration,msg,name)
-        
-        print(compressed)
         os.rename("out.mkv",fpath)
         
         if compressed != None:
@@ -99,9 +82,6 @@ async def start_uploading(data):
             os.rename("video.mkv",fpath)
 
         await status.edit(await status_text(f"Uploading {name}"))
-        print(f"Uploading {name}")
-        
-
         message_id = int(msg.id) + 1
         video = await upload_video(msg,fpath,id,tit,name,size)
 
