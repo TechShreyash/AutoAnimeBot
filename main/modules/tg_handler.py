@@ -55,15 +55,12 @@ async def start_uploading(data):
 
         name, ext = title.split(".")
         name += " [@AutoAiringAnimes]." + ext
-        fpath = "downloads/" + "86 Eighty Six - 01 (480p) [@AutoAiringAnimes].mkv" #name
+        fpath = "downloads/" + name
 
         id, img, tit = await get_anime_img(get_anime_name(title))
         msg = await app.send_photo(CHANNEL_ID,photo=img,caption=title)
 
-        duration = get_duration(fpath)
-        compressed = await compress_video(fpath,duration,msg,name)
-        print(compressed)
-        return compressed
+
 
         await status.edit(await status_text(f"Downloading {name}"))
         file = await downloader(msg,link,size,title)
@@ -86,10 +83,16 @@ async def start_uploading(data):
 
         duration = get_duration(fpath)
         compressed = await compress_video(fpath,duration,msg,name)
-
         print(compressed)
-        os.rename(compressed,fpath)
-        print(fpath)
+        
+        if compressed != None:
+            try:
+                os.remove(fpath)
+                os.rename(compressed,fpath)
+            except:
+                pass
+        else:
+            print("Encoding Failed Uploading The Original File")
 
         await status.edit(await status_text(f"Uploading {name}"))
         print(f"Uploading {name}")
