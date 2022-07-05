@@ -98,8 +98,8 @@ async def start_uploading(data):
         print(f"Uploading {name}")
         
 
-        id = int(msg.id) + 1
-        video = await upload_video(msg,fpath,id,tit,name,id,size)
+        message_id = int(msg.id) + 1
+        video = await upload_video(msg,fpath,id,tit,name,size)
 
         name = name.replace(" [@AutoAiringAnimes].","").replace(ext,"").strip()
     except FloodWait as e:
@@ -109,7 +109,7 @@ async def start_uploading(data):
         except:
             pass
         await asyncio.sleep(flood_time)
-    #return id, id, tit, name, video
+    return message_id, id, tit, name, video
 
 VOTE_MARKUP = InlineKeyboardMarkup(
     [

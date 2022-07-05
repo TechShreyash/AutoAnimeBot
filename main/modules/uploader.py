@@ -12,7 +12,7 @@ import time
 from main import app, status
 from pyrogram.errors import FloodWait
 
-async def upload_video(msg: Message,file,id,tit,name,id,ttl):
+async def upload_video(msg: Message,file,id,tit,name,ttl):
     try:
     
         fuk = isfile(file)
