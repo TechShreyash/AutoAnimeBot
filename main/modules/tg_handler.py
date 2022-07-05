@@ -82,11 +82,11 @@ async def start_uploading(data):
         print(f"Encoding {name}")
 
         duration = get_duration(fpath)
-        os.rename(fpath,"downloads/video.mkv")
+        os.rename(fpath,"video.mkv")
         compressed = await compress_video(fpath,duration,msg,name)
         
         print(compressed)
-        os.rename("downloads/out.mkv",fpath)
+        os.rename("out.mkv",fpath)
         
         if compressed != None:
             try:
@@ -96,6 +96,7 @@ async def start_uploading(data):
                 pass
         else:
             print("Encoding Failed Uploading The Original File")
+            os.rename("video.mkv",fpath)
 
         await status.edit(await status_text(f"Uploading {name}"))
         print(f"Uploading {name}")
