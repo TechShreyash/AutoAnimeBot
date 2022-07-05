@@ -8,35 +8,8 @@ import subprocess
 import math
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-async def task(video,out):
-  await asyncio.create_subprocess_exec(
-        "ffmpeg",
-      "-hide_banner",
-      "-loglevel",
-      "quiet",
-      "-progress",
-      "progressaa.txt",
-      "-i",
-      video,
-      "-preset", 
-      "fast",
-      "-c:v", 
-      "libx265",
-      "-crf",
-      "27",
-      "-map",
-      "0:v",
-      "-c:a",
-      "aac",
-      "-map",
-      "0:a",
-      "-c:s",
-      "copy",
-      "-map",
-      "0:s?",
-      out,
-      "-y",
-    )
+async def task():
+  os.system("ffmpeg -hide_banner -loglevel quiet -progress progressaa.txt -i video.mkv -preset fast -c:v libx265 -crf 27 -map 0:v -c:a aac -map 0:a -c:s copy -map 0:s? out.mkv -y")
 
 async def compress_video(video,total_time, message, name):
     out = "out.mkv" 
