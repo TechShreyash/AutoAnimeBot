@@ -166,7 +166,7 @@ ETA: {}
         bar += round(((20 - len(bar))/2))*blank
 
 
-
+        speed += "/sec"
         text = text.format(
             name,
             status,

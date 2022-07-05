@@ -76,7 +76,7 @@ async def start_uploading(data):
         await msg.edit(f"Download Complete : {name}")
         
         os.rename(file,fpath)
-        print(file)
+        print(fpath)
 
         await status.edit(await status_text(f"Encoding {name}"))
         print(f"Encoding {name}")
@@ -98,8 +98,8 @@ async def start_uploading(data):
         print(f"Uploading {name}")
         
 
-        message_id = int(msg.message_id) + 1
-        video = await upload_video(msg,fpath,id,tit,name,message_id,size)
+        id = int(msg.id) + 1
+        video = await upload_video(msg,fpath,id,tit,name,id,size)
 
         name = name.replace(" [@AutoAiringAnimes].","").replace(ext,"").strip()
     except FloodWait as e:
@@ -109,7 +109,7 @@ async def start_uploading(data):
         except:
             pass
         await asyncio.sleep(flood_time)
-    #return message_id, id, tit, name, video
+    #return id, id, tit, name, video
 
 VOTE_MARKUP = InlineKeyboardMarkup(
     [
@@ -142,7 +142,7 @@ async def channel_handler(msg_id,id,name,ep_num,video):
             )
 
             await app.send_sticker(MAIN,"CAACAgUAAx0CXbNEVgABATemYrg6dYZGimb4zx9Q1DAAARzJ_M_NAAI6BQAC7s_BVQFFcU052MmMHgQ")
-            dl_id = dl.message_id
+            dl_id = dl.id
             caption += f"\n📥 **Download -** [{name}](https://t.me/Anime_Dex/{dl_id})"
             await main.edit_caption(caption,reply_markup=VOTE_MARKUP)
             dl_id = int(dl_id)
@@ -195,7 +195,7 @@ def get_vote_buttons(a,b,c):
 @app.on_callback_query(filters.regex("vote"))
 async def votes_(_,query: CallbackQuery):
     try:
-        id = query.message.message_id
+        id = query.message.id
         user = query.from_user.id
         vote = int(query.data.replace("vote","").strip())
 

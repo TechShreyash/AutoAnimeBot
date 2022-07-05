@@ -9,6 +9,7 @@ import math
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 async def compress_video(video,total_time, message, name):
+    print(video,total_time, message, name)
     x = "." + video.split(".")[-1]
     out = video.replace(x,'').strip() + "_compressed" + x   
     progress = "progressaa.txt"
@@ -50,7 +51,8 @@ async def compress_video(video,total_time, message, name):
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
     )
-
+    
+    print("started")
     while process.returncode != 0:
       await asyncio.sleep(3)
       with open(progress, 'r+') as file:
@@ -78,9 +80,9 @@ async def compress_video(video,total_time, message, name):
         time_done = math.floor(int(time_in_us)/1000000)
         
         progress_str = get_progress_text(name,"Encoding",time_done,str(speed),total_time,enco=True)
-        
+        print(time_done)
         try:
-          await message.edit_text(progress_str)
+          await message.edit(progress_str)
         except:
             pass
           

@@ -12,7 +12,7 @@ import time
 from main import app, status
 from pyrogram.errors import FloodWait
 
-async def upload_video(msg: Message,file,id,tit,name,message_id,ttl):
+async def upload_video(msg: Message,file,id,tit,name,id,ttl):
     try:
     
         fuk = isfile(file)
@@ -61,4 +61,4 @@ async def upload_video(msg: Message,file,id,tit,name,message_id,ttl):
         except:
             pass
         await asyncio.sleep(flood_time)
-    return x.message_id
+    return x.id
