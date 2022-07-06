@@ -50,6 +50,7 @@ async def compress_video(total_time, message, name):
     )
     
     while process.returncode != 0:
+      print("x")
       with open(prog, 'r+') as file:
         text = file.read()
         frame = re.findall("frame=(\d+)", text)
