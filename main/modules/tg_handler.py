@@ -72,11 +72,12 @@ async def start_uploading(data):
         print(compressed)
         await asyncio.sleep(5)
         print(compressed)
-        os.rename("out.mkv",fpath)
         
         if compressed == "None":
             print("Encoding Failed Uploading The Original File")
             os.rename("video.mkv",fpath)
+        else:
+            os.rename("out.mkv",fpath)
 
         await status.edit(await status_text(f"Uploading {name}"))
         message_id = int(msg.id) + 1
