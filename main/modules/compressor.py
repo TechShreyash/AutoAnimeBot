@@ -4,6 +4,42 @@ import os
 import re
 import math
 
+async def gg():
+  print("created")
+  video = "video.mkv"
+  out = "out.mkv" 
+  prog = "progressaa.txt"
+  cmd = [
+    "ffmpeg",
+    "-hide_banner",
+    "-loglevel",
+    "quiet",
+    "-progress",
+    prog,
+    "-i",
+    video,
+    "-preset", 
+    "fast",
+    "-c:v", 
+    "libx265",
+    "-crf",
+    "27",
+    "-map",
+    "0:v",
+    "-c:a",
+    "aac",
+    "-map",
+    "0:a",
+    "-c:s",
+    "copy",
+    "-map",
+    "0:s?",
+    out,
+    "-y"      
+  ]
+  await asyncio.create_subprocess_exec(*cmd)
+
+
 async def compress_video(total_time, message, name):
   try:
     video = "video.mkv"
@@ -13,36 +49,8 @@ async def compress_video(total_time, message, name):
     with open(prog, 'w') as f:
       pass
     
-    cmd = [
-      "ffmpeg",
-      "-hide_banner",
-      "-loglevel",
-      "quiet",
-      "-progress",
-      prog,
-      "-i",
-      video,
-      "-preset", 
-      "fast",
-      "-c:v", 
-      "libx265",
-      "-crf",
-      "27",
-      "-map",
-      "0:v",
-      "-c:a",
-      "aac",
-      "-map",
-      "0:a",
-      "-c:s",
-      "copy",
-      "-map",
-      "0:s?",
-      out,
-      "-y"      
-    ]
-    print(27273)
-    await asyncio.create_subprocess_exec(*cmd)
+    asyncio.create_task(gg())
+   
     print("started")
     while True:
       print("x")
