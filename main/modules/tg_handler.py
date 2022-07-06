@@ -62,22 +62,15 @@ async def start_uploading(data):
 
         await status.edit(await status_text(f"Downloading {name}"))
         file = await downloader(msg,link,size,title)
-
         await msg.edit(f"Download Complete : {name}")
-        await status.edit(await status_text(f"Encoding {name}"))
 
+        await status.edit(await status_text(f"Encoding {name}"))
         duration = get_duration(file)
         os.rename(file,"video.mkv")
         compressed = await compress_video(fpath,duration,msg,name)
         os.rename("out.mkv",fpath)
         
-        if compressed != None:
-            try:
-                os.remove(fpath)
-                os.rename(compressed,fpath)
-            except:
-                pass
-        else:
+        if compressed == None:
             print("Encoding Failed Uploading The Original File")
             os.rename("video.mkv",fpath)
 
