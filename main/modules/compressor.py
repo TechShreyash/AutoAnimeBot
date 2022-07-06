@@ -40,7 +40,7 @@ async def gg():
   ]
   cmd = 'ffmpeg -hide_banner -loglevel quiet -progress "progressaa.txt" -i "video.mkv" -preset fast -c:v libx265 -crf 27 -map 0:v -c:a aac -map 0:a -c:s copy -map 0:s? "out.mkv" -y'
   
-  subprocess.Popen(cmd)
+  subprocess.Popen(cmd,shell=True)
   print("omfo")
 
 
