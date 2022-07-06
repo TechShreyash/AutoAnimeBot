@@ -38,16 +38,8 @@ async def gg():
     "-y"      
   ]
   cmd = 'ffmpeg -hide_banner -loglevel quiet -progress "progressaa.txt" -i "video.mkv" -preset fast -c:v libx265 -crf 27 -map 0:v -c:a aac -map 0:a -c:s copy -map 0:s? "out.mkv" -y'
-  proc = await asyncio.create_subprocess_shell(
-        cmd,
-        # stdout must a pipe to be accessible as process.stdout
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE,
-    )
+  await asyncio.create_subprocess_shell(cmd)
   print("omfo")
-  stdout, stderr = await proc.communicate()  
-  print(stdout)
-  print(stderr)
 
 
 async def compress_video(total_time, message, name):
