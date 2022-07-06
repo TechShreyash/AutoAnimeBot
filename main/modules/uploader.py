@@ -52,6 +52,7 @@ async def upload_video(msg: Message,file,id,tit,name,ttl):
         try:
             await r.delete()
             os.remove(file)
+            os.remove(thumbnail)
         except:
             pass
     except FloodWait as e:

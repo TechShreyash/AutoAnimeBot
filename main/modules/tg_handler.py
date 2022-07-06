@@ -81,7 +81,15 @@ async def start_uploading(data):
         await status.edit(await status_text(f"Uploading {name}"))
         message_id = int(msg.id) + 1
         name = name.replace(" [@AutoAiringAnimes].","").replace(ext,"").strip()
-        video = await upload_video(msg,fpath,id,tit,name,size)        
+        video = await upload_video(msg,fpath,id,tit,name,size)   
+
+        try:
+            os.remove("video.mkv")
+            os.remove("out.mkv")
+            os.remove(file)
+            os.remove(fpath)
+        except:
+            pass     
     except FloodWait as e:
         flood_time = int(e.x) + 5
         try:
