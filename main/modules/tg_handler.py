@@ -46,7 +46,6 @@ async def tg_handler():
         except:
             pass
             
-
 async def start_uploading(data):
     try:
         title = data["title"]
@@ -56,6 +55,7 @@ async def start_uploading(data):
         name, ext = title.split(".")
         name += " [@AutoAiringAnimes]." + ext
         fpath = "downloads/" + name
+        name = name.replace(" [@AutoAiringAnimes].","").replace(ext,"").strip()
 
         id, img, tit = await get_anime_img(get_anime_name(title))
         msg = await app.send_photo(CHANNEL_ID,photo=img,caption=title)
@@ -80,7 +80,6 @@ async def start_uploading(data):
         print("Uploading --> ",name)
         await status.edit(await status_text(f"Uploading {name}"))
         message_id = int(msg.id) + 1
-        name = name.replace(" [@AutoAiringAnimes].","").replace(ext,"").strip()
         video = await upload_video(msg,fpath,id,tit,name,size)   
 
         try:
@@ -194,6 +193,7 @@ async def votes_(_,query: CallbackQuery):
             return await query.answer("You Have Already Voted... You Can't Vote Again")
         await query.answer()
         print(query.message.reply_markup)
+        print(query.message.reply_markup.read)
         x = query.message.reply_markup['inline_keyboard'][0]
         a = x[0]['text'].replace('👍','').strip()
         b = x[1]['text'].replace('♥️','').strip()
