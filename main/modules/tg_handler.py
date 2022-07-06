@@ -67,7 +67,7 @@ async def start_uploading(data):
         await status.edit(await status_text(f"Encoding {name}"))
         duration = get_duration(file)
         os.rename(file,"video.mkv")
-        compressed = await compress_video(fpath,duration,msg,name)
+        compressed = await compress_video(duration,msg,name)
         os.rename("out.mkv",fpath)
         
         if compressed == None:
@@ -86,6 +86,8 @@ async def start_uploading(data):
         except:
             pass
         await asyncio.sleep(flood_time)
+    except Exception as e:
+        print(e)
     return message_id, id, tit, name, video
 
 VOTE_MARKUP = InlineKeyboardMarkup(
