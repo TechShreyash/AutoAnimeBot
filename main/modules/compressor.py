@@ -41,7 +41,7 @@ async def compress_video(total_time, message, name):
       out,
       "-y"      
     ]
-
+    print(27273)
     process = await asyncio.create_subprocess_exec(
         *cmd,
         # stdout must a pipe to be accessible as process.stdout
