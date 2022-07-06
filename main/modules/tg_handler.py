@@ -34,7 +34,7 @@ async def tg_handler():
                         await status.edit(await status_text("Idle..."))
                     except:
                         pass
-                await asyncio.sleep(1800)
+                await asyncio.sleep(10)
                 
         except FloodWait as e:
             flood_time = int(e.x) + 5
@@ -132,7 +132,7 @@ async def channel_handler(msg_id,id,name,ep_num,video):
             )
 
             await app.send_sticker(MAIN,"CAACAgUAAx0CXbNEVgABATemYrg6dYZGimb4zx9Q1DAAARzJ_M_NAAI6BQAC7s_BVQFFcU052MmMHgQ")
-            dl_id = dl.id
+            dl_id = dl.message_id
             caption += f"\n📥 **Download -** [{name}](https://t.me/Anime_Dex/{dl_id})"
             await main.edit_caption(caption,reply_markup=VOTE_MARKUP)
             dl_id = int(dl_id)
@@ -193,7 +193,7 @@ async def votes_(_,query: CallbackQuery):
         if is_vote == 1:
             return await query.answer("You Have Already Voted... You Can't Vote Again")
         await query.answer()
-
+        print(query.message.reply_markup)
         x = query.message.reply_markup['inline_keyboard'][0]
         a = x[0]['text'].replace('👍','').strip()
         b = x[1]['text'].replace('♥️','').strip()
