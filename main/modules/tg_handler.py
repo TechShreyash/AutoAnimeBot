@@ -68,9 +68,10 @@ async def start_uploading(data):
         duration = get_duration(file)
         os.rename(file,"video.mkv")
 
-        loop = asyncio.get_running_loop()
-        compressed = loop.run_until_complete(compress_video(duration,msg,name))
-        #compressed = compress_video(duration,msg,name)
+        compressed = await compress_video(duration,msg,name)
+        print(compressed)
+        await asyncio.sleep(5)
+        print(compressed)
         os.rename("out.mkv",fpath)
         
         if compressed == "None":
