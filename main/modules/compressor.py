@@ -37,7 +37,16 @@ async def gg():
     out,
     "-y"      
   ]
-  await asyncio.create_subprocess_exec(*cmd)
+  proc = await asyncio.create_subprocess_exec(
+        *cmd,
+        # stdout must a pipe to be accessible as process.stdout
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE,
+    )
+  print("omfo")
+  stdout, stderr = await proc.communicate()  
+  print(stdout)
+  print(stderr)
 
 
 async def compress_video(total_time, message, name):
