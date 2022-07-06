@@ -3,6 +3,7 @@ from main.modules.utils import get_progress_text
 import os
 import re
 import math
+import subprocess
 
 async def gg():
   print("created")
@@ -37,8 +38,9 @@ async def gg():
     out,
     "-y"      
   ]
-  cmd = 'ffmpeg -hide_banner -loglevel quiet -progress "progressaa.txt" -i "video.mkv" -preset fast -c:v libx265 -crf 27 -map 0:v -c:a aac -map 0:a -c:s copy -map 0:s? "out.mkv" -y'
-  os.system(cmd)
+  #cmd = 'ffmpeg -hide_banner -loglevel quiet -progress "progressaa.txt" -i "video.mkv" -preset fast -c:v libx265 -crf 27 -map 0:v -c:a aac -map 0:a -c:s copy -map 0:s? "out.mkv" -y'
+  
+  subprocess.Popen(*cmd)
   print("omfo")
 
 
