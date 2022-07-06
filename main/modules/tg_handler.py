@@ -73,7 +73,7 @@ async def start_uploading(data):
         await asyncio.sleep(0.1)
         print(type(compressed))
         
-        if compressed == "None":
+        if compressed == "None" or compressed == None:
             print("Encoding Failed Uploading The Original File")
             os.rename("video.mkv",fpath)
         else:

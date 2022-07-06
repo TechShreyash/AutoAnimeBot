@@ -42,12 +42,7 @@ async def compress_video(total_time, message, name):
       "-y"      
     ]
     print(27273)
-    process = await asyncio.create_subprocess_exec(
-        *cmd,
-        # stdout must a pipe to be accessible as process.stdout
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE,
-    )
+    await asyncio.create_subprocess_exec(*cmd)
     print("started")
     while True:
       print("x")
@@ -83,12 +78,7 @@ async def compress_video(total_time, message, name):
         except:
             pass
       await asyncio.sleep(5)
-          
-    stdout, stderr = await process.communicate()
-    e_response = stderr.decode().strip()
-    t_response = stdout.decode().strip()
-    print(e_response)
-    print(t_response)
+
     if os.path.lexists(out):
         return out
     else:
