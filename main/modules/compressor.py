@@ -56,7 +56,7 @@ async def compress_video(total_time, message, name):
         time_in_us=re.findall("out_time_ms=(\d+)", text)
         progress=re.findall("progress=(\w+)", text)
         speed=re.findall("speed=(\d+\.?\d*)", text)
-        
+
         if len(frame):
           frame = int(frame[-1])
         else:
@@ -91,6 +91,6 @@ async def compress_video(total_time, message, name):
     if os.path.lexists(out):
         return out
     else:
-        return None
+        return "None"
   except Exception as e:
     print(e)

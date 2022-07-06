@@ -67,10 +67,13 @@ async def start_uploading(data):
         await status.edit(await status_text(f"Encoding {name}"))
         duration = get_duration(file)
         os.rename(file,"video.mkv")
-        compressed = await compress_video(duration,msg,name)
+
+        loop = asyncio.get_running_loop()
+        compressed = loop.run_until_complete(compress_video(duration,msg,name))
+        #compressed = compress_video(duration,msg,name)
         os.rename("out.mkv",fpath)
         
-        if compressed == None:
+        if compressed == "None":
             print("Encoding Failed Uploading The Original File")
             os.rename("video.mkv",fpath)
 
