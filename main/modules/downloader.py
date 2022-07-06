@@ -23,9 +23,8 @@ async def downloader(message: Message, link: str,total,name):
   while (not handle.has_metadata()):
     
     await asyncio.sleep(1)
-    
-  print(f"Downloading {str(handle.name())}")
-  await r.edit(f'Got Metadata, Starting Download Of **{str(handle.name())}**...')
+
+  await r.edit(f'Got Metadata, Starting Download Of **{str(name)}**...')
 
   trgt = str(handle.name())
 
@@ -49,6 +48,6 @@ async def downloader(message: Message, link: str,total,name):
     except:
       pass
 
-    await asyncio.sleep(10)
+    await asyncio.sleep(5)
   
   return "downloads/" + trgt

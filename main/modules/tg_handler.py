@@ -34,7 +34,7 @@ async def tg_handler():
                         await status.edit(await status_text("Idle..."))
                     except:
                         pass
-                await asyncio.sleep(10)
+                await asyncio.sleep(1800)
                 
         except FloodWait as e:
             flood_time = int(e.x) + 5
@@ -60,18 +60,16 @@ async def start_uploading(data):
         id, img, tit = await get_anime_img(get_anime_name(title))
         msg = await app.send_photo(CHANNEL_ID,photo=img,caption=title)
 
+        print("Downloading --> ",name)
         await status.edit(await status_text(f"Downloading {name}"))
         file = await downloader(msg,link,size,title)
         await msg.edit(f"Download Complete : {name}")
 
+        print("Encoding --> ",name)
         await status.edit(await status_text(f"Encoding {name}"))
         duration = get_duration(file)
         os.rename(file,"video.mkv")
-        await asyncio.sleep(0.1)
         compressed = await compress_video(duration,msg,name)
-        print(compressed)
-        await asyncio.sleep(0.1)
-        print(type(compressed))
         
         if compressed == "None" or compressed == None:
             print("Encoding Failed Uploading The Original File")
@@ -79,6 +77,7 @@ async def start_uploading(data):
         else:
             os.rename("out.mkv",fpath)
 
+        print("Uploading --> ",name)
         await status.edit(await status_text(f"Uploading {name}"))
         message_id = int(msg.id) + 1
         name = name.replace(" [@AutoAiringAnimes].","").replace(ext,"").strip()

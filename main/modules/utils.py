@@ -74,6 +74,9 @@ def episode_linker(f,en,text,link):
 
 def tags_generator(title):
     x = "#" + title.replace(" ","_")
+    
+    while x[-1] == "_":
+        x = x[:-1]
     return x
 
 async def status_text(text):
@@ -196,7 +199,7 @@ ETA: {}
         else:
             ETA = str(ETA) + " Second"
 
-        percent = round((remaining/total)*100,2)
+        percent = round((completed/total)*100,2)
 
         fill = "▪️"
         blank = "▫️"
@@ -204,6 +207,8 @@ ETA: {}
 
         bar += round(percent/10)*fill
         bar += round(((20 - len(bar))/2))*blank
+        
+        speed += "x"
 
         text2 = text2.format(
             name,

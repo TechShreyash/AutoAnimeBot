@@ -6,7 +6,6 @@ import math
 import subprocess
 
 async def gg():
-  print("created")
   video = "video.mkv"
   out = "out.mkv" 
   prog = "progressaa.txt"
@@ -41,7 +40,6 @@ async def gg():
   cmd = 'ffmpeg -hide_banner -loglevel quiet -progress "progressaa.txt" -i "video.mkv" -preset fast -c:v libx265 -crf 27 -map 0:v -c:a aac -map 0:a -c:s copy -map 0:s? "out.mkv" -y'
   
   subprocess.Popen(cmd,shell=True)
-  print("omfo")
 
 
 async def compress_video(total_time, message, name):
@@ -55,9 +53,7 @@ async def compress_video(total_time, message, name):
     
     asyncio.create_task(gg())
    
-    print("started")
     while True:
-      print("x")
       with open(prog, 'r+') as file:
         text = file.read()
         frame = re.findall("frame=(\d+)", text)
@@ -84,12 +80,11 @@ async def compress_video(total_time, message, name):
         time_done = math.floor(int(time_in_us)/1000000)
         
         progress_str = get_progress_text(name,"Encoding",time_done,str(speed),total_time,enco=True)
-        print(time_done)
         try:
           await message.edit(progress_str)
         except:
             pass
-      await asyncio.sleep(5)
+      await asyncio.sleep(10)
 
     if os.path.lexists(out):
         return out
