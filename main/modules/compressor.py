@@ -48,8 +48,8 @@ async def compress_video(total_time, message, name):
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
     )
-    
-    while process.returncode != 0:
+    print("started")
+    while True:
       print("x")
       with open(prog, 'r+') as file:
         text = file.read()
