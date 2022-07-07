@@ -5,6 +5,7 @@
 
 <p align="center" > <img alt="GitHub Forks" src="https://img.shields.io/github/forks/TechShreyash/AutoAnimeBot?label=%F0%9F%8D%B4Forks&logoColor=blue&style=social"> <img alt="GitHub Repo Stars" src="https://img.shields.io/github/stars/TechShreyash/AutoAnimeBot?label=%E2%AD%90%EF%B8%8FStars&logoColor=blue&style=social"></p>
 
+<hr>
 
 ### ♻️ Features
 
@@ -16,6 +17,8 @@
 
 🔹 In Built Encoder, To Compress The Videos
 
+<hr>
+
 ### 🎉 Upcoming Updates
 
 🔹 Feature to show the upcoming releases of subsplease (will update everyday)
@@ -25,6 +28,8 @@
 🔹 Improved queue and sorting system of episodes
 
 🔹 Will try to also add a feature to let users search a anime upload in channel, if not uploaded then users can request the anime to get uploaded and that will be automatically added to the queue
+
+<hr>
 
 ### 🧲 Required Variables
 
@@ -37,8 +42,12 @@
 🔹 `MONGO_DB_URI` - Get this from cloud.mongodb.com
 
 
+<hr>
+
 ### 📤 Deploy
 <p><a href="https://heroku.com/deploy?template=https://github.com/TechShreyash/AutoAnimeBot"><img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
+
+<hr>
 
 ### 👤 Contact Me
 [![Telegram Channel](https://img.shields.io/static/v1?label=Join&message=Telegram%20Channel&color=blueviolet&style=for-the-badge&logo=telegram&logoColor=violet)](https://telegram.me/TechZBots)[![Telegram Group](https://img.shields.io/static/v1?label=Join&message=Telegram%20Group&color=blueviolet&style=for-the-badge&logo=telegram&logoColor=violet)](https://telegram.me/TechZBots_Support)
