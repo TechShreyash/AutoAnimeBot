@@ -138,8 +138,7 @@ async def channel_handler(msg_id,id,name,ep_num,video):
             # db
             await save_channel(id,dl_id)
         else:
-            dl_id = await get_channel(id)
-            dl_id = int(dl_id)
+            dl_id = anilist
             
             dl_msg = await app.get_messages(MAIN,dl_id)
             text = dl_msg.text
