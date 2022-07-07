@@ -1,6 +1,6 @@
 import asyncio
 import re
-from config import CHANNEL_ID
+from config import UPLOADS_CHANNEL
 from main.modules.parser import auto_parser
 from main import app, status, queue
 import pyrogram
@@ -43,12 +43,10 @@ async def start(bot, message: Message):
 
 async def start_bot():
   print("==================================")
-  print("[INFO]: BOT STARTED BOT SUCCESSFULLY")
+  print("[INFO]: AutoAnimeBot Start Bot Successfully")
   print("==========JOIN @TECHZBOTS=========")
 
-  #await app.send_message(CHANNEL_ID,text="Bot Started")
-
-  print("Creating Parse task")
+  print("[INFO]: Adding Parsing Task")
   asyncio.create_task(auto_parser())
   asyncio.create_task(tg_handler())
   

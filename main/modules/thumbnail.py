@@ -1,4 +1,5 @@
 import asyncio
+from config import CHANNEL_TITLE
 import os
 import random, cv2
 from string import ascii_uppercase, digits
@@ -107,7 +108,7 @@ def generate_thumbnail(id,file,title,ep_num,size,dur):
 
     image3 = ImageDraw.Draw(image2)
 
-    image3.text((150,80),"AutoAiringAnimes","white",font2,stroke_width=5,stroke_fill="black")
+    image3.text((150,80),f"{CHANNEL_TITLE}","white",font2,stroke_width=5,stroke_fill="black")
 
     text1, text2 = truncate(title)
     image3.text((60,230),text1,"white",font1,stroke_width=5,stroke_fill="black")

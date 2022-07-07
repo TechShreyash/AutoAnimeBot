@@ -17,4 +17,4 @@ ses.listen_on(6881, 6891)
 
 queue = []
 
-status = app.get_messages(CHANNEL_ID,733)
+status = app.get_messages(UPLOADS_CHANNEL,STATUS_ID)

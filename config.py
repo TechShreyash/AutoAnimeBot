@@ -3,10 +3,17 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-API_ID = 2344247
-API_HASH = "853cae451f8091db916cd9ad395bbf12"
-BOT_TOKEN = "5386390739:AAGiPBdF2T7jzE3AEzZl8G4JGnFOCW9DCTI"
+API_ID = int(getenv("API_ID"))
+API_HASH = getenv("API_HASH")
+BOT_TOKEN = getenv("BOT_TOKEN")
 
-MONGO_DB_URI = getenv("MONGO_DB_URI","mongodb+srv://techz:wall@techzwallbotdb.katsq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-CHANNEL_ID = -1001557649253
-MAIN = -1001516732633
+MONGO_DB_URI = getenv("MONGO_DB_URI")
+
+INDEX_CHANNEL = int(getenv("INDEX_CHANNEL"))
+UPLOADS_CHANNEL = int(getenv("UPLOADS_CHANNEL"))
+
+STATUS_ID = int(getenv("STATUS_ID"))
+
+CHANNEL_TITLE = getenv("CHANNEL_TITLE")
+INDEX_USERNAME = getenv("INDEX_USERNAME")
+UPLOADS_USERNAME = getenv("UPLOADS_USERNAME")

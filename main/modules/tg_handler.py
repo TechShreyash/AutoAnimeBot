@@ -7,7 +7,7 @@ import os
 from main.modules.db import del_anime, get_channel, save_channel, save_uploads, is_voted, save_vote
 from main.modules.downloader import downloader
 from main.modules.anilist import get_anilist_data, get_anime_img, get_anime_name
-from config import CHANNEL_ID, MAIN
+from config import INDEX_USERNAME, UPLOADS_USERNAME, UPLOADS_CHANNEL, INDEX_CHANNEL
 from main import app, queue, status
 from pyrogram.errors import FloodWait
 from pyrogram import filters
@@ -24,7 +24,7 @@ async def tg_handler():
                 await del_anime(i["title"])
                 await save_uploads(i["title"])
                 if val != "err":
-                    await status.edit(await status_text("Adding Links To Main Channel..."))
+                    await status.edit(await status_text(f"Adding Links To Index Channel ({INDEX_USERNAME})..."))
                     await channel_handler(val,id,name,ep_num, video)
                 await status.edit(await status_text("Sleeping For 5 Minutes..."))
                 await asyncio.sleep(300)
@@ -34,7 +34,7 @@ async def tg_handler():
                         await status.edit(await status_text("Idle..."))
                     except:
                         pass
-                await asyncio.sleep(10)
+                await asyncio.sleep(1800)
                 
         except FloodWait as e:
             flood_time = int(e.x) + 5
@@ -53,12 +53,12 @@ async def start_uploading(data):
         size = data["size"]
 
         name, ext = title.split(".")
-        name += " [@AutoAiringAnimes]." + ext
+        name += f" [@{UPLOADS_USERNAME}]." + ext
         fpath = "downloads/" + name
-        name = name.replace(" [@AutoAiringAnimes].","").replace(ext,"").strip()
+        name = name.replace(f" [@{UPLOADS_USERNAME}].","").replace(ext,"").strip()
 
         id, img, tit = await get_anime_img(get_anime_name(title))
-        msg = await app.send_photo(CHANNEL_ID,photo=img,caption=title)
+        msg = await app.send_photo(UPLOADS_CHANNEL,photo=img,caption=title)
 
         print("Downloading --> ",name)
         await status.edit(await status_text(f"Downloading {name}"))
@@ -79,7 +79,7 @@ async def start_uploading(data):
 
         print("Uploading --> ",name)
         await status.edit(await status_text(f"Uploading {name}"))
-        message_id = int(msg.id) + 1
+        message_id = int(msg.message_id) + 1
         video = await upload_video(msg,fpath,id,tit,name,size)   
 
         try:
@@ -121,18 +121,18 @@ async def channel_handler(msg_id,id,name,ep_num,video):
 
         if anilist == 0:
             img, caption = await get_anilist_data(name)
-            main = await app.send_photo(MAIN,photo=img,caption=caption,reply_markup=VOTE_MARKUP)
+            main = await app.send_photo(INDEX_CHANNEL,photo=img,caption=caption,reply_markup=VOTE_MARKUP)
 
-            link = f"[{ep_num}](https://t.me/AutoAiringAnimes/{video})"
+            link = f"[{ep_num}](https://t.me/{UPLOADS_USERNAME}/{video})"
             dl = await app.send_message(
-                MAIN,
+                INDEX_CHANNEL,
                 EPITEXT.format(link),
                 disable_web_page_preview=True
             )
 
-            await app.send_sticker(MAIN,"CAACAgUAAx0CXbNEVgABATemYrg6dYZGimb4zx9Q1DAAARzJ_M_NAAI6BQAC7s_BVQFFcU052MmMHgQ")
-            dl_id = dl.id
-            caption += f"\n📥 **Download -** [{name}](https://t.me/Anime_Dex/{dl_id})"
+            await app.send_sticker(INDEX_CHANNEL,"CAACAgUAAx0CXbNEVgABATemYrg6dYZGimb4zx9Q1DAAARzJ_M_NAAI6BQAC7s_BVQFFcU052MmMHgQ")
+            dl_id = dl.message_id
+            caption += f"\n📥 **Download -** [{name}](https://t.me/{INDEX_USERNAME}/{dl_id})"
             await main.edit_caption(caption,reply_markup=VOTE_MARKUP)
             dl_id = int(dl_id)
             # db
@@ -141,23 +141,23 @@ async def channel_handler(msg_id,id,name,ep_num,video):
             dl_id = await get_channel(id)
             dl_id = int(dl_id)
             
-            dl_msg = await app.get_messages(MAIN,dl_id)
+            dl_msg = await app.get_messages(INDEX_CHANNEL,dl_id)
             text = dl_msg.text
             text += f"\n{ep_num}"
 
-            ent = episode_linker(dl_msg.text,dl_msg.entities,ep_num,f"https://t.me/AutoAiringAnimes/{video}")            
+            ent = episode_linker(dl_msg.text,dl_msg.entities,ep_num,f"https://t.me/{UPLOADS_USERNAME}/{video}")            
             
-            await app.edit_message_text(MAIN,dl_id,text,entities=ent,disable_web_page_preview=True)
+            await app.edit_message_text(INDEX_CHANNEL,dl_id,text,entities=ent,disable_web_page_preview=True)
 
         main_id = dl_id
         info_id = main_id-1
         buttons = InlineKeyboardMarkup([
                 [
-                    InlineKeyboardButton(text="Info", url=f"https://t.me/Anime_Dex/{info_id}"),
-                    InlineKeyboardButton(text="Comments", url=f"https://t.me/Anime_Dex/{main_id}?thread={main_id}")
+                    InlineKeyboardButton(text="Info", url=f"https://t.me/{INDEX_USERNAME}/{info_id}"),
+                    InlineKeyboardButton(text="Comments", url=f"https://t.me/{INDEX_USERNAME}/{main_id}?thread={main_id}")
                 ]
             ])
-        await app.edit_message_reply_markup(CHANNEL_ID,video,reply_markup=buttons)
+        await app.edit_message_reply_markup(UPLOADS_CHANNEL,video,reply_markup=buttons)
 
     except FloodWait as e:
         flood_time = int(e.x) + 5
@@ -184,7 +184,7 @@ def get_vote_buttons(a,b,c):
 @app.on_callback_query(filters.regex("vote"))
 async def votes_(_,query: CallbackQuery):
     try:
-        id = query.message.id
+        id = query.message.message_id
         user = query.from_user.id
         vote = int(query.data.replace("vote","").strip())
 
@@ -192,8 +192,7 @@ async def votes_(_,query: CallbackQuery):
         if is_vote == 1:
             return await query.answer("You Have Already Voted... You Can't Vote Again")
         await query.answer()
-        print(query.message.reply_markup)
-        print(query.message.reply_markup.read)
+
         x = query.message.reply_markup['inline_keyboard'][0]
         a = x[0]['text'].replace('👍','').strip()
         b = x[1]['text'].replace('♥️','').strip()

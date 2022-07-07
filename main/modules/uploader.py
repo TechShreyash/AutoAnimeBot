@@ -3,7 +3,7 @@ from main.modules.utils import format_time, get_duration, get_epnum, get_filesiz
 from main.modules.anilist import get_anime_name
 from main.modules.anilist import get_anime_img
 from main.modules.thumbnail import generate_thumbnail
-from config import CHANNEL_ID
+from config import UPLOADS_CHANNEL
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
 from main.modules.progress import progress_for_pyrogram
 from os.path import isfile
@@ -32,7 +32,7 @@ async def upload_video(msg: Message,file,id,tit,name,ttl):
             ])
             caption = f"🎥 **{name}**\n\n{tags}"
             x = await app.send_video(
-                CHANNEL_ID,
+                UPLOADS_CHANNEL,
             file,
             caption=caption,
             duration=duration,
@@ -62,4 +62,4 @@ async def upload_video(msg: Message,file,id,tit,name,ttl):
         except:
             pass
         await asyncio.sleep(flood_time)
-    return x.id
+    return x.message_id
