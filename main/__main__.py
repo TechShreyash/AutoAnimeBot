@@ -15,7 +15,7 @@ async def start(bot, message: Message):
 
 async def start_bot():
   print("==================================")
-  print("[INFO]: AutoAnimeBot Start Bot Successfully")
+  print("[INFO]: AutoAnimeBot Started Bot Successfully")
   print("==========JOIN @TECHZBOTS=========")
 
   print("[INFO]: Adding Parsing Task")
