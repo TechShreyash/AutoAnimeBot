@@ -54,7 +54,7 @@ def get_cover(id):
         if err != 5:
             return get_cover(id)
         else:
-            return "c4UUTC4DAe.jpg"
+            return "assets/c4UUTC4DAe.jpg"
 
 def changeImageSize(maxWidth, maxHeight, image):
     widthRatio = maxWidth / image.size[0]

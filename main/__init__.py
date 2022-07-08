@@ -1,4 +1,3 @@
-import asyncio
 from pyrogram import Client
 from config import *
 import libtorrent as lt
@@ -17,4 +16,4 @@ ses.listen_on(6881, 6891)
 
 queue = []
 
-status = app.get_messages(UPLOADS_CHANNEL,STATUS_ID)
+status = app.get_messages(UPLOADS_ID,STATUS_ID)

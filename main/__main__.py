@@ -1,45 +1,17 @@
 import asyncio
-import re
-from config import UPLOADS_CHANNEL
 from main.modules.parser import auto_parser
-from main import app, status, queue
-import pyrogram
+from main import app
 from pyrogram import filters, idle
-from pyrogram.errors import FloodWait
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
+from pyrogram.types import Message
 from uvloop import install
 from contextlib import closing, suppress
 from main.modules.tg_handler import tg_handler
 
 loop = asyncio.get_event_loop()
 
-@app.on_message(filters.command("start"))
+@app.on_message(filters.command(["start","help","ping"]))
 async def start(bot, message: Message):
-  await message.reply_text(str(queue[:3]))
-
-@app.on_message(filters.command("up") & filters.user("Tech_Shreyash"))
-async def start(bot, message: Message):
-  with open("progressaa.txt", 'r+') as file:
-    text = file.read()
-    frame = re.findall("frame=(\d+)", text)
-    time_in_us=re.findall("out_time_ms=(\d+)", text)
-    progress=re.findall("progress=(\w+)", text)
-    speed=re.findall("speed=(\d+\.?\d*)", text)
-    if len(frame):
-      frame = int(frame[-1])
-    else:
-      frame = 1
-    if len(speed):
-      speed = speed[-1]
-    else:
-      speed = 1
-    if len(time_in_us):
-      time_in_us = time_in_us[-1]
-    else:
-      time_in_us = 1
-
-    await message.reply_text(time_in_us)
-
+  return await message.reply_text("⭐️ **Bot Is Online...\n\nUpdates : @TechZBots | Support : @TechZBots_Support")
 
 async def start_bot():
   print("==================================")

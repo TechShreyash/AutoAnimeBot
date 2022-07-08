@@ -9,8 +9,8 @@ BOT_TOKEN = getenv("BOT_TOKEN")
 
 MONGO_DB_URI = getenv("MONGO_DB_URI")
 
-INDEX_CHANNEL = int(getenv("INDEX_CHANNEL"))
-UPLOADS_CHANNEL = int(getenv("UPLOADS_CHANNEL"))
+INDEX_ID = int(getenv("INDEX_ID"))
+UPLOADS_ID = int(getenv("UPLOADS_ID"))
 
 STATUS_ID = int(getenv("STATUS_ID"))
 

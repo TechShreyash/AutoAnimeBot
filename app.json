@@ -1,0 +1,73 @@
+{
+    "name": "Auto Anime Bot",
+    "description": "Telegram Bot To Automate The Process Of Managing Your Anime Channels",
+    "logo": "https://telegra.ph/file/5aedd6b17b926a051c58d.jpg",
+    "keywords": [
+    "python3",
+    "telegram",
+    "bot",
+    "Auto",
+    "AutoAnimeBot",
+    "TechZBots",
+    "TechShreyash"
+    ],
+    "stack": "container",
+    "env": {
+      "API_ID": {
+        "description": "Get this value from my.telegram.org",
+        "value": "",
+        "required": true
+      },
+      "API_HASH": {
+        "description": "Get this value from my.telegram.org",
+        "value": "",
+        "required": true
+      },
+      "BOT_TOKEN": {
+        "description": "Get this from @BotFather",
+        "value": "",
+        "required": true
+      },
+      "INDEX_ID": {
+        "description": "ID of your Index Channel",
+        "value": "",
+        "required": true
+      },
+      "UPLOADS_ID": {
+        "description": "ID of your Uploads Channel",
+        "value": "",
+        "required": true
+      },
+      "STATUS_ID": {
+        "description": "ID of the message in your Uploads Channel where the status of bot will be showed",
+        "value": "",
+        "required": true
+      },
+      "CHANNEL_TITLE": {
+        "description": "Name of your channel (This will appear in thumbnail of videos)",
+        "value": "Auto Anime Bot",
+        "required": true
+      },
+      "INDEX_USERNAME": {
+        "description": "Username of your Index Channel",
+        "value": "",
+        "required": true
+      },  
+      "UPLOADS_USERNAME": {
+        "description": "Username of your Uploads Channel",
+        "value": "",
+        "required": true
+      }
+    },
+    "buildpacks": [
+          {
+              "url": "heroku/python"
+          }          
+      ],
+      "formation": {
+          "worker": {
+              "quantity": 1,
+              "size": "free"
+          }
+      }
+}

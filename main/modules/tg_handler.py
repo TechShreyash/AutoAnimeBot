@@ -7,7 +7,7 @@ import os
 from main.modules.db import del_anime, get_channel, save_channel, save_uploads, is_voted, save_vote
 from main.modules.downloader import downloader
 from main.modules.anilist import get_anilist_data, get_anime_img, get_anime_name
-from config import INDEX_USERNAME, UPLOADS_USERNAME, UPLOADS_CHANNEL, INDEX_CHANNEL
+from config import INDEX_USERNAME, UPLOADS_USERNAME, UPLOADS_ID, INDEX_ID
 from main import app, queue, status
 from pyrogram.errors import FloodWait
 from pyrogram import filters
@@ -58,7 +58,7 @@ async def start_uploading(data):
         name = name.replace(f" [@{UPLOADS_USERNAME}].","").replace(ext,"").strip()
 
         id, img, tit = await get_anime_img(get_anime_name(title))
-        msg = await app.send_photo(UPLOADS_CHANNEL,photo=img,caption=title)
+        msg = await app.send_photo(UPLOADS_ID,photo=img,caption=title)
 
         print("Downloading --> ",name)
         await status.edit(await status_text(f"Downloading {name}"))
@@ -121,16 +121,16 @@ async def channel_handler(msg_id,id,name,ep_num,video):
 
         if anilist == 0:
             img, caption = await get_anilist_data(name)
-            main = await app.send_photo(INDEX_CHANNEL,photo=img,caption=caption,reply_markup=VOTE_MARKUP)
+            main = await app.send_photo(INDEX_ID,photo=img,caption=caption,reply_markup=VOTE_MARKUP)
 
             link = f"[{ep_num}](https://t.me/{UPLOADS_USERNAME}/{video})"
             dl = await app.send_message(
-                INDEX_CHANNEL,
+                INDEX_ID,
                 EPITEXT.format(link),
                 disable_web_page_preview=True
             )
 
-            await app.send_sticker(INDEX_CHANNEL,"CAACAgUAAx0CXbNEVgABATemYrg6dYZGimb4zx9Q1DAAARzJ_M_NAAI6BQAC7s_BVQFFcU052MmMHgQ")
+            await app.send_sticker(INDEX_ID,"CAACAgUAAx0CXbNEVgABATemYrg6dYZGimb4zx9Q1DAAARzJ_M_NAAI6BQAC7s_BVQFFcU052MmMHgQ")
             dl_id = dl.message_id
             caption += f"\n📥 **Download -** [{name}](https://t.me/{INDEX_USERNAME}/{dl_id})"
             await main.edit_caption(caption,reply_markup=VOTE_MARKUP)
@@ -140,13 +140,13 @@ async def channel_handler(msg_id,id,name,ep_num,video):
         else:
             dl_id = anilist
             
-            dl_msg = await app.get_messages(INDEX_CHANNEL,dl_id)
+            dl_msg = await app.get_messages(INDEX_ID,dl_id)
             text = dl_msg.text
             text += f"\n{ep_num}"
 
             ent = episode_linker(dl_msg.text,dl_msg.entities,ep_num,f"https://t.me/{UPLOADS_USERNAME}/{video}")            
             
-            await app.edit_message_text(INDEX_CHANNEL,dl_id,text,entities=ent,disable_web_page_preview=True)
+            await app.edit_message_text(INDEX_ID,dl_id,text,entities=ent,disable_web_page_preview=True)
 
         main_id = dl_id
         info_id = main_id-1
@@ -156,7 +156,7 @@ async def channel_handler(msg_id,id,name,ep_num,video):
                     InlineKeyboardButton(text="Comments", url=f"https://t.me/{INDEX_USERNAME}/{main_id}?thread={main_id}")
                 ]
             ])
-        await app.edit_message_reply_markup(UPLOADS_CHANNEL,video,reply_markup=buttons)
+        await app.edit_message_reply_markup(UPLOADS_ID,video,reply_markup=buttons)
 
     except FloodWait as e:
         flood_time = int(e.x) + 5
