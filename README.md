@@ -27,7 +27,7 @@
 
 ### 🧲 Required Variables
 
-* `APP_ID` - Get this value from my.telegram.org
+* `API_ID` - Get this value from my.telegram.org
 * `API_HASH` - Get this value from my.telegram.org
 * `BOT_TOKEN` - Get this from @BotFather
 * `MONGO_DB_URI` - Get this from cloud.mongodb.com
