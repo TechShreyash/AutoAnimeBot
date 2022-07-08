@@ -1,9 +1,9 @@
 import asyncio
 from motor.motor_asyncio import AsyncIOMotorClient as MongoClient
-#from config import MONGO_DB_URI
+from config import MONGO_DB_URI
 
 print("[INFO]: STARTING MONGO DB CLIENT")
-mongo_client = MongoClient("mongodb+srv://techz:wall@techzwallbotdb.katsq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+mongo_client = MongoClient(MONGO_DB_URI)
 db = mongo_client.autoanime
 
 animedb = db.animes
