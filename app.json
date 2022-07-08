@@ -57,6 +57,11 @@
         "description": "Username of your Uploads Channel",
         "value": "",
         "required": true
+      },
+      "MONGO_DB_URI": {
+        "description": "Get this from cloud.mongodb.com",
+        "value": "",
+        "required": true
       }
     },
     "buildpacks": [
