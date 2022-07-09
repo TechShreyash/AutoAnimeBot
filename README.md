@@ -42,6 +42,14 @@
 
 <hr>
 
+### 🚀 Bot Demo :
+
+* Index Channel : [@Anime_Dex](https://t.me/Anime_Dex)
+* Uploads Channel : [@AutoAiringAnimes](https://t.me/AutoAiringAnimes)
+* Discussion Group : [Join Now](https://t.me/+Q0xUxmKd1bQyMWI9)
+
+<hr>
+
 ### 📤 Deploy
 <p><a href="https://heroku.com/deploy?template=https://github.com/TechShreyash/AutoAnimeBot"><img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
 
