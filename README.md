@@ -57,3 +57,10 @@
 
 ### 👤 Contact Me
 [![Telegram Channel](https://img.shields.io/static/v1?label=Join&message=Telegram%20Channel&color=blueviolet&style=for-the-badge&logo=telegram&logoColor=violet)](https://telegram.me/TechZBots) [![Telegram Group](https://img.shields.io/static/v1?label=Join&message=Telegram%20Group&color=blueviolet&style=for-the-badge&logo=telegram&logoColor=violet)](https://telegram.me/TechZBots_Support)
+
+<hr>
+
+### ⭐ Credits
+* [TechZBots](https://t.me/TechZBots)
+* [TechShreyash](https://github.com/TechShreyash)
+* [Anshul Garg](https://github.com/AuraMoon55)
