@@ -116,6 +116,15 @@ ETA: {}
 Speed: {}
 ETA: {}
     """
+    
+    if float(completed) == 0.0:
+        completed == 0.1
+
+    if float(speed) == 0.0:
+        speed == 0.1
+
+    if float(total) == 0.0:
+        total == 0.1
 
     if enco == False:
         total = str(total)
