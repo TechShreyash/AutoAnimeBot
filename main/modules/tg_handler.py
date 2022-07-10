@@ -18,14 +18,18 @@ async def tg_handler():
         try:
             if len(queue) != 0:
                 i = queue[0]                
-                queue.remove(i)
                 val, id, name, ep_num, video = await start_uploading(i)
                 
                 await del_anime(i["title"])
                 await save_uploads(i["title"])
+                
                 if val != "err":
+                    queue.remove(i)
                     await status.edit(await status_text(f"Adding Links To Index Channel ({INDEX_USERNAME})..."))
                     await channel_handler(val,id,name,ep_num, video)
+                else:
+                    print("val - ",val)
+
                 await status.edit(await status_text("Sleeping For 5 Minutes..."))
                 await asyncio.sleep(300)
             else:                
