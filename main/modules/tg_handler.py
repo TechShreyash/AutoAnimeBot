@@ -96,8 +96,6 @@ async def start_uploading(data):
         except:
             pass
         await asyncio.sleep(flood_time)
-    except Exception as e:
-        print("Tg Handler Error",e)
     return message_id, id, tit, name, video
 
 VOTE_MARKUP = InlineKeyboardMarkup(
