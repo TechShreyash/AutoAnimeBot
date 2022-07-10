@@ -1,6 +1,5 @@
 import asyncio
 from main.modules.utils import status_text
-
 from main import status
 from main.modules.db import get_animesdb, get_uploads, save_animedb
 import feedparser
@@ -13,10 +12,8 @@ def trim_title(title: str):
     return title
 
 def parse():
-
     a = feedparser.parse("https://subsplease.org/rss/")
     b = a["entries"]
-
     data = []    
 
     for i in b:
@@ -64,4 +61,4 @@ async def auto_parser():
             await status.edit(await status_text("Idle..."))
         except:
             pass
-        await asyncio.sleep(1800)
+        await asyncio.sleep(600)

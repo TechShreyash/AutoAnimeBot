@@ -1,4 +1,5 @@
 import asyncio
+import sys
 from main.modules.compressor import compress_video
 from main.modules.utils import episode_linker, get_duration, get_epnum, status_text
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
@@ -13,6 +14,7 @@ from pyrogram.errors import FloodWait
 from pyrogram import filters
 
 status: Message
+
 async def tg_handler():
     while True:
         try:
@@ -22,13 +24,14 @@ async def tg_handler():
                 
                 await del_anime(i["title"])
                 await save_uploads(i["title"])
-                
-                if val != "err":
-                    queue.remove(i)
-                    await status.edit(await status_text(f"Adding Links To Index Channel ({INDEX_USERNAME})..."))
-                    await channel_handler(val,id,name,ep_num, video)
-                else:
-                    print("val - ",val)
+                print("val - ",val)
+
+                if val == None:
+                    sys.exit()
+
+                queue.remove(i)
+                await status.edit(await status_text(f"Adding Links To Index Channel ({INDEX_USERNAME})..."))
+                await channel_handler(val,id,name,ep_num, video)
 
                 await status.edit(await status_text("Sleeping For 5 Minutes..."))
                 await asyncio.sleep(300)
@@ -38,7 +41,7 @@ async def tg_handler():
                         await status.edit(await status_text("Idle..."))
                     except:
                         pass
-                await asyncio.sleep(1800)
+                await asyncio.sleep(600)
                 
         except FloodWait as e:
             flood_time = int(e.x) + 5
