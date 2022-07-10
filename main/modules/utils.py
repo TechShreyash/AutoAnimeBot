@@ -115,15 +115,6 @@ ETA: {}
 Speed: {}
 ETA: {}
     """
-    
-    if float(completed) == 0.0:
-        completed == 0.1
-
-    if float(speed) == 0.0:
-        speed == 0.1
-
-    if float(total) == 0.0:
-        total == 0.1
 
     if enco == False:
         total = str(total)
@@ -137,7 +128,10 @@ ETA: {}
         percent = completed
         speed = round(float(speed)/1024) #kbps
 
-        ETA = round((size - (round((percent/100)*size)))/(round(speed/1024)))
+        if speed == 0:
+            speed = 0.1
+
+        ETA = round((size - ((percent/100)*size))/(speed/1024))
 
         if ETA > 60:
             x = floor(ETA/60)
@@ -191,6 +185,10 @@ ETA: {}
         return text
 
     elif enco == True:
+        speed = float(speed)
+        if speed == 0:
+            speed = 0.01
+
         remaining = floor(int(total)-completed)
         ETA = floor(remaining/float(speed))
 
@@ -216,7 +214,7 @@ ETA: {}
         bar += round(percent/10)*fill
         bar += round(((20 - len(bar))/2))*blank
         
-        speed += "x"
+        speed = str(speed) + "x"
 
         text2 = text2.format(
             name,
