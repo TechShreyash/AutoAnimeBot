@@ -1,8 +1,6 @@
 FROM python:3.9.10
 
-RUN apt-get upgrade
-RUN apt update && apt install -y libsm6 libxext6 ffmpeg libfontconfig1 libxrender1 libgl1-mesa-glx
-RUN apt-get install -y --no-install-recommends ffmpeg
+#RUN apt update && apt install -y libsm6 libxext6 libfontconfig1 libxrender1 libgl1-mesa-glx
 
 COPY . /app/
 WORKDIR /app/

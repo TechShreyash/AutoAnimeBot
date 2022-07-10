@@ -100,7 +100,7 @@ async def status_text(text):
     )
 
 
-def get_progress_text(name,status,completed,speed,total,enco=False):
+def get_progress_text(name,status,completed,speed,total):
     text = """Name: {}
 {}: {}%
 ⟨⟨{}⟩⟩
@@ -125,105 +125,64 @@ ETA: {}
     if float(total) == 0.0:
         total == 0.1
 
-    if enco == False:
-        total = str(total)
-        completed = round(completed*100,2)
-        size, forma = total.split(' ')
-        if forma == "MiB":
-            size = int(round(float(size)))
-        elif forma == "GiB":
-            size = int(round(float(size)*1024,2))
+    total = str(total)
+    completed = round(completed*100,2)
+    size, forma = total.split(' ')
 
-        percent = completed
-        speed = round(float(speed)/1024) #kbps
+    if forma == "MiB":
+        size = int(round(float(size)))
+    elif forma == "GiB":
+        size = int(round(float(size)*1024,2))
 
-        ETA = round((size - (round((percent/100)*size)))/(round(speed/1024)))
+    percent = completed
+    speed = round(float(speed)/1024) #kbps
+    ETA = round((size - (round((percent/100)*size)))/(round(speed/1024)))
 
-        if ETA > 60:
-            x = floor(ETA/60)
-            y = ETA-(x*60)
-
-            if x > 60:
-                z = floor(x/60)
-                x = x-(z*60)
-                ETA = str(z) + " Hour " + str(x) + " Minute"
-            else:
-                ETA = str(x) + " Minute " + str(y) + " Second"
+    if ETA > 60:
+        x = floor(ETA/60)
+        y = ETA-(x*60)
+        if x > 60:
+            z = floor(x/60)
+            x = x-(z*60)
+            ETA = str(z) + " Hour " + str(x) + " Minute"
         else:
-            ETA = str(ETA) + " Second"  
+            ETA = str(x) + " Minute " + str(y) + " Second"
+    else:
+        ETA = str(ETA) + " Second"  
 
-        if speed > 1024:
-            speed = str(round(speed/1024)) + " MB"
-        else:
-            speed = str(speed) + " KB"
+    if speed > 1024:
+        speed = str(round(speed/1024)) + " MB"
+    else:
+        speed = str(speed) + " KB"
 
-        completed = round((percent/100)*size)
+    completed = round((percent/100)*size)
 
-        if completed > 1024:
-            completed = str(round(completed/1024,2)) + " GB"
-        else:
-            completed = str(completed) + " MB"
+    if completed > 1024:
+        completed = str(round(completed/1024,2)) + " GB"
+    else:
+        completed = str(completed) + " MB"
 
-        if size > 1024:
-            size = str(round(size/1024,2)) + " GB"
-        else:
-            size = str(size) + " MB"
+    if size > 1024:
+        size = str(round(size/1024,2)) + " GB"
+    else:
+        size = str(size) + " MB"
 
-        fill = "▪️"
-        blank = "▫️"
-        bar = ""
+    fill = "▪️"
+    blank = "▫️"
+    bar = ""
+    
+    bar += round(percent/10)*fill
+    bar += round(((20 - len(bar))/2))*blank
+    speed += "/sec"
 
-        bar += round(percent/10)*fill
-        bar += round(((20 - len(bar))/2))*blank
-
-
-        speed += "/sec"
-        text = text.format(
-            name,
-            status,
-            percent,
-            bar,
-            completed,
-            size,
-            speed,
-            ETA
-        )
-        return text
-
-    elif enco == True:
-        remaining = floor(int(total)-completed)
-        ETA = floor(remaining/float(speed))
-
-        if ETA > 60:
-            x = floor(ETA/60)
-            y = ETA-(x*60)
-
-            if x > 60:
-                z = floor(x/60)
-                x = x-(z*60)
-                ETA = str(z) + " Hour " + str(x) + " Minute"
-            else:
-                ETA = str(x) + " Minute " + str(y) + " Second"
-        else:
-            ETA = str(ETA) + " Second"
-
-        percent = round((completed/total)*100,2)
-
-        fill = "▪️"
-        blank = "▫️"
-        bar = ""
-
-        bar += round(percent/10)*fill
-        bar += round(((20 - len(bar))/2))*blank
-        
-        speed += "x"
-
-        text2 = text2.format(
-            name,
-            status,
-            percent,
-            bar,
-            str(speed),
-            ETA
-        )
-        return text2
+    text = text.format(
+        name,
+        status,
+        percent,
+        bar,
+        completed,
+        size,
+        speed,
+        ETA
+    )
+    return text

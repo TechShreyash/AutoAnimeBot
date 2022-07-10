@@ -1,6 +1,5 @@
 import asyncio
 import sys
-from main.modules.compressor import compress_video
 from main.modules.utils import episode_linker, get_duration, get_epnum, status_text
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from main.modules.uploader import upload_video
@@ -72,17 +71,7 @@ async def start_uploading(data):
         file = await downloader(msg,link,size,title)
         await msg.edit(f"Download Complete : {name}")
 
-        print("Encoding --> ",name)
-        await status.edit(await status_text(f"Encoding {name}"))
-        duration = get_duration(file)
-        os.rename(file,"video.mkv")
-        compressed = await compress_video(duration,msg,name)
-        
-        if compressed == "None" or compressed == None:
-            print("Encoding Failed Uploading The Original File")
-            os.rename("video.mkv",fpath)
-        else:
-            os.rename("out.mkv",fpath)
+        os.rename(file,fpath)
 
         print("Uploading --> ",name)
         await status.edit(await status_text(f"Uploading {name}"))
@@ -90,8 +79,6 @@ async def start_uploading(data):
         video = await upload_video(msg,fpath,id,tit,name,size)   
 
         try:
-            os.remove("video.mkv")
-            os.remove("out.mkv")
             os.remove(file)
             os.remove(fpath)
         except:
