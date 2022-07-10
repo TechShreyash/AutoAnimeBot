@@ -40,7 +40,7 @@ async def tg_handler():
                         await status.edit(await status_text("Idle..."))
                     except:
                         pass
-                await asyncio.sleep(600)
+                await asyncio.sleep(1800)
                 
         except FloodWait as e:
             flood_time = int(e.x) + 5

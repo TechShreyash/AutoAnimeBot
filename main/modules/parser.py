@@ -61,4 +61,4 @@ async def auto_parser():
             await status.edit(await status_text("Idle..."))
         except:
             pass
-        await asyncio.sleep(600)
+        await asyncio.sleep(1800)
