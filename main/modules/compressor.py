@@ -91,4 +91,4 @@ async def compress_video(total_time, message, name):
     else:
         return "None"
   except Exception as e:
-    print(e)
+    print("Encoder Error",e)
