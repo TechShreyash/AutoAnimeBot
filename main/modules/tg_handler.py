@@ -19,15 +19,10 @@ async def tg_handler():
     while True:
         try:
             if len(queue) != 0:
-                i = queue[0]                
-                val, id, name, ep_num, video = await start_uploading(i)
-                print("val - ",val)
-
-                if val == None:
-                    await app.send_message(UPLOADS_ID,"❌ Something Went Wrong Check Logs For Error...")
-                    sys.exit()
-
+                i = queue[0]  
                 queue.remove(i)
+                val, id, name, ep_num, video = await start_uploading(i)
+
                 await del_anime(i["title"])
                 await save_uploads(i["title"])
                 await status.edit(await status_text(f"Adding Links To Index Channel ({INDEX_USERNAME})..."))

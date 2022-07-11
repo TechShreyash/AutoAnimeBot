@@ -29,7 +29,7 @@ def truncate(text):
 
 err = 0
 
-def get_cover(id):
+async def get_cover(id):
     global err
     
     try:
@@ -50,10 +50,13 @@ def get_cover(id):
         err = 0
         return fname
     except:
+        await asyncio.sleep(2)
+
         err += 1
         if err != 5:
-            return get_cover(id)
+            return await get_cover(id)
         else:
+            err = 0
             return "assets/c4UUTC4DAe.jpg"
 
 def changeImageSize(maxWidth, maxHeight, image):
@@ -66,7 +69,7 @@ def changeImageSize(maxWidth, maxHeight, image):
 
 def generate_thumbnail(id,file,title,ep_num,size,dur):
     ss = get_screenshot(file)
-    cc = get_cover(id)
+    cc = await get_cover(id)
 
     border = make_col()
     image = Image.open(ss)
@@ -127,7 +130,8 @@ def generate_thumbnail(id,file,title,ep_num,size,dur):
     
     try:
         os.remove(ss)
-        os.remove(cc)
+        if cc != "assets/c4UUTC4DAe.jpg":
+            os.remove(cc)
     except:
         pass
     return thumb, w, h
