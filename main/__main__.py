@@ -15,7 +15,7 @@ async def start(bot, message: Message):
   return await message.reply_text("⭐️ **Bot Is Online...**\n\n**Updates :** @TechZBots **| Support :** @TechZBots_Support")
 
 async def start_bot():
-  await app.send_message(UPLOADS_ID,f"⭐️ **Bot Started...**\n\nCheck Status : [Here](https://t.me/{UPLOADS_USERNAME}/{STATUS_ID})")
+  await app.send_message(UPLOADS_ID,f"⭐️ **Bot Started...**\n\n`Uploading Will Start After 10 Minutes`\n\nCheck Status : [Here](https://t.me/{UPLOADS_USERNAME}/{STATUS_ID})")
   print("==================================")
   print("[INFO]: AutoAnimeBot Started Bot Successfully")
   print("==========JOIN @TECHZBOTS=========")

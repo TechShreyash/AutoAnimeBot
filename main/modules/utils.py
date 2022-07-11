@@ -115,15 +115,6 @@ ETA: {}
 Speed: {}
 ETA: {}
     """
-    
-    if float(completed) == 0.0:
-        completed == 0.1
-
-    if float(speed) == 0.0:
-        speed == 0.1
-
-    if float(total) == 0.0:
-        total == 0.1
 
     total = str(total)
     completed = round(completed*100,2)
@@ -136,7 +127,11 @@ ETA: {}
 
     percent = completed
     speed = round(float(speed)/1024) #kbps
-    ETA = round((size - (round((percent/100)*size)))/(round(speed/1024)))
+    
+    if speed == 0:
+        speed = 0.1
+
+    ETA = round((size - ((percent/100)*size))/(speed/1024))
 
     if ETA > 60:
         x = floor(ETA/60)
