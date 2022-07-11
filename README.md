@@ -36,6 +36,7 @@
 * `UPLOADS_ID` - ID of your Uploads Channel
 > Uploads Channel : The Channel Where All The Animes Files Will Be Uploaded 
 * `STATUS_ID` - ID of the message in your Uploads Channel where the status of bot will be showed
+* `SCHEDULE_ID` - ID of the message in your Uploads Channel where the Live Schedule From Subsplease will be showed
 * `CHANNEL_TITLE` - Name of your channel (This will appear in thumbnail of videos)
 * `INDEX_USERNAME` - Username of your Index Channel
 * `UPLOADS_USERNAME` - Username of your Uploads Channel

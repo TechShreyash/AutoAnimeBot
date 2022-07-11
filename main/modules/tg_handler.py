@@ -11,6 +11,7 @@ from config import INDEX_USERNAME, UPLOADS_USERNAME, UPLOADS_ID, INDEX_ID
 from main import app, queue, status
 from pyrogram.errors import FloodWait
 from pyrogram import filters
+from main.inline import button1
 
 status: Message
 
@@ -24,15 +25,15 @@ async def tg_handler():
 
                 await del_anime(i["title"])
                 await save_uploads(i["title"])
-                await status.edit(await status_text(f"Adding Links To Index Channel ({INDEX_USERNAME})..."))
+                await status.edit(await status_text(f"Adding Links To Index Channel ({INDEX_USERNAME})..."),reply_markup=button1)
                 await channel_handler(val,id,name,ep_num, video)
 
-                await status.edit(await status_text("Sleeping For 5 Minutes..."))
+                await status.edit(await status_text("Sleeping For 5 Minutes..."),reply_markup=button1)
                 await asyncio.sleep(300)
             else:                
                 if "Idle..." in status.text:
                     try:
-                        await status.edit(await status_text("Idle..."))
+                        await status.edit(await status_text("Idle..."),reply_markup=button1)
                     except:
                         pass
                 await asyncio.sleep(600)
@@ -40,7 +41,7 @@ async def tg_handler():
         except FloodWait as e:
             flood_time = int(e.x) + 5
             try:
-                await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"))
+                await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"),reply_markup=button1)
             except:
                 pass
             await asyncio.sleep(flood_time)
@@ -62,14 +63,14 @@ async def start_uploading(data):
         msg = await app.send_photo(UPLOADS_ID,photo=img,caption=title)
 
         print("Downloading --> ",name)
-        await status.edit(await status_text(f"Downloading {name}"))
+        await status.edit(await status_text(f"Downloading {name}"),reply_markup=button1)
         file = await downloader(msg,link,size,title)
         await msg.edit(f"Download Complete : {name}")
 
         os.rename(file,fpath)
 
         print("Uploading --> ",name)
-        await status.edit(await status_text(f"Uploading {name}"))
+        await status.edit(await status_text(f"Uploading {name}"),reply_markup=button1)
         message_id = int(msg.message_id) + 1
         video = await upload_video(msg,fpath,id,tit,name,size)   
 
@@ -81,7 +82,7 @@ async def start_uploading(data):
     except FloodWait as e:
         flood_time = int(e.x) + 5
         try:
-            await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"))
+            await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"),reply_markup=button1)
         except:
             pass
         await asyncio.sleep(flood_time)
@@ -148,7 +149,7 @@ async def channel_handler(msg_id,id,name,ep_num,video):
     except FloodWait as e:
         flood_time = int(e.x) + 5
         try:
-            await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"))
+            await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"),reply_markup=button1)
         except:
             pass
         await asyncio.sleep(flood_time)
@@ -212,7 +213,7 @@ async def votes_(_,query: CallbackQuery):
     except FloodWait as e:
         flood_time = int(e.x) + 5
         try:
-            await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"))
+            await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"),reply_markup=button1)
         except:
             pass
         await asyncio.sleep(flood_time)
