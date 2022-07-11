@@ -43,6 +43,11 @@
         "value": "",
         "required": true
       },
+      "SCHEDULE_ID": {
+        "description": "ID of the message in your Uploads Channel where the Live Schedule From Subsplease will be showed",
+        "value": "",
+        "required": true
+      },
       "CHANNEL_TITLE": {
         "description": "Name of your channel (This will appear in thumbnail of videos)",
         "value": "Auto Anime Bot",
