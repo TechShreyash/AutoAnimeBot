@@ -47,6 +47,6 @@ async def downloader(message: Message, link: str,total,name):
     except:
       pass
 
-    await asyncio.sleep(5)
+    await asyncio.sleep(10)
   
   return "downloads/" + trgt

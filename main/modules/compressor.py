@@ -52,7 +52,7 @@ async def compress_video(total_time, message, name):
           await message.edit(progress_str)
         except:
             pass
-      await asyncio.sleep(10)
+      await asyncio.sleep(20)
 
     if os.path.lexists(out):
         return out
