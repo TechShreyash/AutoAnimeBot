@@ -1,9 +1,11 @@
 import asyncio
+from main.modules.schedule import update_schedule
 from main.modules.utils import status_text
 from main import status
 from main.modules.db import get_animesdb, get_uploads, save_animedb
 import feedparser
 from main import queue
+from main.inline import button1
 
 def trim_title(title: str):
     title, ext = title.replace("[SubsPlease]","").strip().split("[",maxsplit=2)
@@ -29,7 +31,7 @@ def parse():
 async def auto_parser():
     while True:
         try:
-            await status.edit(await status_text("Parsing Rss, Fetching Magnet Links..."))
+            await status.edit(await status_text("Parsing Rss, Fetching Magnet Links..."),reply_markup=button1)
         except:
             pass
 
@@ -58,7 +60,9 @@ async def auto_parser():
                 print("Saved ", i["name"])   
 
         try:
-            await status.edit(await status_text("Idle..."))
+            await status.edit(await status_text("Idle..."),reply_markup=button1)
+            await update_schedule()
         except:
             pass
+
         await asyncio.sleep(600)

@@ -13,6 +13,7 @@ INDEX_ID = int(getenv("INDEX_ID"))
 UPLOADS_ID = int(getenv("UPLOADS_ID"))
 
 STATUS_ID = int(getenv("STATUS_ID"))
+SCHEDULE_ID = int(getenv("SCHEDULE_ID"))
 
 CHANNEL_TITLE = getenv("CHANNEL_TITLE")
 INDEX_USERNAME = getenv("INDEX_USERNAME")
