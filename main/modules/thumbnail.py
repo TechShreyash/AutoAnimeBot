@@ -103,7 +103,7 @@ async def generate_thumbnail(id,file,title,ep_num,size,dur):
 
     ldraw = ImageDraw.Draw(image2)
     line = [((1280-w)+50,0),((1280-w)+0,720)]
-    ldraw.line(line,border,20)
+    ldraw.line(line,border,10)
     # fonts
     font1 = ImageFont.truetype('assets/Roboto-Bold.ttf', 70)
     font2 = ImageFont.truetype('assets/Oswald-Regular.ttf', 80)
@@ -111,17 +111,18 @@ async def generate_thumbnail(id,file,title,ep_num,size,dur):
 
     image3 = ImageDraw.Draw(image2)
 
-    image3.text((150,80),f"{CHANNEL_TITLE}","white",font2,stroke_width=5,stroke_fill="black")
+    image3.text((150,80),f"{CHANNEL_TITLE}","white",font1,stroke_width=5,stroke_fill="black")
 
     text1, text2 = truncate(title)
-    image3.text((60,230),text1,"white",font1,stroke_width=5,stroke_fill="black")
+    image3.text((60,230),text1,"white",font2,stroke_width=5,stroke_fill="black")
     if text2 != "":
-        image3.text((60,310),text2,"white",font1,stroke_width=5,stroke_fill="black")
+        image3.text((60,310),text2,"white",font2,stroke_width=5,stroke_fill="black")
 
-    image3.text((60,420),f"Episode : {ep_num}","white",font3,stroke_width=2,stroke_fill="black")
-    image3.text((60,500),f"File Size : {size}","white",font3,stroke_width=2,stroke_fill="black")
-    image3.text((60,580),f"Duration : {dur}","white",font3,stroke_width=2,stroke_fill="black")
-
+    image3.text((60,420),f"Episode No : {ep_num}","white",font3,stroke_width=2,stroke_fill="black")
+    image3.text((60,420),f"Ep File Size : {size}","white",font3,stroke_width=2,stroke_fill="black")
+    image3.text((60,420),f"Ep Duration : {dur}","white",font3,stroke_width=2,stroke_fill="black")
+    image3.text((60,500),f"Provided By - @AnimeSigma","white",font1,stroke_width=2,stroke_fill="black")
+    
     image2.thumbnail((1280,720))
     w,h = image2.size
 
