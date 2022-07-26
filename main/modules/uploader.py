@@ -27,11 +27,11 @@ async def upload_video(msg: Message,file,id,tit,name,ttl):
             tags = tags_generator(tit)
             buttons = InlineKeyboardMarkup([
                 [
-                    InlineKeyboardButton(text="Info", url="https://t.me/Anime_Dex"),
-                    InlineKeyboardButton(text="Comments", url=f"https://t.me/+4nUo4jBR-JgxMTVl")
+                    InlineKeyboardButton(text="🌟Anime Info", url="https://t.me/Anime_Sigma"),
+                    InlineKeyboardButton(text="Support 🤖", url=f"https://t.me/NarutoRobot_Support")
                 ]
             ])
-            caption = f"🎥 **{name}**\n\n{tags}"
+            caption = f"➥** {name}**\n\n  ⚡️ **@AnimeSigma_Network** ⚡️\n\n{tags}"
             x = await app.send_video(
                 UPLOADS_ID,
             file,
@@ -59,7 +59,7 @@ async def upload_video(msg: Message,file,id,tit,name,ttl):
     except FloodWait as e:
         flood_time = int(e.x) + 5
         try:
-            await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"),reply_markup=button1)
+            await status.edit(await status_text(f"Floodwait...Zoro Is Sleeping For {flood_time} Seconds"),reply_markup=button1)
         except:
             pass
         await asyncio.sleep(flood_time)
