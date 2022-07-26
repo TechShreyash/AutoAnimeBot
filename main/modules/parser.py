@@ -60,7 +60,7 @@ async def auto_parser():
                 print("Saved ", i["name"])   
 
         try:
-            await status.edit(await status_text("Idle..."),reply_markup=button1)
+            await status.edit(await status_text("Zoro is Lost Again...Idle"),reply_markup=button1)
             await update_schedule()
         except:
             pass
