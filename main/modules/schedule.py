@@ -44,7 +44,7 @@ def get_scheduled_animes():
             
 async def update_schedule():
     animes = get_scheduled_animes()
-    text = "<b>📆 Today's Schedule</b> \n\n"
+    text = "<b>📆 Today's Auto @AnimeSigma Schedule</b> \n\n"
 
     for i in animes:
         text += '<b>[</b><code>{}</code><b>] - 📌 <a href="{}">{}</a></b>\n'.format(
@@ -53,7 +53,7 @@ async def update_schedule():
             i["title"]
         )
 
-    text += "\n<b>⏰ Current TimeZone :</b> <code>IST (UTC +5:30)</code>"
+    text += "\n<b>⏰ Current TimeZone OwO :</b> <code>IST (UTC +5:30)</code>"
     
     try:
         await schedule.edit(text,reply_markup=button2,parse_mode="html")
