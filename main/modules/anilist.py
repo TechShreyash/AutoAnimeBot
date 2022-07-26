@@ -125,15 +125,15 @@ def get_anime_name(title):
     return title
 
 atext = """
-📺 **{}**
-  ({})
-
-🎭 : {}
-🧬 : {}
-📡 : {}
-🗓 : {}
-💾 : {}
-⭐️ : {}/100
+➤ **{}**
+➢ {}
+➟ Genre : {}
+➟ Type : {}
+➟ Status : {}
+➟ Episodes : {}
+➟ Duration : {}
+➟ Ratings : {}/100✨
+➟ Source : Anilist
 """
 
 async def get_anilist_data(name):
@@ -189,8 +189,8 @@ async def get_anilist_data(name):
       site = None
 
     if site == "youtube":
-      caption += f"\n[Trailer](https://www.youtube.com/watch?v={ytid}) | [More Info](https://anilist.co/anime/{id_})"
+      caption += f"\n[Trailer 👀](https://www.youtube.com/watch?v={ytid}) | [More Info ✌](https://anilist.co/anime/{id_})"
     else:
-      caption += f"\n[More Info](https://anilist.co/anime/{id_})"
+      caption += f"\n[More Info ✌](https://anilist.co/anime/{id_})"
 
     return img, caption
