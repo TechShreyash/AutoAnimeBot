@@ -1,5 +1,6 @@
 import asyncio
 import sys
+from main.modules.compressor import compress_video
 from main.modules.utils import episode_linker, get_duration, get_epnum, status_text
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from main.modules.uploader import upload_video
@@ -28,12 +29,12 @@ async def tg_handler():
                 await status.edit(await status_text(f"Adding Links To Index Channel ({INDEX_USERNAME})..."),reply_markup=button1)
                 await channel_handler(val,id,name,ep_num, video)
 
-                await status.edit(await status_text("Sleeping For 5 Minutes..."),reply_markup=button1)
+                await status.edit(await status_text("Zoro is Sleeping For 5 Minutes..."),reply_markup=button1)
                 await asyncio.sleep(300)
             else:                
                 if "Idle..." in status.text:
                     try:
-                        await status.edit(await status_text("Idle..."),reply_markup=button1)
+                        await status.edit(await status_text("Zoro Is Lost Again...Idle"),reply_markup=button1)
                     except:
                         pass
                 await asyncio.sleep(600)
@@ -41,7 +42,7 @@ async def tg_handler():
         except FloodWait as e:
             flood_time = int(e.x) + 5
             try:
-                await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"),reply_markup=button1)
+                await status.edit(await status_text(f"Floodwait...Zoro is Sleeping For {flood_time} Seconds"),reply_markup=button1)
             except:
                 pass
             await asyncio.sleep(flood_time)
@@ -55,19 +56,29 @@ async def start_uploading(data):
         size = data["size"]
 
         name, ext = title.split(".")
-        name += f" [@{UPLOADS_USERNAME}]." + ext
+        name += f" [@AnimeSigma]." + ext
         fpath = "downloads/" + name
-        name = name.replace(f" [@{UPLOADS_USERNAME}].","").replace(ext,"").strip()
+        name = name.replace(f" [@AnimeSigma].","").replace(ext,"").strip()
 
         id, img, tit = await get_anime_img(get_anime_name(title))
         msg = await app.send_photo(UPLOADS_ID,photo=img,caption=title)
 
-        print("Downloading --> ",name)
+        print("Downloading OwO--> ",name)
         await status.edit(await status_text(f"Downloading {name}"),reply_markup=button1)
         file = await downloader(msg,link,size,title)
-        await msg.edit(f"Download Complete : {name}")
+        await msg.edit(f"Finally...Download Complete : {name}")
 
-        os.rename(file,fpath)
+        print("Zoro Is Encoding --> ",name)
+        await status.edit(await status_text(f"Encoding {name}"),reply_markup=button1)
+        duration = get_duration(file)
+        os.rename(file,"video.mkv")
+        compressed = await compress_video(duration,msg,name)
+        
+        if compressed == "None" or compressed == None:
+            print("Ughh Encoding Failed Uploading The Original File")
+            os.rename("video.mkv",fpath)
+        else:
+            os.rename("out.mkv",fpath)
 
         print("Uploading --> ",name)
         await status.edit(await status_text(f"Uploading {name}"),reply_markup=button1)
@@ -75,6 +86,8 @@ async def start_uploading(data):
         video = await upload_video(msg,fpath,id,tit,name,size)   
 
         try:
+            os.remove("video.mkv")
+            os.remove("out.mkv")
             os.remove(file)
             os.remove(fpath)
         except:
@@ -82,7 +95,7 @@ async def start_uploading(data):
     except FloodWait as e:
         flood_time = int(e.x) + 5
         try:
-            await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"),reply_markup=button1)
+            await status.edit(await status_text(f"Floodwait...Zoro is Sleeping For {flood_time} Seconds"),reply_markup=button1)
         except:
             pass
         await asyncio.sleep(flood_time)
@@ -93,14 +106,26 @@ VOTE_MARKUP = InlineKeyboardMarkup(
         [
             InlineKeyboardButton(text="👍", callback_data="vote1"),
             InlineKeyboardButton(text="♥️", callback_data="vote2"),
-            InlineKeyboardButton(text="👎", callback_data="vote3")
-        ]
+             InlineKeyboardButton(text="🔥", callback_data="vote3")
+        ],
+        
+        [
+                InlineKeyboardButton(text="⚡️ Network ⚡️", url= f"https://t.me/AnimeSigma_Network")
+        ],
+        
+        [
+                InlineKeyboardButton(text="Main Channel💫", url= f"https://t.me/AnimeSigma"),
+                InlineKeyboardButton(text="Support 🤖", url= f"https://t.me/NarutoRobot_Support")
+            ],
+        [
+                       
+                InlineKeyboardButton(text="➤ Our Anime Group :)", url= f"https://t.me/Anime_Sigma")
+            ]
     ]
 )
 
 EPITEXT = """
 🔰 **Episodes :**
-
 {}
 """
 async def channel_handler(msg_id,id,name,ep_num,video):
@@ -118,9 +143,9 @@ async def channel_handler(msg_id,id,name,ep_num,video):
                 disable_web_page_preview=True
             )
 
-            await app.send_sticker(INDEX_ID,"CAACAgUAAx0CXbNEVgABATemYrg6dYZGimb4zx9Q1DAAARzJ_M_NAAI6BQAC7s_BVQFFcU052MmMHgQ")
+            await app.send_sticker(INDEX_ID,"CAACAgUAAxkBAAFQa2Bi38SZevq2Q4VT2Iv9B6ujxOEE6gAChQMAAsQe4FWQHDESHKeLWykE")
             dl_id = dl.message_id
-            caption += f"\n📥 **Download -** [{name}](https://t.me/{INDEX_USERNAME}/{dl_id})"
+            caption += f"\n➥ **Download -** [{name}](https://t.me/{INDEX_USERNAME}/{dl_id}) "
             await main.edit_caption(caption,reply_markup=VOTE_MARKUP)
             dl_id = int(dl_id)
             # db
@@ -140,8 +165,8 @@ async def channel_handler(msg_id,id,name,ep_num,video):
         info_id = main_id-1
         buttons = InlineKeyboardMarkup([
                 [
-                    InlineKeyboardButton(text="Info", url=f"https://t.me/{INDEX_USERNAME}/{info_id}"),
-                    InlineKeyboardButton(text="Comments", url=f"https://t.me/{INDEX_USERNAME}/{main_id}?thread={main_id}")
+                    InlineKeyboardButton(text="🌟Anime Info", url=f"https://t.me/{INDEX_USERNAME}/{info_id}"),
+                    InlineKeyboardButton(text="Support 🤖", url=f"https://t.me/NarutoRobot_Support")
                 ]
             ])
         await app.edit_message_reply_markup(UPLOADS_ID,video,reply_markup=buttons)
@@ -149,19 +174,19 @@ async def channel_handler(msg_id,id,name,ep_num,video):
     except FloodWait as e:
         flood_time = int(e.x) + 5
         try:
-            await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"),reply_markup=button1)
+            await status.edit(await status_text(f"Floodwait...Zoro is Sleeping For {flood_time} Seconds"),reply_markup=button1)
         except:
             pass
         await asyncio.sleep(flood_time)
     return
 
-def get_vote_buttons(a,b,c):
+def get_vote_buttons(a,b):
     buttons = InlineKeyboardMarkup(
         [
             [
                 InlineKeyboardButton(text=f"👍 {a}", callback_data="vote1"),
                 InlineKeyboardButton(text=f"♥️ {b}", callback_data="vote2"),
-                InlineKeyboardButton(text=f"👎 {c}", callback_data="vote3")
+                InlineKeyboardButton(text=f"🔥 {c}", callback_data="vote3")
             ]
         ]
     )
@@ -183,7 +208,7 @@ async def votes_(_,query: CallbackQuery):
         x = query.message.reply_markup['inline_keyboard'][0]
         a = x[0]['text'].replace('👍','').strip()
         b = x[1]['text'].replace('♥️','').strip()
-        c = x[2]['text'].replace('👎','').strip()
+        c = x[2]['text'].replace('🔥','').strip()
 
         if a == "":
             a = 0
@@ -213,7 +238,7 @@ async def votes_(_,query: CallbackQuery):
     except FloodWait as e:
         flood_time = int(e.x) + 5
         try:
-            await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"),reply_markup=button1)
+            await status.edit(await status_text(f"Floodwait...Zoro is Sleeping For {flood_time} Seconds"),reply_markup=button1)
         except:
             pass
         await asyncio.sleep(flood_time)
