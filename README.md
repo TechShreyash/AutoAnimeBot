@@ -7,6 +7,9 @@
 
 <hr>
 
+## Vote If You Want This Project To Get Further Developed
+<a href="https://t.me/TechZBots/304"><img src="https://telegra.ph/file/4a374f51200344c938576.jpg"></img></a>
+
 ### ♻️ Features
 
 * Fully Automated Channels
