@@ -112,7 +112,7 @@ async def get_anime_img(query):
     return idm, title_img, title
     
 def get_anime_name(title):
-    x = title.split(" - ")[0]
+    x = title.split(" - ")[-1]
     return title.replace(x,'').replace('-','').strip()
 
 atext = """
