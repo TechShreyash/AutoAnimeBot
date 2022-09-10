@@ -112,17 +112,8 @@ async def get_anime_img(query):
     return idm, title_img, title
     
 def get_anime_name(title):
-    x = title.split(" - ")[-1]
-    title = title.replace(x,"").strip()
-    title = title[:-2].strip()
-
-    x = title.split(" ")[-1].strip()
-
-    if str(x[-1]) in digits and str(x[0]) == "S" and str(x[1]) in digits:
-      if "S" in x:
-        y = x.replace("S","Season ")
-        title = title.replace(x,y)
-    return title
+    x = title.split(" - ")[0]
+    return title.replace(x,'').replace('-','').strip()
 
 atext = """
 📺 **{}**

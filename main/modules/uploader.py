@@ -54,13 +54,13 @@ async def upload_video(msg: Message,file,id,tit,name,ttl):
             await r.delete()
             os.remove(file)
             os.remove(thumbnail)
-        except:
-            pass
+        except Exception as e:
+            print(e)
     except FloodWait as e:
         flood_time = int(e.x) + 5
         try:
             await status.edit(await status_text(f"Floodwait... Sleeping For {flood_time} Seconds"),reply_markup=button1)
-        except:
-            pass
+        except Exception as e:
+            print(e)
         await asyncio.sleep(flood_time)
     return x.message_id

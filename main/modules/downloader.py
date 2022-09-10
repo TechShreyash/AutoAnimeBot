@@ -1,52 +1,40 @@
-import asyncio
-import time
-import os
-import glob
-from main import ses
-import libtorrent as lt
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
-from main.modules.progress import *
-from main.modules.utils import get_progress_text
+from pyrogram.types import Message
+from main.modules.utils import download_progress, get_progress_text
+import requests, time
 
 
-async def downloader(message: Message, link: str,total,name):
-  params = {
-  'save_path': 'downloads/',
-  'storage_mode': lt.storage_mode_t(2),}
+async def downloader(message: Message, link, header, filename, total_size, title):
+    m3u8 = requests.get(link, headers=header).text
+    m3u8 = m3u8.splitlines()
+    urls = []
+    for url in m3u8:
+        if url.startswith('http'):
+            urls.append(url)
+    total = len(urls)
 
-  handle = lt.add_magnet_uri(ses, link, params)
-  ses.start_dht()
+    with open(filename, 'wb') as file:
+        current = 0
+        start = time.time()
+        downloaded = 0
+        for url in urls:
+            current +=1
+            chunk = requests.get(link, headers=header)
+            file.write(chunk.content)
 
-  r = message
-  await r.edit('Downloading Metadata...')
-    
-  while (not handle.has_metadata()):    
-    await asyncio.sleep(1)
-
-  await r.edit(f'Got Metadata, Starting Download Of **{str(name)}**...')
-
-  trgt = str(handle.name())
-
-  while (handle.status().state != lt.torrent_status.seeding):
-    
-    s = handle.status()
-    
-    state_str = ['queued', 'checking', 'downloading metadata', 'downloading', 'finished', 'seeding', 'allocating']
-    
-    try:
-      text = get_progress_text(
-          name, 
-          str(state_str[s.state]).capitalize(), 
-          s.progress,
-          s.download_rate,
-          total
-        )
-      await r.edit(
-        text=text
-      )
-    except:
-      pass
-
-    await asyncio.sleep(10)
-  
-  return "downloads/" + trgt
+            passed = time.time()
+            if (passed-start)%10: # will edit message in every 10 seconds
+                start = passed
+                try:
+                    text, downloaded = download_progress(
+                        title,
+                        current,
+                        total,
+                        total_size,
+                        downloaded
+                    )
+                    await message.edit(
+                        text=text
+                    )
+                except Exception as e:
+                    print(e)
+    return filename
