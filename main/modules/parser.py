@@ -19,7 +19,7 @@ def parse():
 
     for i in latest:
         item = {}
-        item['title'] = i['anime_title'] + ' - ' + i['episode']
+        item['title'] = i['anime_title'] + ' - ' + str(i['episode'])
         item['ep_id'] = i['session']
         data.append(item)
     return data
