@@ -134,7 +134,7 @@ async def channel_handler(msg_id, id, name, ep_num, video):
         dl_id = anilist
         text = ''
         for i in episodes:
-            text += i
+            text += i + '\n'
 
         await app.edit_message_text(INDEX_ID, dl_id, text, disable_web_page_preview=True)
 
