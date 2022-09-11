@@ -132,6 +132,8 @@ async def channel_handler(msg_id, id, name, ep_num, video):
         link = f"[{ep_num}](https://t.me/{UPLOADS_USERNAME}/{video})"
         episodes.append(link)
         dl_id = anilist
+        await save_channel(id, dl_id, episodes)
+        
         text = ''
         for i in episodes:
             text += i + '\n'
