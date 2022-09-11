@@ -56,5 +56,5 @@ async def update_schedule():
     
     try:
         await schedule.edit(text,reply_markup=button2,parse_mode="html")
-    except:
-        return
+    except Exception as e:
+        print('error Scheduler',e)

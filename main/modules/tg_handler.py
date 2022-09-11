@@ -73,7 +73,7 @@ async def start_uploading(data, source, header):
 
     print("Uploading --> ", title)
     await status.edit(await status_text(f"Uploading {title}"), reply_markup=button1)
-    message_id = int(msg.message_id) + 1
+    message_id = int(msg.id) + 1
     video = await upload_video(msg, fpath, id, tit, name, total_size)
 
     try:
@@ -115,7 +115,7 @@ async def channel_handler(msg_id, id, name, ep_num, video):
         )
         await app.send_sticker(INDEX_ID, "CAACAgUAAx0CXbNEVgABATemYrg6dYZGimb4zx9Q1DAAARzJ_M_NAAI6BQAC7s_BVQFFcU052MmMHgQ")
 
-        dl_id = dl.message_id
+        dl_id = dl.id
         caption += f"\n📥 **Download -** [{name}](https://t.me/{INDEX_USERNAME}/{dl_id})"
         await main.edit_caption(caption, reply_markup=VOTE_MARKUP)
         dl_id = int(dl_id)
@@ -159,7 +159,7 @@ def get_vote_buttons(a, b, c):
 @app.on_callback_query(filters.regex("vote"))
 async def votes_(_, query: CallbackQuery):
     try:
-        id = query.message.message_id
+        id = query.message.id
         user = query.from_user.id
         vote = int(query.data.replace("vote", "").strip())
 

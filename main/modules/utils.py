@@ -1,6 +1,6 @@
 from math import floor
 import os
-from main import queue
+#from main import queue
 import cv2
 import random
 from string import ascii_letters, ascii_uppercase, digits
@@ -150,8 +150,9 @@ ETA: {}
         x = round(speed/1024, 2)
         stext = str(x) + ' Mbps'
 
-    remaining = ((total*1024) - (size_downloaded*1024)) # in kb
+    remaining = ((total*1024) - (size_downloaded*1024))  # in kb
     time_remaining = floor(remaining/speed)  # in seconds
+
     if time_remaining < 60:
         ttext = str(time_remaining) + ' seconds'
     elif time_remaining < 3600:

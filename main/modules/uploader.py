@@ -63,4 +63,4 @@ async def upload_video(msg: Message,file,id,tit,name,ttl):
         except Exception as e:
             print(e)
         await asyncio.sleep(flood_time)
-    return x.message_id
+    return x.id
