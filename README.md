@@ -50,7 +50,7 @@
 
 * Index Channel : [@Anime_Dex](https://t.me/Anime_Dex)
 * Uploads Channel : [@AutoAiringAnimes](https://t.me/AutoAiringAnimes)
-* Discussion Group : [Join Now](https://t.me/+Q0xUxmKd1bQyMWI9)
+* Discussion Group : [Join Now](https://t.me/+BDIe6rj6uBU0MDFl)
 
 <hr>
 

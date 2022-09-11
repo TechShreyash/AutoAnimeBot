@@ -8,7 +8,7 @@ button1 = InlineKeyboardMarkup(
             ],
             [
                 InlineKeyboardButton(text="Index Channel", url= f"https://t.me/{INDEX_USERNAME}"),
-                InlineKeyboardButton(text="Discussion Group", url= f"https://t.me/+Q0xUxmKd1bQyMWI9")
+                InlineKeyboardButton(text="Discussion Group", url= f"https://t.me/+BDIe6rj6uBU0MDFl")
             ]
         ]
     )

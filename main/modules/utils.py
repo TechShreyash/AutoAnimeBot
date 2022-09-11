@@ -1,6 +1,6 @@
 from math import floor
 import os
-from main import queue
+#from main import queue
 import cv2
 import random
 from string import ascii_letters, ascii_uppercase, digits
@@ -128,6 +128,8 @@ ETA: {}
     bar += blank*(int(((20-len(bar))/2)))
 
     size_downloaded = (percent/100)*total_size
+    a = size_downloaded
+    b = total_size
     size_downloaded = round(size_downloaded/(1024*1024), 2)  # in MB
     total_size = round(total_size/(1024*1024), 2)  # in MB
 
@@ -143,14 +145,14 @@ ETA: {}
         total_size = round(total_size/1024, 2)  # in GB
         dtext2 = str(total_size) + ' GB'
 
-    speed = round(((size_downloaded*1024*1024)-downloaded)/(10*1024), 2)
+    speed = round((a-downloaded)/(10*1024), 2)
     if speed < 1024:
         stext = str(speed) + ' Kbps'
     else:
         x = round(speed/1024, 2)
         stext = str(x) + ' Mbps'
 
-    remaining = ((total*1024) - (size_downloaded*1024))  # in kb
+    remaining = (b - a)/1024  # in kb
     time_remaining = floor(remaining/speed)  # in seconds
 
     if time_remaining < 60:
@@ -174,7 +176,6 @@ ETA: {}
         ttext
     )
     return text, size_downloaded*1024*1024
-
 
 def get_progress_text(name, status, completed, speed, total):
     text = """Name: {}
