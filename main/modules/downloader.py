@@ -35,6 +35,6 @@ async def downloader(message: Message, link, header, filename, total_size, title
                     await message.edit(
                         text=text
                     )
-                except Exception as e:
-                    print(e)
+                except:
+                    pass
     return filename

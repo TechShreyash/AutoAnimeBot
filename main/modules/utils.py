@@ -1,6 +1,6 @@
 from math import floor
 import os
-from main import queue
+#from main import queue
 import cv2
 import random
 from string import ascii_letters, ascii_uppercase, digits
@@ -125,33 +125,33 @@ ETA: {}
     fill = "▪️"
     blank = "▫️"
     bar = fill*floor(percent/10)
-    bar += blank*(20-len(bar))
+    bar += blank*(int(((20-len(bar))/2)))
 
-    size_downloaded = percent*total_size
+    size_downloaded = (percent/100)*total_size
     size_downloaded = round(size_downloaded/(1024*1024), 2)  # in MB
     total_size = round(total_size/(1024*1024), 2)  # in MB
 
     if size_downloaded < 1024:
         dtext1 = str(size_downloaded) + ' MB'
     else:
-        size_downloaded = round(size_downloaded/1024, 2)  # in GB
-        dtext1 = str(size_downloaded) + ' GB'
-    
+        x = round(size_downloaded/1024, 2)  # in GB
+        dtext1 = str(x) + ' GB'
+
     if total_size < 1024:
         dtext2 = str(total_size) + ' MB'
     else:
         total_size = round(total_size/1024, 2)  # in GB
         dtext2 = str(total_size) + ' GB'
 
-    speed = round((size_downloaded-downloaded)/(10*1024),2)
+    speed = round(((size_downloaded*1024*1024)-downloaded)/(10*1024), 2)
     if speed < 1024:
         stext = str(speed) + ' Kbps'
     else:
         speed = round(speed/1024, 2)
         stext = str(speed) + ' Mbps'
 
-    remaining = ((total/(1024*1024)) - size_downloaded)
-    time_remaining = (remaining-(speed/1024)) # in seconds
+    remaining = (total - size_downloaded)
+    time_remaining = floor(remaining/speed)  # in seconds
     if time_remaining < 60:
         ttext = str(time_remaining) + ' seconds'
     elif time_remaining < 3600:
