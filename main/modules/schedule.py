@@ -1,11 +1,10 @@
 import requests
 import math
-from main import app
+from main import app, schedule
 from main.inline import button2
 from pyrogram.types import Message
 from config import STATUS_ID, UPLOADS_ID, SCHEDULE_ID, UPLOADS_USERNAME
 
-schedule = app.get_messages(UPLOADS_ID,SCHEDULE_ID)
 schedule: Message
 
 def change_tz(gmt):

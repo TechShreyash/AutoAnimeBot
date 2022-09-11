@@ -10,3 +10,4 @@ app = Client(
 app.start()
 queue = []
 status = app.get_messages(UPLOADS_ID,STATUS_ID)
+schedule = app.get_messages(UPLOADS_ID,SCHEDULE_ID)

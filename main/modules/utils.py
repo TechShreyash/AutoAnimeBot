@@ -147,10 +147,10 @@ ETA: {}
     if speed < 1024:
         stext = str(speed) + ' Kbps'
     else:
-        speed = round(speed/1024, 2)
-        stext = str(speed) + ' Mbps'
+        x = round(speed/1024, 2)
+        stext = str(x) + ' Mbps'
 
-    remaining = (total - size_downloaded)
+    remaining = ((total*1024) - (size_downloaded*1024)) # in kb
     time_remaining = floor(remaining/speed)  # in seconds
     if time_remaining < 60:
         ttext = str(time_remaining) + ' seconds'

@@ -22,7 +22,8 @@ async def downloader(message: Message, link, header, filename, total_size, title
             file.write(chunk.content)
 
             passed = time.time()
-            if (passed-start)%10: # will edit message in every 10 seconds
+            x = (passed-start)>10
+            if x: # will edit message in iff atleast 10 seconds have passed and 5 chunks are downloaded
                 start = passed
                 try:
                     text, downloaded = download_progress(
