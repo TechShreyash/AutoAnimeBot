@@ -52,7 +52,7 @@ async def tg_handler():
                     await status.edit(await status_text("Idle..."), reply_markup=button1)
                 except:
                     pass
-            await asyncio.sleep(600)
+            await asyncio.sleep(120)
 
 
 async def start_uploading(data, source, header):
