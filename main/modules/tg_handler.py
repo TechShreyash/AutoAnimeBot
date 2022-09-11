@@ -68,7 +68,8 @@ async def start_uploading(data, source, header):
     name = f"{title} [@{UPLOADS_USERNAME}].mp4"
     fpath = "downloads/" + name
 
-    id, img, tit = await get_anime_img(get_anime_name(title))
+    oppp = get_anime_name(title)
+    id, img, tit = await get_anime_img(oppp)
     msg = await app.send_photo(UPLOADS_ID, photo=img, caption=name)
 
     print("Downloading --> ", title)
@@ -86,7 +87,7 @@ async def start_uploading(data, source, header):
         os.remove(fpath)
     except:
         pass
-    return message_id, id, data["title"], title, video
+    return message_id, id, oppp, title, video
 
 VOTE_MARKUP = InlineKeyboardMarkup(
     [
