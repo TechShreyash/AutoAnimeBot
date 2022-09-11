@@ -14,7 +14,7 @@ from pyrogram import filters
 from main.inline import button1
 
 status: Message
-
+on = 0
 
 async def tg_handler():
     while True:
@@ -52,7 +52,11 @@ async def tg_handler():
                     await status.edit(await status_text("Idle..."), reply_markup=button1)
                 except:
                     pass
-            await asyncio.sleep(20)
+            if on == 0:
+                on = 1
+                await asyncio.sleep(30)
+            else:
+                await asyncio.sleep(600)
 
 
 async def start_uploading(data, source, header):
@@ -101,7 +105,7 @@ EPITEXT = """
 
 
 async def channel_handler(msg_id, id, name, ep_num, video):
-    anilist = await get_channel(id)
+    anilist, episodes = await get_channel(id)
 
     if anilist == 0:
         img, caption = await get_anilist_data(name)
@@ -119,16 +123,18 @@ async def channel_handler(msg_id, id, name, ep_num, video):
         caption += f"\n📥 **Download -** [{name}](https://t.me/{INDEX_USERNAME}/{dl_id})"
         await main.edit_caption(caption, reply_markup=VOTE_MARKUP)
         dl_id = int(dl_id)
-        await save_channel(id, dl_id)
+        episode = [link]
+        await save_channel(id, dl_id, episode)
 
     else:
+        link = f"[{ep_num}](https://t.me/{UPLOADS_USERNAME}/{video})"
+        episodes.append(link)
         dl_id = anilist
-        dl_msg = await app.get_messages(INDEX_ID, dl_id)
-        text = dl_msg.text
-        text += f"\n{ep_num}"
-        ent = episode_linker(dl_msg.text, dl_msg.entities,
-                             ep_num, f"https://t.me/{UPLOADS_USERNAME}/{video}")
-        await app.edit_message_text(INDEX_ID, dl_id, text, entities=ent, disable_web_page_preview=True)
+        text = ''
+        for i in episodes:
+            text += i
+
+        await app.edit_message_text(INDEX_ID, dl_id, text, disable_web_page_preview=True)
 
     main_id = dl_id
     info_id = main_id-1
