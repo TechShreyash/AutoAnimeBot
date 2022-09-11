@@ -3,7 +3,7 @@ import math
 from main import app, schedule
 from main.inline import button2
 from pyrogram.types import Message
-from config import STATUS_ID, UPLOADS_ID, SCHEDULE_ID, UPLOADS_USERNAME
+from pyrogram.enums import ParseMode
 
 schedule: Message
 
@@ -55,6 +55,6 @@ async def update_schedule():
     text += "\n<b>⏰ Current TimeZone :</b> <code>IST (UTC +5:30)</code>"
     
     try:
-        await schedule.edit(text,reply_markup=button2,parse_mode="html")
+        await schedule.edit(text,reply_markup=button2,parse_mode=ParseMode.HTML)
     except Exception as e:
         print('error Scheduler',e)
