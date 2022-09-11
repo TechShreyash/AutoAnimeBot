@@ -14,7 +14,7 @@ from pyrogram import filters
 from main.inline import button1
 
 status: Message
-on = 0
+is_bot_on = 0
 
 async def tg_handler():
     while True:
@@ -52,8 +52,9 @@ async def tg_handler():
                     await status.edit(await status_text("Idle..."), reply_markup=button1)
                 except:
                     pass
-            if on == 0:
-                on = 1
+            global is_bot_on
+            if is_bot_on == 0:
+                is_bot_on = 1
                 await asyncio.sleep(30)
             else:
                 await asyncio.sleep(600)
