@@ -1,7 +1,7 @@
 from pyrogram.types import Message
 from main.modules.utils import download_progress, get_progress_text
 import requests, time
-import aiohttp, aiofiles
+import aiohttp, aiofiles, asyncio
 
 async def downloader(message: Message, link, header, filename, total_size, title):
     m3u8 = requests.get(link, headers=header).text
@@ -40,5 +40,6 @@ async def downloader(message: Message, link, header, filename, total_size, title
                             )
                         except:
                             pass
+                await asyncio.sleep(0.2)
         await file.close()
     return filename
