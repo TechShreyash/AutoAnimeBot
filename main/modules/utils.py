@@ -1,6 +1,6 @@
 from math import floor
 import os
-#from main import queue
+from main import queue
 import cv2
 import random
 from string import ascii_letters, ascii_uppercase, digits

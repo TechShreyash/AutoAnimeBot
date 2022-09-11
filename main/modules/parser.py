@@ -57,8 +57,7 @@ async def auto_parser():
         try:
             await update_schedule()
             await status.edit(await status_text("Idle..."),reply_markup=button1)
-            
         except Exception as e:
-            print(e)
+            print('Error In Parser',e)
 
         await asyncio.sleep(600)
