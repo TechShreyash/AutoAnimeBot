@@ -17,7 +17,7 @@ async def downloader(message: Message, link, header, filename, total_size, title
         current = 0
         start = time.time()
         downloaded = 0
-        with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession() as session:
             for url in urls:
                 async with session.get(url,headers=header) as resp:
                     current +=1
