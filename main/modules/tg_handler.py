@@ -52,7 +52,7 @@ async def tg_handler():
                     await status.edit(await status_text("Idle..."), reply_markup=button1)
                 except:
                     pass
-            await asyncio.sleep(120)
+            await asyncio.sleep(20)
 
 
 async def start_uploading(data, source, header):
@@ -74,14 +74,14 @@ async def start_uploading(data, source, header):
     print("Uploading --> ", title)
     await status.edit(await status_text(f"Uploading {title}"), reply_markup=button1)
     message_id = int(msg.id) + 1
-    video = await upload_video(msg, fpath, id, tit, name, total_size)
+    video = await upload_video(msg, fpath, id, tit, title, total_size)
 
     try:
         os.remove(file)
         os.remove(fpath)
     except:
         pass
-    return message_id, id, name, title, video
+    return message_id, id, data["title"], title, video
 
 VOTE_MARKUP = InlineKeyboardMarkup(
     [
