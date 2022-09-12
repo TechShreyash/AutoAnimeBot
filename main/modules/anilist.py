@@ -108,12 +108,17 @@ async def get_anime_img(query):
     vars_ = {"search": query}
     idm, title_img, title = await get_anime(vars_,less=True)
 
-    #title = format_text(title)
     return idm, title_img, title
     
 def get_anime_name(title):
     x = title.split(" - ")[-1]
-    return title.replace(x,'').replace('-','').strip()
+    x = title.replace(x,'').replace('-','').strip()
+    x = x.split(' ')
+    x = x[:4]
+    y = ''
+    for i in x:
+        y += i + ' '
+    return y
 
 atext = """
 📺 **{}**
