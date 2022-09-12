@@ -53,11 +53,11 @@ async def get_channel(anilist):
 
 
 async def save_channel(anilist, msg, episodes=None):
-    if not episodes:
+    if episodes == None:
         episodes = []
     anilist = "a" + str(anilist)
     msg = "a" + str(msg)
-    data = await channeldb.insert_one({"anilist": anilist, "msg": msg, "episodes": episodes})
+    data = await channeldb.update_one({"anilist": anilist,}, {"$set": {"msg": msg, "episodes": episodes}},upsert= True)
     return
 
 # vote
