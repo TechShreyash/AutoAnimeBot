@@ -133,7 +133,7 @@ async def channel_handler(msg_id, id, name, ep_num, video):
         episodes.append(link)
         dl_id = anilist
         await save_channel(id, dl_id, episodes)
-        
+        print(episodes)
         text = ''
         for i in episodes:
             text += i + '\n'
