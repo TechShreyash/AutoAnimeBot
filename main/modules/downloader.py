@@ -29,7 +29,7 @@ async def downloader(message: Message, link, header, filename, total_size, title
                     current +=1
                     ts = await aiofiles.open(f'downloads/ts_files/file{current}.ts', mode='wb')
                     await ts.write(await resp.read())
-                    file_text += f"file 'downloads/ts_files/file{current}.ts'\n"
+                    file_text += f"file 'ts_files/file{current}.ts'\n"
 
                     passed = time.time()
                     x = (passed-start)>10
