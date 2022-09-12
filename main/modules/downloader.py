@@ -27,8 +27,8 @@ async def downloader(message: Message, link, header, filename, total_size, title
             for url in urls:
                 async with session.get(url,headers=header) as resp:
                     current +=1
-                    async with await aiofiles.open(f'downloads/ts_files/file{current}.ts', mode='wb') as ts:
-                        await ts.write(await resp.read())
+                    ts = await aiofiles.open(f'downloads/ts_files/file{current}.ts', mode='wb')
+                    await ts.write(await resp.read())
                     file_text += f"file 'downloads/ts_files/file{current}.ts'\n"
 
                     passed = time.time()
