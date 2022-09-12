@@ -1,9 +1,14 @@
+import os
 from pyrogram.types import Message
 from main.modules.utils import download_progress, get_progress_text
 import requests, time
 import aiohttp, aiofiles, asyncio
 
 async def downloader(message: Message, link, header, filename, total_size, title):
+    try:
+        os.mkdir('downloads/ts_files')
+    except:
+        pass
     m3u8 = requests.get(link, headers=header).text
     m3u8 = m3u8.splitlines()
     urls = []
@@ -12,7 +17,8 @@ async def downloader(message: Message, link, header, filename, total_size, title
             urls.append(url)
     total = len(urls)
 
-    file = await aiofiles.open(filename, mode='wb') 
+    text_file = await aiofiles.open('downloads/files_list.txt', mode='w')
+    file_text = '' 
     if True:
         current = 0
         start = time.time()
@@ -21,7 +27,9 @@ async def downloader(message: Message, link, header, filename, total_size, title
             for url in urls:
                 async with session.get(url,headers=header) as resp:
                     current +=1
-                    await file.write(await resp.read())
+                    async with await aiofiles.open(f'downloads/ts_files/file{current}.ts', mode='wb') as ts:
+                        await ts.write(await resp.read())
+                    file_text += f"file 'downloads/ts_files/file{current}.ts'\n"
 
                     passed = time.time()
                     x = (passed-start)>10
@@ -41,5 +49,6 @@ async def downloader(message: Message, link, header, filename, total_size, title
                         except:
                             pass
                 await asyncio.sleep(0.2)
-        await file.close()
-    return filename
+        await text_file.write(file_text)
+        await text_file.close()
+    return 'downloads/files_list.txt'

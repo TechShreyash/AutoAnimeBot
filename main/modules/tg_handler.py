@@ -1,4 +1,5 @@
 import asyncio
+from main.modules.ffmpeg import convert_to_mp4
 from main.modules.api import AnimePahe
 from main.modules.utils import episode_linker, status_text
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
@@ -76,6 +77,8 @@ async def start_uploading(data, source, header):
     await status.edit(await status_text(f"Downloading {title}"), reply_markup=button1)
     file = await downloader(msg, link, header, fpath, total_size, title)
     await msg.edit(f"Download Complete : {name}")
+
+    file = await convert_to_mp4(file)
 
     print("Uploading --> ", title)
     await status.edit(await status_text(f"Uploading {title}"), reply_markup=button1)
