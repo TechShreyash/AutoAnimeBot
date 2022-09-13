@@ -1,4 +1,5 @@
 import os
+import shutil
 from pyrogram.types import Message
 from main.modules.utils import download_progress, get_progress_text
 import requests, time
@@ -6,6 +7,8 @@ import aiohttp, aiofiles, asyncio
 
 async def downloader(message: Message, link, header, filename, total_size, title):
     try:
+        os.remove('downloads/video.mp4')
+        shutil.rmtree('downloads/ts_files')
         os.mkdir('downloads/ts_files')
     except:
         pass
