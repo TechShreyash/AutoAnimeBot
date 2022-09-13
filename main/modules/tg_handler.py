@@ -114,42 +114,43 @@ EPITEXT = """
 
 
 async def channel_handler(msg_id, id, name, ep_num, video):
-    anilist, episodes = await get_channel(id)
+    try:
+        anilist, episodes = await get_channel(id)
 
-    if anilist == 0:
-        img, caption = await get_anilist_data(name)
-        main = await app.send_photo(INDEX_ID, photo=img, caption=caption, reply_markup=VOTE_MARKUP)
-        link = f"[{ep_num}](https://t.me/{UPLOADS_USERNAME}/{video})"
+        if anilist == 0:
+            img, caption = await get_anilist_data(name)
+            main = await app.send_photo(INDEX_ID, photo=img, caption=caption, reply_markup=VOTE_MARKUP)
+            link = f"[{ep_num}](https://t.me/{UPLOADS_USERNAME}/{video})"
 
-        dl = await app.send_message(
+            dl = await app.send_message(
             INDEX_ID,
             EPITEXT.format(link),
             disable_web_page_preview=True
         )
-        await app.send_sticker(INDEX_ID, "CAACAgUAAx0CXbNEVgABATemYrg6dYZGimb4zx9Q1DAAARzJ_M_NAAI6BQAC7s_BVQFFcU052MmMHgQ")
+            await app.send_sticker(INDEX_ID, "CAACAgUAAx0CXbNEVgABATemYrg6dYZGimb4zx9Q1DAAARzJ_M_NAAI6BQAC7s_BVQFFcU052MmMHgQ")
 
-        dl_id = dl.id
-        caption += f"\n📥 **Download -** [{name}](https://t.me/{INDEX_USERNAME}/{dl_id})"
-        await main.edit_caption(caption, reply_markup=VOTE_MARKUP)
-        dl_id = int(dl_id)
-        episode = [link]
-        await save_channel(id, dl_id, episode)
+            dl_id = dl.id
+            caption += f"\n📥 **Download -** [{name}](https://t.me/{INDEX_USERNAME}/{dl_id})"
+            await main.edit_caption(caption, reply_markup=VOTE_MARKUP)
+            dl_id = int(dl_id)
+            episode = [link]
+            await save_channel(id, dl_id, episode)
 
-    else:
-        link = f"[{ep_num}](https://t.me/{UPLOADS_USERNAME}/{video})"
-        episodes.append(link)
-        dl_id = anilist
-        await save_channel(id, dl_id, episodes)
-        print(episodes)
-        text = ''
-        for i in episodes:
-            text += i + '\n'
+        else:
+            link = f"[{ep_num}](https://t.me/{UPLOADS_USERNAME}/{video})"
+            episodes.append(link)
+            dl_id = anilist
+            await save_channel(id, dl_id, episodes)
+            print(episodes)
+            text = ''
+            for i in episodes:
+                text += i + '\n'
 
-        await app.edit_message_text(INDEX_ID, dl_id, text, disable_web_page_preview=True)
+            await app.edit_message_text(INDEX_ID, dl_id, text, disable_web_page_preview=True)
 
-    main_id = dl_id
-    info_id = main_id-1
-    buttons = InlineKeyboardMarkup([
+        main_id = dl_id
+        info_id = main_id-1
+        buttons = InlineKeyboardMarkup([
         [
             InlineKeyboardButton(
                 text="Info", url=f"https://t.me/{INDEX_USERNAME}/{info_id}"),
@@ -157,8 +158,9 @@ async def channel_handler(msg_id, id, name, ep_num, video):
                 text="Comments", url=f"https://t.me/{INDEX_USERNAME}/{main_id}?thread={main_id}")
         ]
     ])
-    await app.edit_message_reply_markup(UPLOADS_ID, video, reply_markup=buttons)
-
+        await app.edit_message_reply_markup(UPLOADS_ID, video, reply_markup=buttons)
+    except:
+        pass
 
 def get_vote_buttons(a, b, c):
     buttons = InlineKeyboardMarkup(
@@ -243,3 +245,5 @@ async def votes_(_, query: CallbackQuery):
         except Exception as e:
             print(e)
         await asyncio.sleep(flood_time)
+    except:
+        pass
