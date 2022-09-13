@@ -2,7 +2,7 @@ import os
 import shutil
 
 
-def convert_to_mp4(file):
+async def convert_to_mp4(file):
     try:
         os.remove('downloads/video.mp4')
     except:
