@@ -1,6 +1,10 @@
 # Temporary        
 
 
+import os
+import shutil
+
+
 class GogoAPI():
     def __init__(self) -> None:
         pass
@@ -67,3 +71,4 @@ class ZoroAPI():
 
         output = {'m3u8': m3u8, 'subtitle': sub}
         return output
+

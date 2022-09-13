@@ -88,6 +88,9 @@ async def start_uploading(data, source, header):
 
     try:
         os.remove(file)
+    except:
+        pass
+    try:
         os.remove(fpath)
     except:
         pass

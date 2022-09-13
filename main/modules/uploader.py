@@ -51,9 +51,15 @@ async def upload_video(msg: Message, file, id, tit, name, ttl):
     )
     try:
         await r.delete()
+    except:
+        pass
+    try:
         os.remove(file)
+    except:
+        pass
+    try:
         os.remove(thumbnail)
-    except Exception as e:
-        print(e)
+    except:
+        pass
 
     return x.id

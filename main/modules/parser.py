@@ -14,7 +14,10 @@ def trim_title(title: str):
     return title
 
 def parse():
-    latest = AnimePahe.get_latest()
+    try:
+        latest = AnimePahe.get_latest()
+    except:
+        latest = []
     data = []    
 
     for i in latest:
@@ -28,8 +31,8 @@ async def auto_parser():
     while True:
         try:
             await status.edit(await status_text("Scrapping Animes..."),reply_markup=button1)
-        except Exception as e:
-            print(e)
+        except:
+            pass
 
         data = parse()
         saved = await get_animesdb()
@@ -56,6 +59,9 @@ async def auto_parser():
 
         try:
             await update_schedule()
+        except:
+            pass
+        try:
             await status.edit(await status_text("Idle..."),reply_markup=button1)
         except:
             pass

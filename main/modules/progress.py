@@ -14,9 +14,9 @@ async def progress_for_pyrogram(
     if round(diff % 10.00) == 0 or current == total:
         percentage = current * 100 / total
         speed = current / diff
+        percentage = round(percentage/100,2)
 
         try:
-            percentage = round(percentage/100,2)
             await message.edit(
                 text=get_progress_text(
                     ud_type,
