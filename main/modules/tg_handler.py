@@ -17,6 +17,7 @@ from main.inline import button1
 status: Message
 is_bot_on = 0
 
+
 async def tg_handler():
     while True:
         if len(queue) != 0:
@@ -76,9 +77,9 @@ async def start_uploading(data, source, header):
     print("Downloading --> ", title)
     await status.edit(await status_text(f"Downloading {title}"), reply_markup=button1)
     file = await downloader(msg, link, header, fpath, total_size, title)
-    await msg.edit(f"Encoding : {name}")
+    await msg.edit(f"Encoding : {title}")
 
-    file = await convert_to_mp4(file)
+    file = convert_to_mp4(file)
 
     print("Uploading --> ", title)
     await status.edit(await status_text(f"Uploading {title}"), reply_markup=button1)
@@ -169,6 +170,29 @@ def get_vote_buttons(a, b, c):
     return buttons
 
 
+def button_formatter(buttons):
+    x = str(buttons)
+    y = x.find("text")
+    x = x[y:]
+    x = x.replace('text": "👍 ', '').strip()
+    b = x.find('"')
+    a1 = x[:b]
+
+    y = x.find("text")
+    x = x[y:]
+    x = x.replace('text": "♥️ ', '').strip()
+    b = x.find('"')
+    a2 = x[:b]
+
+    y = x.find("text")
+    x = x[y:]
+    x = x.replace('text": "👎 ', '').strip()
+    b = x.find('"')
+    a3 = x[:b]
+
+    return a1, a2, a3
+
+
 @app.on_callback_query(filters.regex("vote"))
 async def votes_(_, query: CallbackQuery):
     try:
@@ -181,10 +205,8 @@ async def votes_(_, query: CallbackQuery):
             return await query.answer("You Have Already Voted... You Can't Vote Again")
         await query.answer()
 
-        x = query.message.reply_markup['inline_keyboard'][0]
-        a = x[0]['text'].replace('👍', '').strip()
-        b = x[1]['text'].replace('♥️', '').strip()
-        c = x[2]['text'].replace('👎', '').strip()
+        x = query.message.reply_markup
+        a, b, c = button_formatter(x)
 
         if a == "":
             a = 0
