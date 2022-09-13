@@ -84,7 +84,7 @@ async def start_uploading(data, source, header):
     print("Uploading --> ", title)
     await status.edit(await status_text(f"Uploading {title}"), reply_markup=button1)
     message_id = int(msg.id) + 1
-    video = await upload_video(msg, fpath, id, tit, title, total_size)
+    video = await upload_video(msg, file, id, tit, title, total_size)
 
     try:
         os.remove(file)
