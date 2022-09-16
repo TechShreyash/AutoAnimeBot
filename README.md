@@ -14,16 +14,15 @@
 
 * Fully Automated Channels
 * Download Latest Aired Animes As Soon As They Release
-* Download Latest Subsplease Releases On Telegram
-* In Built Encoder, To Compress The Videos
+* Download Latest AnimePahe Releases On Telegram
+* Live upcoming releases of subsplease
+* Improved queue and sorting system of episodes
 
 <hr>
 
 ### 🎉 Upcoming Updates
 
-* Feature to show the upcoming releases of subsplease (will update everyday)
-* Now instead of only uploading the latest releases of subsplease, bot will also upload some random other animes from subsplease that are completed already
-* Improved queue and sorting system of episodes
+* Now instead of only uploading the latest releases of AnimePahe, bot will also upload some random other animes from AnimePahe that are completed already
 * Will try to also add a feature to let users search a anime upload in channel, if not uploaded then users can request the anime to get uploaded and that will be automatically added to the queue
 
 <hr>
@@ -50,12 +49,7 @@
 
 * Index Channel : [@Anime_Dex](https://t.me/Anime_Dex)
 * Uploads Channel : [@AutoAiringAnimes](https://t.me/AutoAiringAnimes)
-* Discussion Group : [Join Now](https://t.me/+BDIe6rj6uBU0MDFl)
-
-<hr>
-
-### 📤 Deploy
-<p><a href="https://heroku.com/deploy?template=https://github.com/TechShreyash/AutoAnimeBot/tree/heroku"><img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="200"/></a></p>
+* Discussion Group : [Join Now](https://t.me/+4nUo4jBR-JgxMTVl)
 
 <hr>
 
