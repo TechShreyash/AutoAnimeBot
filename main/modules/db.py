@@ -18,6 +18,15 @@ async def get_animesdb():
         anime_list.append(name)
     return anime_list
 
+async def is_uploaded(name):
+    data = await get_uploads()
+    anime = []
+    for i in data:
+        anime.append(i["name"])
+    if name in anime:
+        return True
+    else:
+        return False
 
 async def save_animedb(name, data):
     data = await animedb.insert_one({"name": name, "data": data})
