@@ -25,7 +25,7 @@ async def tg_handler():
             queue.remove(i)
             data = AnimePahe.get_episode_links(i['ep_id'])
             if not data:
-                print('Links not found, skipping -->',i['title])
+                print('Links not found, skipping -->',i['title'])
                 continue
             headers = data['headers']
             sources = []
