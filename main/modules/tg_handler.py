@@ -5,7 +5,7 @@ from main.modules.utils import episode_linker, status_text
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from main.modules.uploader import upload_video
 import os
-from main.modules.db import del_anime, get_channel, save_channel, save_uploads, is_voted, save_vote
+from main.modules.db import del_anime, get_channel, save_channel, save_uploads, is_voted, save_vote, is_uploaded
 from main.modules.downloader import downloader
 from main.modules.anilist import get_anilist_data, get_anime_img, get_anime_name
 from config import INDEX_USERNAME, UPLOADS_USERNAME, UPLOADS_ID, INDEX_ID
@@ -36,15 +36,12 @@ async def tg_handler():
 
             for source in sources:
                 val, id, name, ep_num, video = await start_uploading(i, source, headers)
-                try:
-                    await status.edit(await status_text(f"Adding Links To Index Channel ({INDEX_USERNAME})..."), reply_markup=button1)
-                except:
-                    pass
-                await channel_handler(val, id, name, ep_num, video)
-                try:
-                    await status.edit(await status_text("Sleeping For 5 Minutes..."), reply_markup=button1)
-                except:
-                    pass
+                if val != 'error':
+                    try:
+                        await status.edit(await status_text(f"Adding Links To Index Channel ({INDEX_USERNAME})..."), reply_markup=button1)
+                    except:
+                        pass
+                    await channel_handler(val, id, name, ep_num, video)
                 await asyncio.sleep(300)
             await del_anime(i["title"])
             await save_uploads(i["title"])
@@ -63,6 +60,9 @@ async def tg_handler():
 
 
 async def start_uploading(data, source, header):
+    if await is_uploaded(data["title"]):
+        return 'error', 1, 2, 3, 4
+    
     title = data["title"] + f" ({source['quality']}p)"
     link = source['url']
     ep_id = data["ep_id"]
