@@ -42,13 +42,17 @@ class AnimePahe():
 
     def get_episode_links(episode_id):
         json = None
-        for host in hosts:
-            url = api[7].format(host) + episode_id
-            response = requests.get(url)
+        tries = 0
+        while tries < 5:
+            for host in hosts:
+                tries += 1
+                url = api[7].format(host) + episode_id
+                response = requests.get(url)
 
-            if response.status_code == 200:
-                json = response.json()
-                break
+                if response.status_code == 200:
+                    json = response.json()
+                    break
+            print(f'Try {tries} failed -->',episode_id)
         if not json:
             return        
         return json
