@@ -1,4 +1,4 @@
-FROM python:3.9.10
+FROM python
 
 RUN apt update && apt install -y libsm6 libxext6 libfontconfig1 libxrender1 libgl1-mesa-glx ffmpeg
 
