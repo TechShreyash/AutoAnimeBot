@@ -39,14 +39,17 @@ async def tg_handler():
                     sources_qua.append(quality)
 
             for source in sources:
-                val, id, name, ep_num, video = await start_uploading(i, source, headers)
+                try:
+                    val, id, name, ep_num, video = await start_uploading(i, source, headers)
+                except:
+                    val = 'error'
                 if val != 'error':
                     try:
                         await status.edit(await status_text(f"Adding Links To Index Channel ({INDEX_USERNAME})..."), reply_markup=button1)
                     except:
                         pass
                     await channel_handler(val, id, name, ep_num, video)
-                await asyncio.sleep(300)
+                    await asyncio.sleep(300)
             await del_anime(i["title"])
             await save_uploads(i["title"])
         else:
