@@ -7,9 +7,6 @@
 
 <hr>
 
-## Vote If You Want This Project To Get Further Developed
-<a href="https://t.me/TechZBots/304"><img src="https://telegra.ph/file/4a374f51200344c938576.jpg"></img></a>
-
 ### ♻️ Features
 
 * Fully Automated Channels
@@ -62,3 +59,7 @@
 * [TechZBots](https://t.me/TechZBots)
 * [TechShreyash](https://github.com/TechShreyash)
 * [Anshul Garg](https://github.com/AuraMoon55)
+
+### ⛑ Important
+* [License](https://github.com/TechShreyash/AutoAnimeBot/blob/main/LICENSE)
+* [Code Of Conduct](https://github.com/TechShreyash/AutoAnimeBot/blob/main/CODE_OF_CONDUCT.md)
