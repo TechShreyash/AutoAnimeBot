@@ -43,7 +43,7 @@ class AnimePahe():
     def get_episode_links(episode_id):
         json = None
         tries = 0
-        while tries < 5:
+        while tries < 3:
             for host in hosts:
                 tries += 1
                 url = api[7].format(host) + episode_id
