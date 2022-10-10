@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 
-hosts = ['api-techshreyash.up.railway.app']
+hosts = ['api-techshreyash.up.railway.app','api.consumet.org']
 
 api = [
     'https://{}/anime/gogoanime/watch/',
@@ -43,7 +43,7 @@ class AnimePahe():
     def get_episode_links(episode_id):
         json = None
         tries = 0
-        while tries < 3:
+        while tries < 6:
             for host in hosts:
                 tries += 1
                 url = api[7].format(host) + episode_id
