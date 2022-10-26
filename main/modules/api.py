@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 
-hosts = ['api.consumet.org']
+hosts = ['api.bakafa.tech']
 
 api = [
     'https://{}/anime/gogoanime/watch/',
@@ -9,9 +9,9 @@ api = [
     'https://{}/anime/zoro/',
     'https://{}/anime/zoro/info?id=',
     'https://{}/anime/zoro/watch?episodeId=',
-    'https://{}/anime/animepahe/',
-    'https://{}/anime/animepahe/info/',
-    'https://{}/anime/animepahe/watch/',
+    'https://{}/api/anime/animepahe/search?query=',
+    'https://{}/api/anime/animepahe/detail?id=',
+    'https://{}/api/anime/animepahe/watch?id=',
     'https://animepahe.com/api?m=airing'
 ]
 
