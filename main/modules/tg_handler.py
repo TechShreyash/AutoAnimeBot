@@ -29,12 +29,12 @@ async def tg_handler():
                 await save_uploads(i["title"])
                 print('Links not found, skipping -->',i['title'])
                 continue
-            headers = data['headers']
+            headers = data['Headers']
             sources = []
             sources_qua = []
 
-            for source in data['sources']:
-                quality = source['quality']
+            for source in data['Data']:
+                quality = source['Quality']
                 if quality not in sources_qua:
                     sources.append(source)
                     sources_qua.append(quality)
@@ -72,9 +72,9 @@ async def start_uploading(data, source, header):
         return 'error', 1, 2, 3, 4
     
     title = data["title"] + f" ({source['quality']}p)"
-    link = source['url']
+    link = source['Url']
     ep_id = data["ep_id"]
-    total_size = source['size']
+    total_size = "232mb"
     name = f"{title} [@{UPLOADS_USERNAME}].mp4"
     fpath = "downloads/" + name
 
