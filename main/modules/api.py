@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 
-hosts = ['api-techshreyash.up.railway.app','api.consumet.org']
+hosts = ['api.consumet.org']
 
 api = [
     'https://{}/anime/gogoanime/watch/',
