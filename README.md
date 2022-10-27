@@ -1,3 +1,4 @@
+ ### ⚠️ No longer maintained !!! This bot may not work for you
 <p align="center"><a href="https://github.com/TechShreyash/AutoAnimeBot"><img src="https://telegra.ph/file/b374af659ae5fae15ff14.jpg"></a></p> 
 
 <h1 align="center"><b>AutoAnimeBot</b></h1>
