@@ -1,0 +1,77 @@
+{
+    "name": "AutoAnimeBot",
+    "description": "Telegram Bot To Automate Your Anime Channels",
+    "repository": "https://github.com/TechShreyash/AutoAnimeBot",
+    "keywords": [
+        "python",
+        "flask website",
+        "anime",
+        "gogo",
+        "anime-downloader",
+        "anime-scraper",
+        "gogoanime",
+        "anime-streaming",
+        "zoro ",
+        "heroku",
+        "gogoanime-scraper",
+        "animedex",
+        "automation"
+    ],
+    "env": {
+        "API_KEY": {
+            "description": "Your TechZApi Key, Get from https://telegram.me/TechZApiBot",
+            "value": "",
+            "required": true
+        },
+        "API_ID": {
+            "description": "Your Telegram API ID, Get from https://my.telegram.org",
+            "value": "",
+            "required": true
+        },
+        "API_HASH": {
+            "description": "Your Telegram API HASH, Get from https://my.telegram.org",
+            "value": "",
+            "required": true
+        },
+        "BOT_TOKEN": {
+            "description": "Your Telegram Bot Token, Get from https://telegram.me/BotFather",
+            "value": "",
+            "required": true
+        },
+        "MONGO_DB_URI": {
+            "description": "Your MongoDB URI, Get from https://cloud.mongodb.com",
+            "value": "",
+            "required": true
+        },
+        "STATUS_MSG_ID": {
+            "description": "ID of the message in your Uploads Channel where the status of bot will be showed",
+            "value": "",
+            "required": true
+        },
+        "SCHEDULE_MSG_ID": {
+            "description": "ID of the message in your Uploads Channel where the schedule of bot will be showed",
+            "value": "",
+            "required": true
+        },
+        "CHANNEL_TITLE": {
+            "description": "Name of your channel (This will appear in thumbnail of videos)",
+            "value": "",
+            "required": true
+        },
+        "INDEX_CHANNEL_USERNAME": {
+            "description": "Username of your Index Channel",
+            "value": "",
+            "required": true
+        },
+        "UPLOADS_CHANNEL_USERNAME": {
+            "description": "Username of your Uploads Channel",
+            "value": "",
+            "required": true
+        },
+        "COMMENTS_GROUP_LINK": {
+            "description": "Link of your comments group (This must be linked to your index channel)",
+            "value": "",
+            "required": true
+        }
+    }
+}
