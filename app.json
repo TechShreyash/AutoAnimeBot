@@ -18,7 +18,7 @@
         "automation"
     ],
     "env": {
-        "API_KEY": {
+        "TECHZ_API_KEY": {
             "description": "Your TechZApi Key, Get from https://telegram.me/TechZApiBot",
             "value": "",
             "required": true
