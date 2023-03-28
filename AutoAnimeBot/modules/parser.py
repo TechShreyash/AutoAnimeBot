@@ -2,7 +2,7 @@ import asyncio
 from techzapi.api import TechZApi
 from AutoAnimeBot.core.log import LOGGER
 from AutoAnimeBot.modules.schedule import update_schedule
-from AutoAnimeBot.modules.db import get_animesdb, get_uploads, save_animedb
+from AutoAnimeBot.modules.db import get_animesdb, get_uploads, is_failed, save_animedb
 
 
 logger = LOGGER("Parser")
@@ -36,8 +36,9 @@ async def auto_parser(TECHZ_API_KEY, app):
                         continue
 
                 id = i["id"]
-                await save_animedb(id, pos)
-                pos += 1
+                if not (await is_failed()):
+                    await save_animedb(id, pos)
+                    pos += 1
 
         saved = await get_animesdb()
         for i in saved:

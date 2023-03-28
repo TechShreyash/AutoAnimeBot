@@ -53,6 +53,7 @@ async def tg_handler(appp, TECHZ_API_KEY):
                     data = Gogo.episode(i, lang="any")
                 except Exception as e:
                     logger.warning("Unable To Fetch Links : " + str(e))
+                    await add_to_failed(i)
                     queue.pop(0)
                     continue
 
