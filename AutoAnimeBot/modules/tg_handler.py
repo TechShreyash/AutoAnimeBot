@@ -74,6 +74,10 @@ async def tg_handler(appp, TECHZ_API_KEY):
                     await app.update_status(f"Sleeping for {SLEEP_TIME} seconds")
                     await asyncio.sleep(SLEEP_TIME)
 
+                for q in ['360p', '480p', '720p', '1080p']:
+                    if q not in data['dlinks']:
+                        await save_uploads(i, q)
+
                 await del_anime(i)
                 queue.pop(0)
             except Exception as e:

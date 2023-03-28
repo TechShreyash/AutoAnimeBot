@@ -27,7 +27,7 @@ async def downloader(message: Message, l, title, file_name):
 
     try:
         t_out = aiohttp.ClientTimeout(
-            total=3600.0, connect=3600.0, sock_read=3600.0, sock_connect=3600.0
+            total=7200.0, connect=7200.0, sock_read=7200.0, sock_connect=7200.0
         )
         async with aiohttp.ClientSession(timeout=t_out) as session:
             async with session.get(l) as response:
