@@ -1,9 +1,11 @@
-pyrogram
-TgCrypto
+pip
+setuptools 
+wheel
 aiohttp
+pyrogram>=2.0
+TgCrypto
 python-dotenv
 feedparser
-libtorrent
 pillow
 requests
 bs4
@@ -12,3 +14,4 @@ motor
 dnspython
 opencv-python-headless
 aiofiles
+techzapi

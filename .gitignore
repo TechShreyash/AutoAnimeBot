@@ -3,3 +3,7 @@ __pycache__/config.cpython-39.pyc
 *.session
 *.session-journal
 main/modules/text.py
+logs.txt
+.vscode/launch.json
+logs.txt
+delete all.py
