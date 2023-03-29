@@ -36,7 +36,7 @@ async def auto_parser(TECHZ_API_KEY, app):
                         continue
 
                 id = i["id"]
-                if not (await is_failed()):
+                if not (await is_failed(id)):
                     await save_animedb(id, pos)
                     pos += 1
 
