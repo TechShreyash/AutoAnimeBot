@@ -42,7 +42,7 @@ async def tg_handler(appp, TECHZ_API_KEY):
     app = appp
     queue = app.queue
     Gogo = TechZApi.Gogo(TECHZ_API_KEY)
-    Gogo.base = "https://techzapi.herokuapp.com"
+    Gogo.base = "https://api.techzbots.live"
 
     while True:
         if len(queue) != 0:
